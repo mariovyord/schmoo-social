@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+/* BASIC RESETS */
+html {
+	box-sizing: border-box;
+	font-size: 16px;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* BASIC STYLES */
+
+* {
+	font-family: 'Roboto', sans-serif;
+}
+
+body {
+	background-color: rgb(247, 248, 252);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	max-width: 300px;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 50px;
+	margin-bottom: 1rem;
+}
+
+.form-footer {
+	max-width: 300px;
+	background-color: white;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 8px 50px;
+}
+
+.form-footer p {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	font-weight: 500;
+}
+
+h1 {
+	font-family: 'Dancing Script', cursive;
+	font-size: 2.5rem;
+	font-weight: 500;
+	text-align: center;
+	margin: 0 0 1rem 0;
+}
+
+input {
+	all: unset;
+	background-color: rgb(247, 248, 255);
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+button {
+	color: white;
+	font-size: 0.9rem;
+	font-weight: 500;
+	border: 0px;
+	border-radius: 3px;
+	background-color: #0095f6;
+	padding: 0.7rem;
+}
+
+button:hover {
+	background-color: rgba(0, 149, 246, 0.8);
+	cursor: pointer;
+}
+
+.error {
+	border: 1px solid red;
+}
