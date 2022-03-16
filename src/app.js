@@ -3,6 +3,7 @@ import './components/login-form.js';
 import './components/register-form.js';
 import './components/main-nav.js';
 import './components/side-nav.js';
+import './components/mobile-nav.js';
 import './components/new-post.js';
 import './components/user-post.js';
 import './components/user-card.js';
@@ -29,5 +30,3 @@ page('/profile', () => render(new ProfilePage('Mario'), root));
 page('/network', () => render(new NetworkPage, root));
 page('/settings', () => render(new SettingsPage, root));
 page.start();
-
-

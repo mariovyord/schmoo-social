@@ -3,15 +3,15 @@ import { LitElement, css, html } from 'lit';
 class SideNav extends LitElement {
 	static styles = css`
 	:host {
-		position: fixed;
-		background-color: white;
-		height: 100vh;
-		width: 305px;
+		max-width: 100%;
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 	}
 	#nav-wrapper {
+		background-color: white;
+		position: sticky;
+		top: 0;
+		height: 100vh;
 		display: flex;
-		height: 95%;
 		flex-direction: column;
 		justify-content: space-between; 
 	}
@@ -48,83 +48,8 @@ class SideNav extends LitElement {
 		width: 16px;
 		height: 16px;
 	}  
-	.danger {
-		color: darkred;
-	}
-
-	/* Hamburger Menu */
-	#hamburger-icon {
-		box-sizing: border-box;
-		margin: auto 0;
-		display: none;
-		cursor: pointer;
-	}
-	
-	#hamburger-icon div {
-		width: 25px;
-		height: 2px;
-		background-color: black;
-		margin: 6px 0;
-		transition: 0.4s;
-	}
-	
-	/* Hamburger Animation */
-	.open .bar1 {
-		-webkit-transform: rotate(-45deg) translate(-6px, 6px);
-		transform: rotate(-45deg) translate(-6px, 6px);
-	}
-	
-	.open .bar2 {
-		opacity: 0;
-	}
-	
-	.open .bar3 {
-		-webkit-transform: rotate(45deg) translate(-6px, -6px);
-		transform: rotate(45deg) translate(-6px, -6px);
-	}
-	
-	.open .mobile-menu {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-start;
-	}
-	
-	.mobile-menu {
-		display: none;
-		position: absolute;
-		top: 50px;
-		left: 0;
-		width: 100%;
-		height: calc(100vh - 100px);
-		padding-top: 50px;
-		background-color: white;
-	}
-	
-	.mobile-menu li {
-		padding: 10px;
-	}
-	
-	@media only screen and (max-width: 1000px) {
-		:host {
-			display: none;
-		}
-	
-		#hamburger-icon {
-			display: none;
-		}
 	}
 	`;
-
-	constructor() {
-		super();
-	}
-
-	toggleHamburger(e) {
-		e.preventDefault();
-		console.log(e.target);
-		e.currentTarget.classList.toggle('open');
-	}
 
 	render() {
 		return html`
@@ -175,18 +100,6 @@ class SideNav extends LitElement {
 									<span>Settings</span>
 								</a>
 							</li>
-						</ul>
-					</div>
-					<div id="hamburger-icon" @click=${this.toggleHamburger}>
-						<div class="bar1"></div>
-						<div class="bar2"></div>
-						<div class="bar3"></div>
-						<ul class="mobile-menu">
-							<li><a href="/">Home</a></li>
-							<li><a href="/profile">Profile</a></li>
-							<li><a href="/network">Network</a></li>
-							<li><a href="/settings">Settings</a></li>
-							<li><a class="danger" href="#">Logout</a></li>
 						</ul>
 					</div>
 				</nav>
