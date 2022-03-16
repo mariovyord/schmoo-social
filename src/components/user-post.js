@@ -16,7 +16,6 @@ class UserPost extends LitElement {
 		}
 		:host {
 			display: flex;
-			width: 100%;
 			background-color: white;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 			padding: 10px;
