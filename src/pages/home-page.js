@@ -18,9 +18,26 @@ export class HomePage extends LitElement {
 			max-width: 980px; 
 			margin: 0 auto; 
 		}
+		main {
+			padding-top: 23px;
+		}
+		main > *:not(:last-child) {
+			margin-bottom: 10px; 
+		} 
+		h4 {
+			margin: 0;
+			padding: 5px 0;
+			text-align: center;
+			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+			background-color: white;
+		}
+
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			#wrapper {
 				grid-template-columns: 1fr; 
+			}
+			main {
+				padding-top: 0px;
 			}
 		}
 	`;
@@ -57,7 +74,7 @@ export class HomePage extends LitElement {
 		return html`
 		<div id="wrapper">
 			<header>
-				${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : html`<main-nav></main-nav>`}
+				${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : html`<mobile-nav></mobile-nav>`}
 			</header>
 			<main>
 				<new-post></new-post>

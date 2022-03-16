@@ -11,7 +11,7 @@ class UserCard extends LitElement {
 		:host {
 			display: flex;
 			width: 90%;
-			background-color: white;
+			max-width: 250px;
 			margin: 0 auto;
 		}
 		:host(:hover) {

@@ -5,8 +5,8 @@ export class ProfilePage extends LitElement {
 		#wrapper {
 			display: grid;  
 			grid-template-columns: 1fr 2fr; 
-			width: 980px; margin: 0 auto; 
-			padding-top: 15px;
+			width: 980px; 
+			margin: 0 auto; 
 		}
 	`;
 	constructor(name) {

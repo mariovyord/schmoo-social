@@ -1,7 +1,6 @@
 // COMPONENTS
 import './components/login-form.js';
 import './components/register-form.js';
-import './components/main-nav.js';
 import './components/side-nav.js';
 import './components/mobile-nav.js';
 import './components/new-post.js';

@@ -5,8 +5,8 @@ class MobileNav extends LitElement {
 	nav {
 		width: 100%;
 		height: 50px;
-		background-color: white;
-		box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
+		background-color:white;
+		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 	}
 	.nav-wrapper {
 		display: flex;
@@ -24,6 +24,7 @@ class MobileNav extends LitElement {
 		font-weight: 500;
 	}
 	a {
+		font-size: 1.2rem;
 		display: block;
 		color: black;
 		padding: 5px 10px;
@@ -34,7 +35,6 @@ class MobileNav extends LitElement {
 		color: darkred;
 	}
 
-	/* Hamburger Menu */
 	#hamburger-icon {
 		box-sizing: border-box;
 		margin: auto 0;
@@ -74,13 +74,16 @@ class MobileNav extends LitElement {
 	
 	.mobile-menu {
 		display: none;
+		list-style: none;
 		position: absolute;
 		top: 50px;
 		left: 0;
 		width: 100%;
-		height: calc(100vh - 100px);
-		padding-top: 50px;
 		background-color: white;
+  		list-style: none;
+  		text-align: center;
+ 		margin: auto;
+ 		padding: 30px 0 60px 0;
 	}
 	
 	.mobile-menu li {
@@ -114,19 +117,6 @@ class MobileNav extends LitElement {
 				<div class="nav-wrapper">
 					<div>
 						<span id="logo"><a href="#">Schmoozer</a></span>
-					</div>
-					<div id="navbar">
-						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Profile</a></li>
-							<li class="dropdown">
-								<a href="javascript:void(0)">More</a>
-								<div class="dropdown-content">
-									<a href="#">Settings</a>
-									<a class="danger" href="#">Logout</a>
-								</div>
-							</li>
-						</ul>
 					</div>
 					<div id="hamburger-icon" @click=${this.toggleHamburger}>
 						<div class="bar1"></div>

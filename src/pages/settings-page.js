@@ -3,7 +3,7 @@ import { LitElement, css, html } from 'lit';
 export class SettingsPage extends LitElement {
 	static styles = css`
 		#wrapper {
-			display: grid;  grid-template-columns: 1fr 2fr; width: 980px; margin: 0 auto; padding-top: 15px;
+			display: grid;  grid-template-columns: 1fr 2fr; width: 980px; margin: 0 auto; 
 		}
 	`;
 	constructor() {
