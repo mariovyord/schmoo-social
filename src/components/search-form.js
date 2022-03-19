@@ -113,7 +113,7 @@ class SearchForm extends LitElement {
 		return html`
 	<form @submit=${this.onSubmit}>
 		<label>Search the Schmoozer</label>
-		<div class="input-container ${classMap({ error: this.errorEmail, })}">
+		<div class="input-container ${classMap({ error: this.error, })}">
 			<input type="text" name="search" placeholder="Type something">
 		</div>
 		<input type="submit" value="Search">
