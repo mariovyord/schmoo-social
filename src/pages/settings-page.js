@@ -2,25 +2,24 @@ import { LitElement, css, html } from 'lit';
 
 export class SettingsPage extends LitElement {
 	static styles = css`
-		#wrapper {
-			display: grid;  grid-template-columns: 1fr 2fr; width: 980px; margin: 0 auto; 
-		}
 	`;
-	constructor() {
+	constructor(name = 'John') {
 		super();
-		this.isLogged = true;
+		this.name = name;
 	}
 
 	render() {
 		return html`
-		<div id="wrapper">
-			<header>
-				<side-nav></side-nav>
-			</header>
-			<main>
-				<h1>Hello Profile</h1>
-			</main>
-		</div>
+		<h1>The Settings of ${this.name}</h1>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
+		<user-post></user-post>
 		`;
 	}
 }
