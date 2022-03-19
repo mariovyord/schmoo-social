@@ -156,11 +156,11 @@ class LoginForm extends LitElement {
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
 		</div>
-		<input type="submit" value="Log In">
+		<input type="submit" value="Login">
 		${this.error ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
 	</form>
 	<div class="form-footer">
-		<p>Don't have an account? <a href="#">Sign up</a></p>
+		<p>Don't have an account? <a href="#">Register</a></p>
 	</div>
     `;
 	}

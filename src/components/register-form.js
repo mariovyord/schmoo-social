@@ -178,7 +178,7 @@ class RegisterForm extends LitElement {
 		return html`
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
-		<p class="subheader">Sign up to to share with the world</p>
+		<p class="subheader">Sign up to share with the world</p>
 		<div class="input-container ${classMap({ error: this.errorUsername, })}">
 			<input type="text" name="username" placeholder="Username">
 		</div>
@@ -192,14 +192,14 @@ class RegisterForm extends LitElement {
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="repass" placeholder="Repeat password">
 		</div>
-		<input type="submit" value="Sign Up">
+		<input type="submit" value="Register">
 		${this.error ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
 		<p class="footnotes">By signing up, you agree to our Terms . Learn how we collect, use and share your data in our
 			Data Policy and how
 			we use cookies and similar technology in our Cookies Policy .</p>
 	</form>
 	<div class="form-footer">
-		<p>Have an account? <a href="#">Log in</a></p>
+		<p>Have an account? <a href="#">Login</a></p>
 	</div>
     `;
 	}

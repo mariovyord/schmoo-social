@@ -13,9 +13,11 @@ import './pages/home-page.js';
 import './pages/circles-page.js';
 import './pages/profile-page.js';
 import './pages/settings-page.js';
+import './pages/login-page.js';
+import './pages/register-page.js';
 
 // ROOT COMPONENT
-import './pages/app-root.js'
+import './pages/app-root.js';
 
 // CSS
 import '../static/app.css';

@@ -2,6 +2,9 @@ import { LitElement, css, html } from 'lit';
 
 class ProfileCard extends LitElement {
 	static styles = css`
+	* {
+		box-sizing: border-box;
+	}
 	:host {
 		display: flex;
 		align-items: center;
@@ -10,6 +13,7 @@ class ProfileCard extends LitElement {
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 		padding: 24px;
+		box-sizing: border-box;
 	}
 	:host(:hover) {
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

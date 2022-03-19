@@ -8,6 +8,9 @@ class NewPost extends LitElement {
 	}
 
 	static styles = css`
+	* {
+		box-sizing: border-box;
+	}
 		:host {
 			display: flex;
 			width: 100%;
