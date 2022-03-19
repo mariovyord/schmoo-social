@@ -6,6 +6,7 @@ import './components/mobile-nav.js';
 import './components/new-post.js';
 import './components/user-post.js';
 import './components/user-card.js';
+import './components/profile-card.js'
 
 // PAGES
 import './pages/home-page.js';
