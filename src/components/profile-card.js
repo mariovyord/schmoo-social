@@ -9,7 +9,7 @@ class ProfileCard extends LitElement {
 		gap: 10px;
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-		padding: 20px;
+		padding: 24px;
 	}
 	:host(:hover) {
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

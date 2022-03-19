@@ -12,8 +12,8 @@ page('/profile', () => render(html`<app-root>
 	<profile-page></profile-page>
 </app-root>`, outlet));
 
-page('/network', () => render(html`<app-root>
-	<network-page></network-page>
+page('/circles', () => render(html`<app-root>
+	<circles-page></circles-page>
 </app-root>`, outlet));
 
 page('/search', () => render(html`<app-root>

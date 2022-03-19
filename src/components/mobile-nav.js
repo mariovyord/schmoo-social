@@ -123,9 +123,13 @@ class MobileNav extends LitElement {
 						<div class="bar2"></div>
 						<div class="bar3"></div>
 						<ul class="mobile-menu">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Profile</a></li>
-							<li><a href="#">Settings</a></li>
+							<li><a href="/">Home</a></li>
+							<li><a href="/profile">Profile</a></li>
+							<li><a href="/circles">Circles</a></li>
+							<li><a href="/search">Search</a></li>
+							<li><a href="/settings">Settings</a></li>
+							<li><a href="/login">Login</a></li>
+							<li><a href="/register">Register</a></li>
 							<li><a class="danger" href="#">Logout</a></li>
 						</ul>
 					</div>
