@@ -16,9 +16,11 @@ class SideNav extends LitElement {
 		flex-direction: column;
 		justify-content: space-between; 
 	}
+	#nav-wrapper:last-child {
+		margin-left: 2rem;
+	}
 	nav {
-		margin: 0 auto;
-		padding: 10px 30px;
+		padding: 10px 30px 10px 40px;
 	}
 	#logo {
 		font-family: 'Dancing Script', cursive;
