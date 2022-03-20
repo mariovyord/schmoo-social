@@ -14,16 +14,12 @@ export class CirclesPage extends LitElement {
 
 	render() {
 		return html`
-		<h1>Your Circles of People of ${this.name}</h1>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
+		<profile-card></profile-card>
+		<user-card></user-card>
+		<user-card></user-card>
+		<user-card></user-card>
+		<user-card></user-card>
+		<user-card></user-card>
 		`;
 	}
 }

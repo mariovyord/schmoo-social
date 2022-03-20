@@ -55,7 +55,7 @@ class SideNav extends LitElement {
 
 	constructor() {
 		super();
-		this.isLogged = false;
+		this.isLogged = true;
 	}
 
 	userNavTemplate() {

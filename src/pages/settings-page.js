@@ -5,6 +5,12 @@ export class SettingsPage extends LitElement {
 	static styles = [
 		resets,
 		css`
+		h1 {
+			font-size: 3rem;
+			text-align: center;
+			margin: 2rem 0;
+			font-weight: 500;
+		}
 	`
 	];
 	constructor(name = 'John') {
@@ -14,16 +20,8 @@ export class SettingsPage extends LitElement {
 
 	render() {
 		return html`
-		<h1>The Settings of ${this.name}</h1>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
+		<profile-card></profile-card>
+		<h1>Settings</h1>
 		`;
 	}
 }
