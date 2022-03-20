@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { resets } from '../../components-css/resets';
+import { resets } from '../components-css/resets';
 
 export class SearchPage extends LitElement {
 	static properties = {

@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { resets } from '../../components-css/resets';
+import { resets } from '../components-css/resets';
 
 export class LoginPage extends LitElement {
 	static styles = [
@@ -14,7 +14,7 @@ export class LoginPage extends LitElement {
 		}
 		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
-		} 
+		}  
 	`
 	];
 
