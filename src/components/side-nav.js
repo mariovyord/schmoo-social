@@ -1,4 +1,5 @@
 import { LitElement, css, html } from 'lit';
+import { getUserData } from '../utils/userData';
 
 class SideNav extends LitElement {
 	static properties = {
@@ -57,7 +58,7 @@ class SideNav extends LitElement {
 
 	constructor() {
 		super();
-		this.isLogged = true;
+		this.isLogged = Boolean(getUserData());
 	}
 
 	userNavTemplate() {

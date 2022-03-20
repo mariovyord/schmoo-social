@@ -2,13 +2,11 @@ import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { formsCSS } from '../components-css/forms';
 import { resets } from '../components-css/resets';
+import { userLogin } from '../api/auth';
 
 class LoginForm extends LitElement {
 	static properties = {
-		error: { type: Boolean },
 		errorMsg: { type: String },
-		errorEmail: { type: Boolean },
-		errorPassword: { type: Boolean },
 	};
 
 	static styles = [
@@ -20,7 +18,6 @@ class LoginForm extends LitElement {
 
 	constructor() {
 		super();
-		this.error = false;
 		this.errorMsg = '';
 		this.errorEmail = false;
 		this.errorPassword = false;
@@ -48,25 +45,23 @@ class LoginForm extends LitElement {
 		const email = formData.get('email').trim();
 		// @ts-ignore
 		const password = formData.get('password').trim();
-		try {
-			// ERROR HANDLING
-			if (email === '' || password === '') {
-				this.errorEmail = true;
-				this.errorPassword = true;
-				throw new Error('Please fill all fields.')
-			}
-		} catch (err) {
-			this.errorMsg = err.message;
-			this.error = true;
+
+		if (email === '' || password === '') {
+			this.errorMsg = 'Please fill all fields.';
+		}
+
+		userLogin(email, password).catch(err => {
+			this.errorMsg = 'Invalid email or password.';
+		})
+
+		if (this.errorMsg) {
 			this.errorEmail = email === '';
 			this.errorPassword = password === '';
 			setTimeout(() => {
-				this.error = false;
+				this.errorMsg = '';
 				this.errorEmail = false;
 				this.errorPassword = false;
 			}, 3000);
-		} finally {
-			console.log('yes');
 		}
 	}
 
@@ -74,15 +69,15 @@ class LoginForm extends LitElement {
 		return html`
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
-		<div class="input-container ${classMap({ error: this.errorEmail, })}">
+		<div class="input-container ${classMap({ errorMsg: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>
-		<div class="input-container ${classMap({ error: this.errorPassword, })}">
+		<div class="input-container ${classMap({ errorMsg: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
 		</div>
 		<input type="submit" value="Login">
-		${this.error ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
+		${this.errorMsg ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
 	</form>
 	<div class="form-footer">
 		<p>Don't have an account? <a href="#">Register</a></p>

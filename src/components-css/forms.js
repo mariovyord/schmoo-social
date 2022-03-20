@@ -80,7 +80,7 @@ input[type="submit"]:hover {
 	background-color: rgba(255, 0, 0, 0.1);
 	border-radius: 3px;
 	padding: 0.5rem 1rem;
-	margin-bottom: 1rem;
+	margin: 1rem 0;
 }
 @media only screen and (max-width: 420px) {
 	form {

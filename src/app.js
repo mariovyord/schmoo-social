@@ -1,31 +1,35 @@
 // COMPONENTS
-import './components/login-form.js';
-import './components/register-form.js';
-import './components/side-nav.js';
-import './components/mobile-nav.js';
-import './components/new-post.js';
-import './components/user-post.js';
-import './components/user-card.js';
-import './components/profile-card.js';
-import './components/search-form.js';
+import './components/login-form';
+import './components/register-form';
+import './components/side-nav';
+import './components/mobile-nav';
+import './components/new-post';
+import './components/user-post';
+import './components/user-card';
+import './components/profile-card';
+import './components/search-form';
 
 // PAGES
-import './pages/home-page.js';
-import './pages/circles-page.js';
-import './pages/profile-page.js';
-import './pages/settings-page.js';
-import './pages/login-page.js';
-import './pages/register-page.js';
-import './pages/search-page.js';
+import './pages/home-page';
+import './pages/circles-page';
+import './pages/profile-page';
+import './pages/settings-page';
+import './pages/login-page';
+import './pages/register-page';
+import './pages/search-page';
 
 // ROOT COMPONENT
-import './pages/app-root.js';
+import './pages/app-root';
 
 // CSS
 import '../static/app.css';
 
 // ROUTER
-import './router.js'
+import './router'
+
+// UTILS
+import './utils/userData'
 
 // FIREBASE
 import './api/firebase'
+import './api/auth'
