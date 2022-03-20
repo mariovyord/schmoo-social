@@ -1,14 +1,18 @@
 import { LitElement, css, html } from 'lit';
+import { resets } from '../../components-css/resets';
 
 export class ProfilePage extends LitElement {
-	static styles = css`
-	:host {
-		padding-top: 23px;
-	}
-	:host > *:not(:last-child) {
-		margin-bottom: 10px; 
-	} 
-	`;
+	static styles = [
+		resets,
+		css`
+		:host {
+			padding-top: 23px;
+		}
+		:host > *:not(:last-child) {
+			margin-bottom: 10px; 
+		} 
+		`
+	];
 	constructor(name = 'John') {
 		super();
 		this.name = name;

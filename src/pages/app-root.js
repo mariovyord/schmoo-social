@@ -1,4 +1,5 @@
 import { LitElement, css, html } from 'lit';
+import { resets } from '../../components-css/resets';
 
 const windowBreakpoint = 700;
 
@@ -10,7 +11,9 @@ export class HomePage extends LitElement {
 		navigation: { type: String },
 	}
 
-	static styles = css`
+	static styles = [
+		resets,
+		css`
 		#wrapper {
 			display: grid;  
 			grid-template-columns: 1fr 2fr; 
@@ -30,7 +33,8 @@ export class HomePage extends LitElement {
 				grid-template-columns: 1fr; 
 			}
 		}
-	`;
+	`
+	];
 	constructor(name = 'World') {
 		super();
 		this.name = name;

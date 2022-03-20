@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { resets } from '../components-css/resets';
 
 class LoginForm extends LitElement {
 	static properties = {
@@ -9,11 +10,13 @@ class LoginForm extends LitElement {
 		errorPassword: { type: Boolean },
 	};
 
-	static styles = css`
+	static styles = [
+		resets,
+		css`
 	form {
 		display: flex;
 		flex-direction: column;
-		max-width: 300px;
+		max-width: 400px;
 		background-color: white;
 		border: 1px solid gray;
 		border-radius: 3px;
@@ -21,11 +24,11 @@ class LoginForm extends LitElement {
 		margin-bottom: 1rem;
 	}
 	.form-footer {
-		max-width: 300px;
+		max-width: 400px;
 		background-color: white;
 		border: 1px solid gray;
 		border-radius: 3px;
-		padding: 8px 50px;
+		padding: 15px 0px;
 	}
 	.form-footer p {
 		text-align: center;
@@ -91,7 +94,8 @@ class LoginForm extends LitElement {
 		padding: 0.5rem 1rem;
 		margin-bottom: 1rem;
 	}
-	`;
+	`
+	];
 
 	constructor() {
 		super();
