@@ -11,10 +11,9 @@
 	"author": "Mario Yordanov",
 	"license": "ISC",
 	"dependencies": {
-		"@vaadin/router": "^1.7.4",
+		"firebase": "^9.6.9",
 		"lit": "^2.2.0",
-		"page": "^1.11.6",
-		"simple-wc-router": "^2.3.4"
+		"page": "^1.11.6"
 	},
 	"devDependencies": {
 		"clean-webpack-plugin": "^4.0.0",

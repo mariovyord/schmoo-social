@@ -26,3 +26,6 @@ import '../static/app.css';
 
 // ROUTER
 import './router.js'
+
+// FIREBASE
+import './api/firebase'
