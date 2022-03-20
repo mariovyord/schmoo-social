@@ -1,6 +1,11 @@
 import { LitElement, css, html } from 'lit';
+import { getUserData } from '../utils/userData';
 
 class ProfileCard extends LitElement {
+	static properties = {
+		userEmail: { type: String },
+	}
+
 	static styles = css`
 	* {
 		box-sizing: border-box;
@@ -50,6 +55,11 @@ class ProfileCard extends LitElement {
 	}
 	`;
 
+	constructor() {
+		super();
+		this.userEmail = getUserData()['displayName'];
+	}
+
 	render() {
 		return html`
 		<div class="top-div">
@@ -59,7 +69,7 @@ class ProfileCard extends LitElement {
 			</a>
 		</div>
 		<div>
-			<p id="name"><a href="/profile">John Atanasoff</a></p>
+			<p id="name"><a href="/profile">${this.userEmail}</a></p>
 			<p class="handle">@johntheslayer</p>
 		</div>
 		<div class="options">

@@ -37,31 +37,53 @@ class LoginForm extends LitElement {
 		})
 	}
 
-	onSubmit(e) {
-		// TODO Add error handling for API calls
+	simpleValidation(email, password) {
+		if (email === '' || password === '') {
+			throw new Error('Fill all fields.')
+		}
+	}
+
+	async onSubmit(e) {
 		e.preventDefault();
+		const target = e.target;
 		const formData = new FormData(e.target);
 		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
-		const password = formData.get('password').trim();
+		let password = formData.get('password').trim();
 
-		if (email === '' || password === '') {
-			this.errorMsg = 'Please fill all fields.';
-		}
-
-		userLogin(email, password).catch(err => {
-			this.errorMsg = 'Invalid email or password.';
-		})
-
-		if (this.errorMsg) {
+		try {
+			if (email === '' || password === '') {
+				throw {
+					code: ('empty fields')
+				};
+			} else {
+				await userLogin(email, password)
+			}
+		} catch (err) {
+			const errorCode = err.code;
+			if (errorCode === 'empty fields') {
+				this.errorMsg = 'Please fill all fields.';
+			} else if (errorCode === 'auth/invalid-email') {
+				this.errorMsg = 'Invalid email.';
+			} else if (errorCode === 'auth/user-disabled') {
+				this.errorMsg = 'The user has been disabled.';
+			} else if (errorCode === 'auth/user-not-found') {
+				this.errorMsg = 'There is no such user.';
+			} else {
+				this.errorMsg = 'Email or password is wrong.';
+			}
+			// Check if field is empty
 			this.errorEmail = email === '';
 			this.errorPassword = password === '';
+			//  Clear password on error
+			target.querySelector('.pass').value = '';
+			// Clear errors after 2 seconds
 			setTimeout(() => {
 				this.errorMsg = '';
 				this.errorEmail = false;
 				this.errorPassword = false;
-			}, 3000);
+			}, 2000);
 		}
 	}
 
@@ -69,11 +91,11 @@ class LoginForm extends LitElement {
 		return html`
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
-		<div class="input-container ${classMap({ errorMsg: this.errorEmail, })}">
+		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>
-		<div class="input-container ${classMap({ errorMsg: this.errorPassword, })}">
-			<input class="pass" type="password" name="password" placeholder="Password">
+		<div class="input-container ${classMap({ error: this.errorPassword, })}">
+			<input id="password-input" class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
 		</div>
 		<input type="submit" value="Login">

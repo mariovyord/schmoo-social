@@ -1,5 +1,4 @@
 import { LitElement, css, html } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
 
 class UserCard extends LitElement {
 	static properties = {

@@ -1,8 +1,10 @@
 import { app } from "./firebase";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import { clearUserData } from '../utils/userData';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import page from 'page';
 
 const auth = getAuth(app);
+export const user = auth.currentUser;
 
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
@@ -17,7 +19,7 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 	});
 
 export const userLogout = () => signOut(auth).then(() => {
-	localStorage.removeItem('userData')
+	clearUserData();
 	page.redirect('/');
 }).catch((error) => {
 	alert(error.message)
