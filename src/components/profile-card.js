@@ -57,7 +57,7 @@ class ProfileCard extends LitElement {
 
 	constructor() {
 		super();
-		this.userEmail = getUserData()['displayName'];
+		this.userEmail = 'lol';
 	}
 
 	render() {

@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { getUserData } from '../utils/userData';
+import { userChange } from '../api/auth';
 
 class SideNav extends LitElement {
 	static properties = {
@@ -10,8 +11,9 @@ class SideNav extends LitElement {
 		max-width: 100%;
 	}
 	#nav-wrapper {
+		background-color: white;
 		position: sticky;
-		top: 0;
+		top: 70px;
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
@@ -58,7 +60,7 @@ class SideNav extends LitElement {
 
 	constructor() {
 		super();
-		this.isLogged = Boolean(getUserData());
+		this.isLogged = getUserData();
 	}
 
 	userNavTemplate() {

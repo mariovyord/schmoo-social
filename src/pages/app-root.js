@@ -63,14 +63,15 @@ export class HomePage extends LitElement {
 
 	render() {
 		return html`
-		<div id="wrapper">
-			<header>
-				${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : html`<mobile-nav></mobile-nav>`}
-			</header>
-			<main>
-				<slot></slot>
-			</main>
-		</div>
+			<main-nav></main-nav>
+			<div id="wrapper">
+				<header>
+					${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : html`<mobile-nav></mobile-nav>`}
+				</header>
+				<main>
+					<slot></slot>
+				</main>
+			</div>
 		`;
 	}
 }

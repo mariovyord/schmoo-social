@@ -24,6 +24,7 @@ class LoginForm extends LitElement {
 	}
 
 	showHidePassword(e) {
+		// TODO Bug where hitting Enter triggers show/hide button and not submiting
 		e.preventDefault();
 		this.renderRoot.querySelectorAll('.pass').forEach(x => {
 			const attr = x.getAttribute('type');

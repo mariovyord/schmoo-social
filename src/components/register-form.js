@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { userRegister } from '../api/auth';
 import { formsCSS } from '../components-css/forms';
 import { resets } from '../components-css/resets';
 
@@ -41,6 +42,7 @@ class RegisterForm extends LitElement {
 
 	showHidePassword(e) {
 		e.preventDefault();
+		// TODO Bug where hitting Enter triggers show/hide button and not submiting
 		this.renderRoot.querySelectorAll('.pass').forEach(x => {
 			const attr = x.getAttribute('type');
 			if (attr === 'password') {
@@ -53,7 +55,7 @@ class RegisterForm extends LitElement {
 		})
 	}
 
-	onSubmit(e) {
+	async onSubmit(e) {
 		// TODO Add error handling for API calls
 		e.preventDefault();
 		const formData = new FormData(e.target);
@@ -67,22 +69,16 @@ class RegisterForm extends LitElement {
 		const repass = formData.get('repass').trim();
 
 		try {
-			// ERROR HANDLING
+			// TODO MORE ERROR HANDLING
 			if (username === '' || email === '' || password === '') {
-				this.errorUsername = true;
-				this.errorEmail = true;
-				this.errorPassword = true;
 				throw new Error('Please fill all fields.')
-			}
-
-			if (password.length < 6 || password.length > 30) {
-				this.errorPassword = true;
+			} else if (password.length < 6 || password.length > 30) {
 				throw new Error('Password should be 6 to 30 characters long.')
-			}
-
-			if (password !== repass) {
+			} else if (password !== repass) {
 				this.errorPassword = true;
 				throw new Error('Passwords should match.')
+			} else {
+				await userRegister(email, password);
 			}
 		} catch (err) {
 			this.errorMsg = err.message;
