@@ -70,6 +70,7 @@ class RegisterForm extends LitElement {
 
 		try {
 			// TODO MORE ERROR HANDLING
+			// Check error codes https://firebase.google.com/docs/reference/js/auth#autherrorcodes
 			if (username === '' || email === '' || password === '') {
 				throw new Error('Please fill all fields.')
 			} else if (password.length < 6 || password.length > 30) {

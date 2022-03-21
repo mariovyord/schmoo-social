@@ -18,8 +18,8 @@ export class HomePage extends LitElement {
 			display: grid;  
 			grid-template-columns: 1fr 2fr; 
 			gap: 10px;
-			max-width: 980px; 
 			margin: 0 auto; 
+			max-width: 980px; 
 		}
 		main {
 			padding-top: 23px;
@@ -40,7 +40,7 @@ export class HomePage extends LitElement {
 		this.name = name;
 		this.isLogged = true;
 		this.windowWidth = this.getWindowWidth();
-		this.navigation = this.windowWidth >= windowBreakpoint ? `<side-nav></side-nav>` : `<mobile-nav></mobile-nav>`
+		this.navigation = this.windowWidth >= windowBreakpoint ? `<side-nav></side-nav>` : null;
 	}
 
 	connectedCallback() {
@@ -66,7 +66,7 @@ export class HomePage extends LitElement {
 			<main-nav></main-nav>
 			<div id="wrapper">
 				<header>
-					${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : html`<mobile-nav></mobile-nav>`}
+					${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : null}
 				</header>
 				<main>
 					<slot></slot>
