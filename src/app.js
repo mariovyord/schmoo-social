@@ -20,7 +20,7 @@ import './pages/register-page';
 import './pages/search-page';
 
 // ROOT COMPONENT
-import './pages/app-root';
+import './app-root';
 
 // CSS
 import '../static/app.css';
