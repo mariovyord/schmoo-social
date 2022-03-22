@@ -4,31 +4,31 @@ import page from 'page';
 const outlet = document.getElementById('outlet');
 
 page('/', () => render(html`
-<app-root>
-	<home-page></home-page>
+<app-root activePage=${'/'}> <home-page>
+	</home-page>
 </app-root>`, outlet));
 
-page('/profile', () => render(html`<app-root>
-	<profile-page></profile-page>
+page('/profile', () => render(html`<app-root activePage=${'/profile'}> <profile-page>
+	</profile-page>
 </app-root>`, outlet));
 
-page('/circles', () => render(html`<app-root>
-	<circles-page></circles-page>
+page('/circles', () => render(html`<app-root activePage=${'/circles'}> <circles-page>
+	</circles-page>
 </app-root>`, outlet));
 
-page('/search', () => render(html`<app-root>
-	<search-page></search-page>
+page('/search', () => render(html`<app-root activePage=${'/search'}> <search-page>
+	</search-page>
 </app-root>`, outlet));
 
-page('/settings', () => render(html`<app-root>
-	<settings-page></settings-page>
+page('/settings', () => render(html`<app-root activePage=${'/settings'}> <settings-page>
+	</settings-page>
 </app-root>`, outlet));
 
-page('/login', () => render(html`<app-root>
-	<login-page></login-page>
+page('/login', () => render(html`<app-root activePage=${'/login'}> <login-page>
+	</login-page>
 </app-root>`, outlet));
 
-page('/register', () => render(html`<app-root>
-	<register-page></register-page>
+page('/register', () => render(html`<app-root activePage=${'/register'}> <register-page>
+	</register-page>
 </app-root>`, outlet));
 page.start();

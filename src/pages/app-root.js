@@ -9,6 +9,7 @@ export class HomePage extends LitElement {
 		isLogged: { type: Boolean },
 		windowWidth: { type: Number },
 		navigation: { type: String },
+		activePage: { type: String },
 	}
 
 	static styles = [
@@ -38,6 +39,7 @@ export class HomePage extends LitElement {
 	constructor(name = 'World') {
 		super();
 		this.name = name;
+		this.activePage = '/';
 		this.isLogged = true;
 		this.windowWidth = this.getWindowWidth();
 		this.navigation = this.windowWidth >= windowBreakpoint ? `<side-nav></side-nav>` : null;
@@ -63,7 +65,7 @@ export class HomePage extends LitElement {
 
 	render() {
 		return html`
-			<main-nav></main-nav>
+			<main-nav activePage=${this.activePage}></main-nav>
 			<div id="wrapper">
 				<header>
 					${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : null}
