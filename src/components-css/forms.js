@@ -6,17 +6,14 @@ form {
 	flex-direction: column;
 	width: 400px;
 	background-color: white;
-	border: 1px solid gray;
 	border-radius: 3px;
-	padding: 50px;
+	padding: 20px;
 	margin-bottom: 1rem;
 }
 .form-footer {
 	max-width: 400px;
 	background-color: white;
-	border: 1px solid gray;
 	border-radius: 3px;
-	padding: 15px 0px;
 }
 .form-footer p {
 	text-align: center;

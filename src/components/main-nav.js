@@ -256,18 +256,12 @@ class MainNav extends LitElement {
 						<li><a href="/register" class=${classMap({ active: this.isActive('/register') })}>Register</a></li>
 						`}
 					</ul>
-				</div>
-		`
+				</div>`
 	}
 
 	toggleHamburger(e) {
 		e.currentTarget.classList.toggle('open');
 	}
-
-
-
-
-
 
 	render() {
 		return html`

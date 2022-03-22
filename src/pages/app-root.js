@@ -23,7 +23,7 @@ export class HomePage extends LitElement {
 			max-width: 980px; 
 		}
 		main {
-			padding-top: 23px;
+			padding-top: 20px;
 		}
 		main > *:not(:last-child) {
 			margin-bottom: 10px; 
@@ -68,7 +68,7 @@ export class HomePage extends LitElement {
 			<main-nav activePage=${this.activePage}></main-nav>
 			<div id="wrapper">
 				<header>
-					${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : null}
+					<!-- ${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : null} -->
 				</header>
 				<main>
 					<slot></slot>

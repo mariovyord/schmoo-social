@@ -60,8 +60,6 @@ class RegisterForm extends LitElement {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		// @ts-ignore
-		const username = formData.get('username').trim();
-		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
 		const password = formData.get('password').trim();
@@ -71,7 +69,7 @@ class RegisterForm extends LitElement {
 		try {
 			// TODO MORE ERROR HANDLING
 			// Check error codes https://firebase.google.com/docs/reference/js/auth#autherrorcodes
-			if (username === '' || email === '' || password === '') {
+			if (email === '' || password === '') {
 				throw new Error('Please fill all fields.')
 			} else if (password.length < 6 || password.length > 30) {
 				throw new Error('Password should be 6 to 30 characters long.')
@@ -102,9 +100,6 @@ class RegisterForm extends LitElement {
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
 		<p class="subheader">Sign up to share with the world</p>
-		<div class="input-container ${classMap({ error: this.errorUsername, })}">
-			<input type="text" name="username" placeholder="Username">
-		</div>
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>

@@ -7,10 +7,13 @@ export class LoginPage extends LitElement {
 		css`
 		:host {
 			width: 100%;
+			height: calc(100vh - 70px);
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
-			padding: 10px;
+			background-color: white;
+			box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;	
+			padding: 30px 0;		
 		}
 		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
