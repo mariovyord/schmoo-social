@@ -8,7 +8,6 @@ class RegisterForm extends LitElement {
 	static properties = {
 		error: { type: Boolean },
 		errorMsg: { type: String },
-		errorUsername: { type: Boolean },
 		errorEmail: { type: Boolean },
 		errorPassword: { type: Boolean },
 	};
@@ -35,7 +34,6 @@ class RegisterForm extends LitElement {
 		super();
 		this.error = false;
 		this.errorMsg = '';
-		this.errorUsername = false;
 		this.errorEmail = false;
 		this.errorPassword = false;
 	}
@@ -82,7 +80,6 @@ class RegisterForm extends LitElement {
 		} catch (err) {
 			this.errorMsg = err.message;
 			this.error = true;
-			this.errorUsername = username === '';
 			this.errorEmail = email === '';
 			this.errorPassword = password === '';
 			setTimeout(() => {
