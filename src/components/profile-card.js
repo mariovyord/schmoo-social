@@ -4,7 +4,6 @@ import { userState } from '../api/auth';
 
 class ProfileCard extends LitElement {
 	static properties = {
-		userEmail: { type: String },
 		userState,
 	}
 
@@ -59,7 +58,6 @@ class ProfileCard extends LitElement {
 
 	constructor() {
 		super();
-		this.userEmail = 'lol';
 		this.user = userState;
 	}
 
@@ -72,9 +70,8 @@ class ProfileCard extends LitElement {
 			</a>
 		</div>
 		<div>
-			<p id="name"><a href="/profile">${this.userEmail}</a></p>
+			<p id="name"><a href="/profile">${this.user.displayName}</a></p>
 			<p class="handle">@johntheslayer</p>
-			<p class="handle">${this.user.displayName}</p>
 			<p class="handle">${this.user.email}</p>
 		</div>
 		<div class="options">

@@ -2,6 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../components-css/resets';
 import {userState} from '../api/auth';
+import { userLogout } from '../api/auth';
 
 class MainNav extends LitElement {
 	static properties = {
@@ -250,7 +251,7 @@ class MainNav extends LitElement {
 						<li><a href="/search" class=${classMap({ active: this.isActive('/search') })}>Search</a></li>
 						<!-- Settings -->
 						<li><a href="/settings" class=${classMap({ active: this.isActive('/settings') })}>Settings</a></li>
-						<li><a class="danger" href="#">Logout</a></li>`
+						<li><a class="danger" href="#" @click=${userLogout}>Logout</a></li>`
 						: html`
 						<!-- Login -->
 						<li><a href="/login" class=${classMap({ active: this.isActive('/login') })}>Login</a></li>
