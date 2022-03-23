@@ -5,7 +5,8 @@ import page from 'page';
 
 const auth = getAuth(app);
 
-export const userChange = () => onAuthStateChanged(auth, user => console.log('Here is it ' + Object.entries(user)));
+export let userState;
+onAuthStateChanged(auth, user => { userState = user; console.log(userState) });
 
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
@@ -33,6 +34,7 @@ export const userRegister = (email, password) => createUserWithEmailAndPassword(
 
 export const userLogout = () => signOut(auth).then(() => {
 	clearUserData();
+	console.log('Successfully logged out!');
 	page.redirect('/');
 }).catch((error) => {
 	alert(error.message)

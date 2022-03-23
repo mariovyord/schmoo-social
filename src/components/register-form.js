@@ -114,7 +114,7 @@ class RegisterForm extends LitElement {
 			we use cookies and similar technology in our Cookies Policy .</p>
 	</form>
 	<div class="form-footer">
-		<p>Have an account? <a href="#">Login</a></p>
+		<p>Have an account? <a href="/login">Login</a></p>
 	</div>
     `;
 	}

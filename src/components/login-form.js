@@ -103,7 +103,7 @@ class LoginForm extends LitElement {
 		${this.errorMsg ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
 	</form>
 	<div class="form-footer">
-		<p>Don't have an account? <a href="#">Register</a></p>
+		<p>Don't have an account? <a href="/register">Register</a></p>
 	</div>
     `;
 	}

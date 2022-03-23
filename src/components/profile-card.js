@@ -1,9 +1,11 @@
 import { LitElement, css, html } from 'lit';
-import { getUserData } from '../utils/userData';
+import { userState } from '../api/auth';
+
 
 class ProfileCard extends LitElement {
 	static properties = {
 		userEmail: { type: String },
+		userState,
 	}
 
 	static styles = css`
@@ -58,6 +60,7 @@ class ProfileCard extends LitElement {
 	constructor() {
 		super();
 		this.userEmail = 'lol';
+		this.user = userState;
 	}
 
 	render() {
@@ -71,6 +74,8 @@ class ProfileCard extends LitElement {
 		<div>
 			<p id="name"><a href="/profile">${this.userEmail}</a></p>
 			<p class="handle">@johntheslayer</p>
+			<p class="handle">${this.user.displayName}</p>
+			<p class="handle">${this.user.email}</p>
 		</div>
 		<div class="options">
 			<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="gray" class="bi bi-calendar-event"

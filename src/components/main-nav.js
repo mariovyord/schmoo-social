@@ -1,11 +1,13 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../components-css/resets';
+import {userState} from '../api/auth';
 
 class MainNav extends LitElement {
 	static properties = {
 		isLogged: {type: Boolean},
 		activePage: { type: String },
+		userState,
 	}
 
 	static styles = [
@@ -160,7 +162,7 @@ class MainNav extends LitElement {
 
 	constructor() {
 		super();
-		this.isLogged = true;
+		this.isLogged = userState;
 		this.activePage = '/';
 	}
 
