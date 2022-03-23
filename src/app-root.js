@@ -1,12 +1,13 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from './components-css/resets';
+import { userState } from './api/auth';
 
 const windowBreakpoint = 700;
 
 export class HomePage extends LitElement {
 	static properties = {
 		name: { type: String },
-		isLogged: { type: Boolean },
+		userState,
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -21,8 +22,6 @@ export class HomePage extends LitElement {
 			gap: 10px;
 			margin: 0 auto; 
 			max-width: 980px; 
-		}
-		main {
 			padding-top: 20px;
 		}
 		main > *:not(:last-child) {
@@ -40,9 +39,9 @@ export class HomePage extends LitElement {
 		super();
 		this.name = name;
 		this.activePage = '/';
-		this.isLogged = true;
+		this.isLogged = userState;
 		this.windowWidth = this.getWindowWidth();
-		this.navigation = this.windowWidth >= windowBreakpoint ? `<side-nav></side-nav>` : null;
+		this.sidebar = this.isLogged ? html`<sidebar-usercard></sidebar-usercard>` : null;
 	}
 
 	connectedCallback() {
@@ -67,9 +66,9 @@ export class HomePage extends LitElement {
 		return html`
 			<main-nav activePage=${this.activePage}></main-nav>
 			<div id="wrapper">
-				<header>
-					<!-- ${this.windowWidth >= windowBreakpoint ? html`<side-nav></side-nav>` : null} -->
-				</header>
+				<div>
+					${this.windowWidth >= windowBreakpoint ? this.sidebar : null}
+				</div>
 				<main>
 					<slot></slot>
 				</main>

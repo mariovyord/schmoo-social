@@ -9,6 +9,7 @@ import './components/user-post';
 import './components/user-card';
 import './components/profile-card';
 import './components/search-form';
+import './components/sidebar-usercard';
 
 // PAGES
 import './pages/home-page';
