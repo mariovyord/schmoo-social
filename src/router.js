@@ -31,4 +31,10 @@ page('/login', () => render(html`<app-root activePage=${'/login'}> <login-page>
 page('/register', () => render(html`<app-root activePage=${'/register'}> <register-page>
 	</register-page>
 </app-root>`, outlet));
+
+page('/posts/:id', () => render(html`<app-root activePage=${'/'}> <home-page>
+	</home-page>
+</app-root>`, outlet));
+
+
 page.start();

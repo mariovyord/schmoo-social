@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import page from 'page';
 
 class UserPost extends LitElement {
 	static properties = {
@@ -83,6 +84,22 @@ class UserPost extends LitElement {
 		this.body = '';
 		this.creatorUsername = 'User';
 		this.photoURL = 'https://picsum.photos/200/200';
+	}
+
+	getPostDetails(e) {
+		e.preventDefault();
+		const id = e.target.dataset.id;
+		page.redirect('/posts/' + id);
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.addEventListener('click', this.getPostDetails.bind(this));
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener('click', this.getPostDetails.bind(this));
+		super.disconnectedCallback();
 	}
 
 	render() {
