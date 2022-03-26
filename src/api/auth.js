@@ -11,21 +11,20 @@ onAuthStateChanged(auth, user => { userState = user; console.log(userState) });
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
 		// Signed in 
-		const user = userCredential.user;
 		console.log('Successfully logged in!');
-		setUserData(user);
 		page.redirect('/');
 	})
 	.catch((error) => {
 		throw error;
 	});
 
-export const userRegister = (email, password) => createUserWithEmailAndPassword(auth, email, password)
+export const userRegister = (username, email, password) => createUserWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
 		// Signed in 
-		const user = userCredential.user;
+		updateProfile(auth.currentUser, {
+			displayName: username,
+		})
 		console.log('Successfully registered!');
-		setUserData(user);
 		page.redirect('/');
 	})
 	.catch((error) => {

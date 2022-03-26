@@ -36,6 +36,7 @@ class SidebarUsercard extends LitElement {
 				text-decoration: underline;
 			}
 			p {
+				font-size: 0.9rem;
 				text-align: center;
 			}
 			.handle {
