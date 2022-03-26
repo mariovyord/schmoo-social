@@ -1,5 +1,8 @@
 import { LitElement, css, html } from 'lit';
+import { until } from 'lit/directives/until.js';
+import { map } from 'lit/directives/map.js';
 import { resets } from '../components-css/resets';
+import { getAllPosts } from '../api/data';
 
 export class HomePage extends LitElement {
 	static properties = {
@@ -21,20 +24,15 @@ export class HomePage extends LitElement {
 		super();
 		this.name = name;
 	}
-
+	async allPosts() {
+		const data = await getAllPosts();
+		return Object.values(data).map(el => html`<user-post creatorUsername=${el.creatorUsername ? el.creatorUsername : 'User' } body=${el.body}></user-post>`)
+	}
 	render() {
 		return html`
 		<new-post></new-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		<user-post></user-post>
-		`;
+		${until(this.allPosts(), html`Loading`)}
+		`
 	}
 }
 

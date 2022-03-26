@@ -27,11 +27,13 @@ import './app-root';
 import '../static/app.css';
 
 // ROUTER
-import './router'
+import './router';
 
 // UTILS
-import './utils/userData'
+import './utils/userData';
 
 // FIREBASE
-import './api/firebase'
-import './api/auth'
+import './api/data';
+import './api/firebase';
+import './api/auth';
+import './api/db';

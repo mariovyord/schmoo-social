@@ -6,6 +6,8 @@ class UserPost extends LitElement {
 		likes: { type: Number },
 		reposts: { type: Number },
 		comments: { type: Number },
+		body: { type: String },
+		creatorUsername: { type: String },
 	}
 
 	static styles = css`
@@ -77,6 +79,8 @@ class UserPost extends LitElement {
 		this.likes = 5;
 		this.comments = 3;
 		this.reposts = 2;
+		this.body = '';
+		this.creatorUsername = 'User';
 	}
 
 	render() {
@@ -92,13 +96,12 @@ class UserPost extends LitElement {
 				<div>
 					<!-- User Information -->
 					<div class="user-info">
-						<a id="name">John</a>
-						<span id="handle-and-time">@johntheslayer (05:27, 25.03.2022)</span>
+						<a id="name">${this.creatorUsername}</a>
+						<span id="handle-and-time">(05:27, 25.03.2022)</span>
 					</div>
 					<!-- Post Content -->
 					<div>
-						<p id="post-content"> Far off castles and swamps caught your eye, you puzzled out a linear path towards
-							them, fell down a hole and went looking for a new destination.</p>
+						<p id="post-content">${this.body}</p>
 					</div>
 					<!-- Options -->
 					<div class="options-buttons">

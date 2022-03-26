@@ -1,12 +1,13 @@
 import { app } from "./firebase";
-import { clearUserData, setUserData } from '../utils/userData';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged } from "firebase/auth";
 import page from 'page';
 
 const auth = getAuth(app);
 
+export const getUser = () => auth.currentUser;
+
 export let userState;
-onAuthStateChanged(auth, user => { userState = user; console.log(userState) });
+onAuthStateChanged(auth, user => { userState = user });
 
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
