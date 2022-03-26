@@ -14,7 +14,8 @@ const firebaseConfig = {
 	storageBucket: "schmoozer-social.appspot.com",
 	messagingSenderId: "50960531443",
 	appId: "1:50960531443:web:a7025e2afe14055f02dc86",
-	measurementId: "G-TF8QR9L2B6"
+	measurementId: "G-TF8QR9L2B6",
+	databaseURL: "https://schmoozer-social-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 // Initialize Firebase

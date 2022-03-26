@@ -30,10 +30,8 @@ import '../static/app.css';
 import './router';
 
 // UTILS
-import './utils/userData';
 
 // FIREBASE
 import './api/data';
 import './api/firebase';
 import './api/auth';
-import './api/db';

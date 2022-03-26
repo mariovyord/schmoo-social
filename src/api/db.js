@@ -1,17 +1,12 @@
 import { app } from "./firebase";
-import { getUser } from './auth';
+import { auth } from './auth';
 
 const host = (url) => `https://schmoozer-social-default-rtdb.europe-west1.firebasedatabase.app/${url}.json`;
 
 async function request(url, options) {
-	const userData = getUser();
-	// if (userData !== null) {
-	// 	console.log('TOKEN: ' + userData.accessToken);
-	// 	url = url + `?access_token=${userData.accessToken}`
-	// }
-
 	try {
-		const response = await fetch(host(url), options);
+		let connection = host(url);
+		const response = await fetch(connection, options);
 		//  TODO Add error handling
 		const data = await response.json();
 		return data;

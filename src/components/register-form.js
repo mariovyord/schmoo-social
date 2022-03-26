@@ -36,6 +36,7 @@ class RegisterForm extends LitElement {
 		this.errorMsg = '';
 		this.errorUsername = false;
 		this.errorEmail = false;
+		this.errorPhoto = false;
 		this.errorPassword = false;
 	}
 
@@ -63,6 +64,8 @@ class RegisterForm extends LitElement {
 		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
+		const photoUrl = formData.get('photoUrl').trim();
+		// @ts-ignore
 		const password = formData.get('password').trim();
 		// @ts-ignore
 		const repass = formData.get('repass').trim();
@@ -78,7 +81,7 @@ class RegisterForm extends LitElement {
 				this.errorPassword = true;
 				throw new Error('Passwords should match.')
 			} else {
-				await userRegister(username, email, password);
+				await userRegister(username, email, photoUrl, password);
 			}
 		} catch (err) {
 			this.errorMsg = err.message;
@@ -106,6 +109,9 @@ class RegisterForm extends LitElement {
 		</div>
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
+		</div>
+		<div class="input-container ${classMap({ error: this.errorPhoto, })}">
+			<input type="text" name="photoUrl" placeholder="Profile picture URL">
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">

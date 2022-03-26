@@ -26,7 +26,12 @@ export class HomePage extends LitElement {
 	}
 	async allPosts() {
 		const data = await getAllPosts();
-		return Object.values(data).map(el => html`<user-post creatorUsername=${el.creatorUsername ? el.creatorUsername : 'User' } body=${el.body}></user-post>`)
+		return Object.values(data)
+			.reverse()
+			.map(el =>
+				html`
+				<user-post creatorUsername=${el.creatorUsername ? el.creatorUsername : 'User'} body=${el.body} photoURL=${el.photoURL}>
+				</user-post>`)
 	}
 	render() {
 		return html`

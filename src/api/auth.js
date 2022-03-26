@@ -2,9 +2,9 @@ import { app } from "./firebase";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged } from "firebase/auth";
 import page from 'page';
 
-const auth = getAuth(app);
+export const auth = getAuth(app);
 
-export const getUser = () => auth.currentUser;
+// export const getUser = auth.currentUser;
 
 export let userState;
 onAuthStateChanged(auth, user => { userState = user });
@@ -19,11 +19,12 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 		throw error;
 	});
 
-export const userRegister = (username, email, password) => createUserWithEmailAndPassword(auth, email, password)
+export const userRegister = (username, email, photoUrl, password) => createUserWithEmailAndPassword(auth, email, password)
 	.then((userCredential) => {
 		// Signed in 
 		updateProfile(auth.currentUser, {
 			displayName: username,
+			photoURL: photoUrl,
 		})
 		console.log('Successfully registered!');
 		page.redirect('/');

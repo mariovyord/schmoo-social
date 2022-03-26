@@ -8,6 +8,7 @@ class UserPost extends LitElement {
 		comments: { type: Number },
 		body: { type: String },
 		creatorUsername: { type: String },
+		photoURL: { type: String },
 	}
 
 	static styles = css`
@@ -81,6 +82,7 @@ class UserPost extends LitElement {
 		this.reposts = 2;
 		this.body = '';
 		this.creatorUsername = 'User';
+		this.photoURL = 'https://picsum.photos/200/200';
 	}
 
 	render() {
@@ -88,7 +90,7 @@ class UserPost extends LitElement {
 			<div class="left-div">
 				<!-- profile picture -->
 				<a href="#">
-					<img class="profile-pic" src="https://picsum.photos/200/200">
+					<img class="profile-pic" src="${this.photoURL}">
 				</a>
 			</div>
 			<div class="right-div">
