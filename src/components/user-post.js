@@ -19,6 +19,7 @@ class UserPost extends LitElement {
 			background-color: white;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 			padding: 10px;
+			border-radius: 5px;
 		}
 		:host(:hover) {
 			cursor: pointer;

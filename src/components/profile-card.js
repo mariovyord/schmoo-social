@@ -62,6 +62,7 @@ class ProfileCard extends LitElement {
 	}
 
 	render() {
+		const date = new Date(Number(this.user.reloadUserInfo.createdAt));
 		return html`
 		<div class="top-div">
 			<!-- profile picture -->
@@ -71,7 +72,6 @@ class ProfileCard extends LitElement {
 		</div>
 		<div>
 			<p id="name"><a href="/profile">${this.user.displayName}</a></p>
-			<p class="handle">@johntheslayer</p>
 			<p class="handle">${this.user.email}</p>
 		</div>
 		<div class="options">
@@ -81,7 +81,7 @@ class ProfileCard extends LitElement {
 				<path
 					d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
 			</svg>
-			<span class="handle">Joined 12.03.2022</span>
+			<span class="handle">Joined ${date.getDate()}.${date.getMonth()}.${date.getFullYear()}</span>
 		</div>
 		`
 	}

@@ -32,7 +32,6 @@ export const userRegister = (username, email, password) => createUserWithEmailAn
 	});
 
 export const userLogout = () => signOut(auth).then(() => {
-	clearUserData();
 	console.log('Successfully logged out!');
 	page.redirect('/');
 }).catch((error) => {
