@@ -26,7 +26,7 @@ class SidebarUsercard extends LitElement {
 				display: block;
 				margin: 0 auto;
 				border-radius: 50%;
-				width: 180px;
+				width: 130px;
 			}
 			h2 {
 				text-align: center;
