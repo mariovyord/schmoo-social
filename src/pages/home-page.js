@@ -6,7 +6,7 @@ import { getAllPosts } from '../api/data';
 
 export class HomePage extends LitElement {
 	static properties = {
-		name: { type: String },
+		usNewPost: {type: Boolean}
 	}
 
 	static styles = [
@@ -20,15 +20,14 @@ export class HomePage extends LitElement {
 		} 
 	`
 	];
-	constructor(name = 'World') {
+	constructor() {
 		super();
-		this.name = name;
+		this.data = [];
 	}
 
 	async allPosts() {
-		const data = await getAllPosts();
-		console.log(Object.entries(data));
-		return Object.entries(data)
+		this.data = await getAllPosts();
+		return Object.entries(this.data)
 			.reverse()
 			.map(el =>
 				html`

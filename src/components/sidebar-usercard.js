@@ -66,7 +66,7 @@ class SidebarUsercard extends LitElement {
 		const date = new Date(Number(this.user.reloadUserInfo.createdAt));
 		return html`
 			<div>
-				<img class="profile-pic" src="https://picsum.photos/200/200">
+				<img class="profile-pic" src="${this.user.photoURL}">
 			</div>
 			<div>
 				<h2><a href="/profile/${this.user.uid}">${this.user.displayName}</a></h2>

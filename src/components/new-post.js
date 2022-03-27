@@ -131,7 +131,6 @@ class NewPost extends LitElement {
 				photoURL: user.photoURL
 			}
 			newPost(data)
-			page.redirect('/profile');
 		} catch(err) {
 			this.errorMsg = err.message;
 			this.error = true;

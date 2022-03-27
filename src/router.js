@@ -32,8 +32,9 @@ page('/register', () => render(html`<app-root activePage=${'/register'}> <regist
 	</register-page>
 </app-root>`, outlet));
 
-page('/posts/:id', () => render(html`<app-root activePage=${'/'}> <home-page>
-	</home-page>
+page('/posts/:id', () => render(html`<app-root>
+	<details-page>
+	</details-page>
 </app-root>`, outlet));
 
 

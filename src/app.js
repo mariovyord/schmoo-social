@@ -10,6 +10,7 @@ import './components/user-card';
 import './components/profile-card';
 import './components/search-form';
 import './components/sidebar-usercard';
+import './pages/details-page';
 
 // PAGES
 import './pages/home-page';
