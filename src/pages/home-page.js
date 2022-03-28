@@ -232,7 +232,8 @@ customElements.define('home-page', HomePage);
 
 export default function renderHome(ctx) {
 	ctx.render(ctx.html`
-		<app-root activePage=${'/'}> <home-page>
-			</home-page>
+		<app-root activePage=${'/'}> 
+			<sidebar-usercard slot="side"></sidebar-usercard>
+			<home-page slot="main"></home-page>
 		</app-root>`);
 }

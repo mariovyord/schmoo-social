@@ -41,7 +41,7 @@ export class HomePage extends LitElement {
 		this.activePage = '/';
 		this.isLogged = userState;
 		this.windowWidth = this.getWindowWidth();
-		this.sidebar = this.isLogged ? html`<sidebar-usercard></sidebar-usercard>` : null;
+		// this.sidebar = this.isLogged ? html`<sidebar-usercard></sidebar-usercard>` : null;
 	}
 
 	connectedCallback() {
@@ -67,10 +67,10 @@ export class HomePage extends LitElement {
 			<main-nav activePage=${this.activePage}></main-nav>
 			<div id="wrapper">
 				<div>
-					${this.windowWidth >= windowBreakpoint ? this.sidebar : null}
+					${this.windowWidth >= windowBreakpoint ? html`<slot name="side"></slot>` : null}
 				</div>
 				<main>
-					<slot></slot>
+					<slot name="main"></slot>
 				</main>
 			</div>
 		`;
