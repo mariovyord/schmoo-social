@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from './components-css/resets';
-import { userState } from './api/auth';
+import { getUser, userState } from './api/auth';
 
 const windowBreakpoint = 700;
 

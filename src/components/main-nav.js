@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../components-css/resets';
-import {userState} from '../api/auth';
+import {getUser, userState} from '../api/auth';
 import { userLogout } from '../api/auth';
 
 class MainNav extends LitElement {
@@ -165,6 +165,11 @@ class MainNav extends LitElement {
 		super();
 		this.isLogged = userState;
 		this.activePage = '/';
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.isLogged = getUser();
 	}
 
 	isActive(page) {
