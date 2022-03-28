@@ -1,12 +1,15 @@
 import { html, render } from 'lit';
 import page from 'page';
+import renderHome from './pages/home-page';
+import { attachMethods } from './middleware/attachMethods';
 
-const outlet = document.getElementById('outlet');
+export const outlet = document.getElementById('outlet');
 
-page('/', () => render(html`
-<app-root activePage=${'/'}> <home-page>
-	</home-page>
-</app-root>`, outlet));
+// MIDDLEWARE
+page(attachMethods);
+
+// PAGES
+page('/', renderHome);
 
 page('/profile', () => render(html`<app-root activePage=${'/profile'}> <profile-page>
 	</profile-page>
@@ -39,3 +42,4 @@ page('/posts/:id', () => render(html`<app-root>
 
 
 page.start();
+

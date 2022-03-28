@@ -1,7 +1,7 @@
 import { app } from "./firebase";
 import { auth } from './auth';
 
-const host = (url) => `https://schmoozer-social-default-rtdb.europe-west1.firebasedatabase.app/${url}.json`;
+const host = (url) => `https://schmoozer-social-default-rtdb.europe-west1.firebasedatabase.app/${url}`;
 
 async function request(url, options) {
 	try {

@@ -7,7 +7,7 @@ import { getAllPosts } from '../api/data';
 import { getUser } from '../api/auth';
 import { newPost } from '../api/data';
 
-export class HomePage extends LitElement {
+class HomePage extends LitElement {
 	static properties = {
 		error: { type: Boolean },
 		errorMsg: { type: String },
@@ -26,85 +26,88 @@ export class HomePage extends LitElement {
 		* {
 			box-sizing: border-box;
 		}
-			.new-post-field {
-				display: flex;
-				width: 100%;
-				background-color: white;
-				border-radius: 5px;
-				box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-			}
-			.profile-pic {
-				border-radius: 50%;
-				max-width: 50px;
-			} 
-			.left-div {
-				padding: 10px;
-			}
-			.right-div {
-				width: 100%;
-				padding: 10px 10px 10px 0;
-			}
-			textarea {
-				all: unset;
-				width: 100%;
-				height: 80px;
-				resize: none;
-				padding: 10px;
-				margin-bottom: 10px;
-				border: 1px solid gray;
-				border-radius: 3px;
-				box-sizing: border-box;
-				overflow-x: hidden;
-			}
-			textarea:focus {
-				border: 1px solid #0095f6;
-				box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-			}
-			.options {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-			}
-			.icon {
-				padding: 0 5px;
-			}
-			.icon:hover {
-				cursor: pointer;
-			}
-			svg:hover {
-				fill: orange;
-			}
-			input[type="submit"] {
-				color: white;
-				font-size: 0.9rem;
-				font-weight: 500;
-				text-align: center;
-				border: 0px;
-				border-radius: 3px;
-				background-color: #0095f6;
-				padding: 0.7rem;
-			}
-			input[type="submit"]:hover {
-				background-color: rgba(0, 149, 246, 0.8);
-				cursor: pointer;
-			}
-			.error {
-				border: 1px solid red !important;
-			}
-			.errorMsg {
-				font-size: 0.8rem;
-				text-align: center;
-				background-color: rgba(255, 0, 0, 0.1);
-				border-radius: 3px;
-				padding: 0.5rem 1rem;
-				margin-bottom: 1rem;
-			}
+		.new-post-field {
+			display: flex;
+			width: 100%;
+			background-color: white;
+			border-radius: 5px;
+			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+		}
+		.profile-pic {
+			border-radius: 50%;
+			max-width: 50px;
+		} 
+		.left-div {
+			padding: 10px;
+		}
+		.right-div {
+			width: 100%;
+			padding: 10px 10px 10px 0;
+		}
+		textarea {
+			all: unset;
+			width: 100%;
+			height: 80px;
+			resize: none;
+			padding: 10px;
+			margin-bottom: 10px;
+			border: 1px solid gray;
+			border-radius: 3px;
+			box-sizing: border-box;
+			overflow-x: hidden;
+		}
+		textarea:focus {
+			border: 1px solid #0095f6;
+			box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+		}
+		.options {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.icon {
+			padding: 0 5px;
+		}
+		.icon:hover {
+			cursor: pointer;
+		}
+		svg:hover {
+			fill: orange;
+		}
+		input[type="submit"] {
+			color: white;
+			font-size: 0.9rem;
+			font-weight: 500;
+			text-align: center;
+			border: 0px;
+			border-radius: 3px;
+			background-color: #0095f6;
+			padding: 0.7rem;
+		}
+		input[type="submit"]:hover {
+			background-color: rgba(0, 149, 246, 0.8);
+			cursor: pointer;
+		}
+		.error {
+			border: 1px solid red !important;
+		}
+		.errorMsg {
+			font-size: 0.8rem;
+			text-align: center;
+			background-color: rgba(255, 0, 0, 0.1);
+			border-radius: 3px;
+			padding: 0.5rem 1rem;
+			margin-bottom: 0.5rem;
+		}
+		.errorMsg span {
+			font-size: 0.8rem;
+		}
 	`
 	];
 	constructor() {
 		super();
 		this.usersPosts = [];
-		this.maximumLength = 100;
+		this.maximumLength = 200;
 		this.error = false;
 		this.errorMsg = '';
 	}
@@ -114,7 +117,7 @@ export class HomePage extends LitElement {
 		const textarea = e.target;
 		if (textarea.value.length > this.maximumLength) {
 			this.error = true;
-			this.errorMsg = 'Maximum length is 100 characters.';
+			this.errorMsg = 'Maximum length is 200 characters.';
 		} else {
 			this.error = false;
 			this.errorMsg = '';
@@ -226,3 +229,10 @@ export class HomePage extends LitElement {
 }
 
 customElements.define('home-page', HomePage);
+
+export default function renderHome(ctx) {
+	ctx.render(ctx.html`
+		<app-root activePage=${'/'}> <home-page>
+			</home-page>
+		</app-root>`);
+}
