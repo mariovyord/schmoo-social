@@ -7,6 +7,14 @@ import { getAllPosts } from '../api/data';
 import { getUser } from '../api/auth';
 import { newPost } from '../api/data';
 
+export default function renderHome(ctx) {
+	ctx.render(html`
+		<app-root activePage=${'/'}> 
+			<sidebar-usercard slot="side"></sidebar-usercard>
+			<home-page slot="main"></home-page>
+		</app-root>`);
+}
+
 class HomePage extends LitElement {
 	static properties = {
 		error: { type: Boolean },
@@ -230,10 +238,3 @@ class HomePage extends LitElement {
 
 customElements.define('home-page', HomePage);
 
-export default function renderHome(ctx) {
-	ctx.render(ctx.html`
-		<app-root activePage=${'/'}> 
-			<sidebar-usercard slot="side"></sidebar-usercard>
-			<home-page slot="main"></home-page>
-		</app-root>`);
-}

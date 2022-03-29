@@ -4,6 +4,15 @@ import { map } from 'lit/directives/map.js';
 import { resets } from '../components-css/resets';
 import { getDetails } from '../api/data';
 
+export default function renderCircles(ctx) {
+	ctx.render(html`
+		<app-root>
+			<sidebar-usercard slot="side">
+			</sidebar-usercard>
+			<details-page slot="main"></details-page>
+		</app-root>`);
+}
+
 export class DetailsPage extends LitElement {
 	static properties = {
 		id: { type: String }

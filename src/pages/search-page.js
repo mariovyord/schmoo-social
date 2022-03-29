@@ -1,7 +1,15 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
 
-export class SearchPage extends LitElement {
+export default function renderSearch(ctx) {
+	ctx.render(html`
+		<app-root activePage=${'/search'}> <sidebar-usercard slot="side">
+			</sidebar-usercard>
+			<search-page slot="main"></search-page>
+		</app-root>`);
+}
+
+class SearchPage extends LitElement {
 	static properties = {
 		name: { type: String },
 	}

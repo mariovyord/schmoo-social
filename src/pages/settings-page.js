@@ -2,7 +2,15 @@ import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
 import { userLogout } from '../api/auth';
 
-export class SettingsPage extends LitElement {
+export default function renderSettings(ctx) {
+	ctx.render(html`
+		<app-root activePage=${'/settings'}> <sidebar-usercard slot="side">
+			</sidebar-usercard>
+			<settings-page slot="main"></settings-page>
+		</app-root>`);
+}
+
+class SettingsPage extends LitElement {
 	static styles = [
 		resets,
 		css`

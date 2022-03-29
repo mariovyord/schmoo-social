@@ -1,7 +1,14 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
 
-export class LoginPage extends LitElement {
+export default function renderLogin(ctx) {
+	ctx.render(html`
+		<app-root activePage=${'/login'}> <login-page slot="main">
+			</login-page>
+		</app-root>`);
+}
+
+class LoginPage extends LitElement {
 	static styles = [
 		resets,
 		css`

@@ -6,7 +6,15 @@ import { resets } from '../components-css/resets';
 import { getPostsByUserId } from '../api/data';
 import { getUser } from '../api/auth';
 
-export class ProfilePage extends LitElement {
+export default function renderProfile(ctx) {
+	ctx.render(html`
+		<app-root activePage=${'/profile'}> <sidebar-usercard slot="side">
+			</sidebar-usercard>
+			<profile-page slot="main"></profile-page>
+		</app-root>`);
+}
+
+class ProfilePage extends LitElement {
 	static properties = {
 		usersPosts: { type: Array },
 	}

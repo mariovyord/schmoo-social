@@ -4,11 +4,8 @@ import page from 'page';
 
 export const auth = getAuth(app);
 
-// export const getUser = auth.currentUser;
-
-export const getUser = async () => {
-	const user = await auth.currentUser;
-	return user;
+export const getUser = () => {
+	return auth.currentUser;
 }
 
 export let userState;
