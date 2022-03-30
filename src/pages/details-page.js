@@ -7,7 +7,7 @@ import { getDetails } from '../api/data';
 export default function renderDetails(ctx) {
 	ctx.render(html`
 		<app-root>
-			<p slot="side">Hello World</p>
+			<details-nav slot="side"></details-nav>
 			<details-page id=${ctx.params.id} slot="main"></details-page>
 		</app-root>`);
 }
@@ -36,12 +36,11 @@ class DetailsPage extends LitElement {
 	async userPost() {
 		const data = await getDetails(this.id);
 		return html`
-				<user-post creatorUsername=${data.creatorUsername ? data.creatorUsername : 'User' } body=${data.body}
+				<user-post creatorUsername=${data.creatorUsername ? data.creatorUsername : 'User'} body=${data.body}
 					photoURL=${data.photoURL}>
 				</user-post>`;
 	}
 	render() {
-		console.log(this.id);
 		return html`
 		${until(this.userPost(), html`Loading...`)}
 		`

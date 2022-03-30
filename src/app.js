@@ -8,7 +8,7 @@ import './components/user-card';
 import './components/profile-card';
 import './components/search-form';
 import './components/sidebar-usercard';
-import './pages/details-page';
+import './components/details-nav';
 
 // PAGES
 import './pages/home-page';
@@ -18,6 +18,7 @@ import './pages/settings-page';
 import './pages/login-page';
 import './pages/register-page';
 import './pages/search-page';
+import './pages/details-page';
 
 // ROOT COMPONENT
 import './app-root';
