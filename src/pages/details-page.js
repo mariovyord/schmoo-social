@@ -4,12 +4,11 @@ import { map } from 'lit/directives/map.js';
 import { resets } from '../components-css/resets';
 import { getDetails } from '../api/data';
 
-export default function renderCircles(ctx) {
+export default function renderDetails(ctx) {
 	ctx.render(html`
 		<app-root>
-			<sidebar-usercard slot="side">
-			</sidebar-usercard>
-			<details-page slot="main"></details-page>
+			<p slot="side">Hello World</p>
+			<details-page id=${ctx.params.id} slot="main"></details-page>
 		</app-root>`);
 }
 
@@ -34,17 +33,17 @@ class DetailsPage extends LitElement {
 		this.id = '';
 	}
 
-	async getDetails() {
-		// const data = await getDetails(this.id);
-		// return html`
-		// 		<user-post creatorUsername=${data.creatorUsername ? data.creatorUsername : 'User'} body=${data.body}
-		// 			photoURL=${data.photoURL}>
-		// 		</user-post>`;
+	async userPost() {
+		const data = await getDetails(this.id);
+		return html`
+				<user-post creatorUsername=${data.creatorUsername ? data.creatorUsername : 'User' } body=${data.body}
+					photoURL=${data.photoURL}>
+				</user-post>`;
 	}
 	render() {
 		console.log(this.id);
 		return html`
-		${until(html`Hello`, html`Loading...`)}
+		${until(this.userPost(), html`Loading...`)}
 		`
 	}
 }

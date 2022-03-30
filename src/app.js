@@ -2,8 +2,6 @@
 import './components/login-form';
 import './components/register-form';
 import './components/main-nav';
-import './components/side-nav';
-import './components/mobile-nav';
 import './components/new-post';
 import './components/user-post';
 import './components/user-card';

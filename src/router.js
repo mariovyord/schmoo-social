@@ -8,6 +8,7 @@ import renderSearch from './pages/search-page';
 import renderSettings from './pages/settings-page';
 import renderRegister from './pages/register-page';
 import renderLogin from './pages/login-page';
+import renderDetails from './pages/details-page';
 
 export const outlet = document.getElementById('outlet');
 
@@ -29,10 +30,7 @@ page('/login', renderLogin);
 
 page('/register', renderRegister);
 
-page('/posts/:id', () => render(html`<app-root>
-	<details-page>
-	</details-page>
-</app-root>`, outlet));
+page('/posts/:id', renderDetails);
 
 
 page.start();
