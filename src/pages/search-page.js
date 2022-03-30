@@ -3,9 +3,9 @@ import { resets } from '../components-css/resets';
 
 export default function renderSearch(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/search'}> <sidebar-usercard slot="side">
-			</sidebar-usercard>
-			<search-page slot="main"></search-page>
+		<app-root activePage=${'/search'}> <search-page slot="side">
+			</search-page>
+			<p style="text-align: center; font-size: 3rem; font-weight: 700" slot="main">No Results</p>
 		</app-root>`);
 }
 
@@ -17,13 +17,6 @@ class SearchPage extends LitElement {
 	static styles = [
 		resets,
 		css`
-		:host {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			padding: 10px;
-		}
 	`
 	];
 	constructor(name = 'World') {

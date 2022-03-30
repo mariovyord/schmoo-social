@@ -13,7 +13,7 @@ export default function renderCircles(ctx) {
 		</app-root>`);
 }
 
-export class DetailsPage extends LitElement {
+class DetailsPage extends LitElement {
 	static properties = {
 		id: { type: String }
 	}
