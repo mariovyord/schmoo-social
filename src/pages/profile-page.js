@@ -1,61 +1,85 @@
 import { LitElement, css, html } from 'lit';
-import { until } from 'lit/directives/until.js';
-import { map } from 'lit/directives/map.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../components-css/resets';
-import { getPostsByUserId } from '../api/data';
-import { getUser } from '../api/auth';
+import { getUser, userState } from '../api/auth';
+
+const windowBreakpoint = 700;
 
 export default function renderProfile(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/profile'}> <sidebar-usercard slot="side">
-			</sidebar-usercard>
-			<profile-page slot="main"></profile-page>
-		</app-root>`);
+		<profile-page activePage=${'/profile'}> </profile-page>`);
 }
 
 class ProfilePage extends LitElement {
 	static properties = {
-		usersPosts: { type: Array },
+		name: { type: String },
+		userState,
+		windowWidth: { type: Number },
+		navigation: { type: String },
+		activePage: { type: String },
 	}
 
 	static styles = [
 		resets,
 		css`
-		:host {
-			padding-top: 23px;
+		#wrapper {
+			display: grid;  
+			grid-template-columns: 1fr 2fr; 
+			gap: 10px;
+			margin: 0 auto; 
+			max-width: 980px; 
+			padding-top: 10px;
 		}
-		:host > *:not(:last-child) {
+		main > *:not(:last-child) {
 			margin-bottom: 10px; 
 		} 
-		`
+
+		@media only screen and (max-width: ${windowBreakpoint}px) {
+			#wrapper {
+				grid-template-columns: 1fr; 
+			}
+		}
+	`
 	];
-	constructor() {
+	constructor(name = 'World') {
 		super();
-		this.userPosts = [];
+		this.name = name;
+		this.activePage = '/';
+		this.isLogged = getUser();
+		this.windowWidth = this.getWindowWidth();
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.allUserPosts();
+		window.addEventListener('resize', this.updateWindowWidth.bind(this));
 	}
 
-	async allUserPosts() {
-		const user = await getUser();
-		const newData = await getPostsByUserId(user.uid);
-		const posts = Object.entries(newData)
-			.sort((a, b) => b[1].createdAt - a[1].createdAt)
-			.map(el =>
-				html`
-				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? el[1].creatorUsername : 'User' }
-					body=${el[1].body} photoURL=${el[1].photoURL}>
-				</user-post>`);
-		return posts;
+	disconnectedCallback() {
+		window.removeEventListener('resize', this.updateWindowWidth.bind(this));
+		super.disconnectedCallback();
+	}
+
+	getWindowWidth() {
+		return window.innerWidth;
+	}
+
+	async updateWindowWidth() {
+		this.windowWidth = window.innerWidth;
 	}
 
 	render() {
+		console.log('THIS ' + this.isLogged);
 		return html`
-		${until(this.allUserPosts(), html`Loading...`)}
+			<main-nav activePage=${this.activePage}></main-nav>
+			<div id="wrapper">
+				<div>
+					${this.windowWidth >= windowBreakpoint 
+						? html`<sidebar-usercard></sidebar-usercard>` 
+						: null}
+				</div>
+				<main>
+					<profile-feed .isLogged=${this.isLogged}></profile-feed>
+				</main>
+			</div>
 		`;
 	}
 }
