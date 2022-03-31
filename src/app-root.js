@@ -41,7 +41,6 @@ export class HomePage extends LitElement {
 		this.activePage = '/';
 		this.isLogged = userState;
 		this.windowWidth = this.getWindowWidth();
-		// this.sidebar = this.isLogged ? html`<sidebar-usercard></sidebar-usercard>` : null;
 	}
 
 	connectedCallback() {
