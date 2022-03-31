@@ -214,7 +214,6 @@ class HomeFeed extends LitElement {
 		this.usersPosts = Object.entries(newData);
 	}
 	render() {
-		console.log(this.isLogged);
 		return html`
 		${this.isLogged ? this.newPostTemplate() : null}
 		${until(this.usersPosts

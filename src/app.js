@@ -32,6 +32,7 @@ import '../static/app.css';
 import './router';
 
 // UTILS
+import './utils/userData';
 
 // FIREBASE
 import './api/data';

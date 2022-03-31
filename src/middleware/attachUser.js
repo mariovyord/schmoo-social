@@ -1,6 +1,7 @@
 import { getUser } from "../api/auth";
+import { getUserData } from "../utils/userData";
 
-export default async (ctx, next) => {
-	ctx.user = await getUser();
+export default (ctx, next) => {
+	ctx.user = getUserData();
 	next();
 }

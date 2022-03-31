@@ -63,7 +63,6 @@ export class HomePage extends LitElement {
 
 	render() {
 		return html`
-			<main-nav activePage=${this.activePage}></main-nav>
 			<div id="wrapper">
 				<div>
 					${this.windowWidth >= windowBreakpoint ? html`<slot name="side"></slot>` : null}

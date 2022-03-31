@@ -9,11 +9,15 @@ import renderSettings from './pages/settings-page';
 import renderRegister from './pages/register-page';
 import renderLogin from './pages/login-page';
 import renderDetails from './pages/details-page';
+import renderNav from './middleware/renderNav';
+import attachUser from './middleware/attachUser';
 
 export const outlet = document.getElementById('outlet');
 
 // MIDDLEWARE
 page(attachRender);
+page(attachUser);
+page(renderNav);
 
 // PAGES
 page('/', renderHome);

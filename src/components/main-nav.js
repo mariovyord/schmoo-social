@@ -1,14 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../components-css/resets';
-import {getUser, userState} from '../api/auth';
 import { userLogout } from '../api/auth';
 
 class MainNav extends LitElement {
 	static properties = {
-		isLogged: {type: Boolean},
+		ctx: {type: Object},
 		activePage: { type: String },
-		userState,
 	}
 
 	static styles = [
@@ -54,13 +52,13 @@ class MainNav extends LitElement {
 		height: 50px;
 		width: 50px;
 		text-decoration: none;
-		border: 2px solid transparent;
+		border: 3px solid transparent;
 	}
 	#navbar a:hover {
-		border-bottom: 2px solid darkred;
+		border-bottom: 3px solid darkred;
 	}
 	#navbar a.active {
-		border-bottom: 2px solid darkred;
+		border-bottom: 3px solid darkred;
 	}
 	svg {
 		fill: white;
@@ -163,26 +161,17 @@ class MainNav extends LitElement {
 
 	constructor() {
 		super();
-		this.isLogged = userState;
-		this.activePage = '/';
+		this.ctx = {};
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-		this.isLogged = getUser();
-	}
-
-	isActive(page) {
-		return this.activePage === page;
-	}
-
-	mainNavTemplate(isLogged) {
+	mainNavTemplate() {
+		console.log(this.activePage);
 		return html`
 			<div id="navbar">
 				<ul>
-					${isLogged 
+					${this.ctx.user
 					? html`<!-- Home -->
-					<li><a href="/" class=${classMap({ active: this.isActive('/') })}> <svg xmlns="http://www.w3.org/2000/svg"
+					<li><a href="/" class=${classMap({ active:  this.ctx.path === '/' })}> <svg xmlns="http://www.w3.org/2000/svg"
 								class="bi bi-house" viewBox="0 0 16 16">
 								<path fill-rule="evenodd"
 									d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
@@ -191,28 +180,28 @@ class MainNav extends LitElement {
 							</svg>
 						</a></li>
 					<!-- Profile -->
-					<li><a href="/profile" class=${classMap({ active: this.isActive('/profile') })}>
+					<li><a href="/profile" class=${classMap({ active:  this.ctx.path === '/profile' })}>
 							<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person" viewBox="0 0 16 16">
 								<path
 									d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
 							</svg>
 						</a></li>
 					<!-- Circles -->
-					<li><a href="/circles" class=${classMap({ active: this.isActive('/circles') })}>
+					<li><a href="/circles" class=${classMap({ active:  this.ctx.path === '/circles' })}>
 							<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-people" viewBox="0 0 16 16">
 								<path
 									d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
 							</svg>
 						</a></li>
 					<!-- Search -->
-					<li><a href="/search" class=${classMap({ active: this.isActive('/search') })}>
+					<li><a href="/search" class=${classMap({ active:  this.ctx.path === '/search' })}>
 							<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-search" viewBox="0 0 16 16">
 								<path
 									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 							</svg>
 						</a></li>
 					<!-- Settings -->
-					<li><a href="/settings" class=${classMap({ active: this.isActive('/settings') })}>
+					<li><a href="/settings" class=${classMap({ active:  this.ctx.path === '/settings' })}>
 							<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-gear" viewBox="0 0 16 16">
 								<path
 									d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
@@ -238,30 +227,30 @@ class MainNav extends LitElement {
 		`
 	}
 
-	hamburgerTemplate(isLogged) {
+	hamburgerTemplate() {
 		return html`
 			<div id="hamburger-icon" @click=${this.toggleHamburger}>
 					<div class="bar1"></div>
 					<div class="bar2"></div>
 					<div class="bar3"></div>
 					<ul class="mobile-menu">
-						${isLogged 
+						${this.ctx.user 
 						? html`<!-- Home -->
-						<li><a href="/" class=${classMap({ active: this.isActive('/') })}>Home</a></li>
+						<li><a href="/" class=${classMap({ active: this.ctx.path === '/' })}>Home</a></li>
 						<!-- Profile -->
-						<li><a href="/profile" class=${classMap({ active: this.isActive('/profile') })}>Profile</a></li>
+						<li><a href="/profile" class=${classMap({ active: this.ctx.path === '/profile' })}>Profile</a></li>
 						<!-- Circles -->
-						<li><a href="/circles" class=${classMap({ active: this.isActive('/circles') })}>Circles</a></li>
+						<li><a href="/circles" class=${classMap({ active: this.ctx.path === '/circles' })}>Circles</a></li>
 						<!-- Search -->
-						<li><a href="/search" class=${classMap({ active: this.isActive('/search') })}>Search</a></li>
+						<li><a href="/search" class=${classMap({ active: this.ctx.path === '/search' })}>Search</a></li>
 						<!-- Settings -->
-						<li><a href="/settings" class=${classMap({ active: this.isActive('/settings') })}>Settings</a></li>
+						<li><a href="/settings" class=${classMap({ active: this.ctx.path === '/settings' })}>Settings</a></li>
 						<li><a class="danger" href="#" @click=${userLogout}>Logout</a></li>`
 						: html`
 						<!-- Login -->
-						<li><a href="/login" class=${classMap({ active: this.isActive('/login') })}>Login</a></li>
+						<li><a href="/login" class=${classMap({ active: this.ctx.path === '/login' })}>Login</a></li>
 						<!-- Register -->
-						<li><a href="/register" class=${classMap({ active: this.isActive('/register') })}>Register</a></li>
+						<li><a href="/register" class=${classMap({ active: this.ctx.path === '/register' })}>Register</a></li>
 						`}
 					</ul>
 				</div>`
@@ -272,14 +261,15 @@ class MainNav extends LitElement {
 	}
 
 	render() {
+		console.log(this.ctx);
 		return html`
 		<div id="wrapper">
 			<div>
 				<a id="logo" href="/"><img src="https://i.ibb.co/0VB99wP/logo-color.png" alt="Schmoozer"></a>
 			</div>
 			<nav>
-				${this.mainNavTemplate(this.isLogged)}
-				${this.hamburgerTemplate(this.isLogged)}
+				${this.mainNavTemplate()}
+				${this.hamburgerTemplate()}
 			</nav>
 		</div>
 		`
