@@ -165,7 +165,6 @@ class MainNav extends LitElement {
 	}
 
 	mainNavTemplate() {
-		console.log(this.activePage);
 		return html`
 			<div id="navbar">
 				<ul>

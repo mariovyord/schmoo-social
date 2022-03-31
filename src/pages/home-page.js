@@ -67,7 +67,7 @@ class HomePage extends LitElement {
 		return html`
 				<div>
 					${this.windowWidth >= windowBreakpoint 
-						? html`<sidebar-usercard slot="side"></sidebar-usercard>` 
+						? html`<sidebar-usercard ></sidebar-usercard>` 
 						: null}
 				</div>
 				<div>
