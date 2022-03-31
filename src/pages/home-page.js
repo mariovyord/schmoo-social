@@ -21,20 +21,17 @@ class HomePage extends LitElement {
 	static styles = [
 		resets,
 		css`
-		#wrapper {
+		:host {
 			display: grid;  
 			grid-template-columns: 1fr 2fr; 
 			gap: 10px;
-			margin: 0 auto; 
-			max-width: 980px; 
-			padding-top: 10px;
 		}
-		main > *:not(:last-child) {
+		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
 		} 
 
 		@media only screen and (max-width: ${windowBreakpoint}px) {
-			#wrapper {
+			:host {
 				grid-template-columns: 1fr; 
 			}
 		}
@@ -67,19 +64,15 @@ class HomePage extends LitElement {
 	}
 
 	render() {
-		console.log('THIS ' + this.isLogged);
 		return html`
-			<main-nav activePage=${this.activePage}></main-nav>
-			<div id="wrapper">
 				<div>
 					${this.windowWidth >= windowBreakpoint 
 						? html`<sidebar-usercard slot="side"></sidebar-usercard>` 
 						: null}
 				</div>
-				<main>
+				<div>
 					<home-feed .isLogged=${this.isLogged}></home-feed>
-				</main>
-			</div>
+					</div>
 		`;
 	}
 }
