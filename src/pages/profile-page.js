@@ -1,6 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
-import { getUser, userState } from '../api/auth';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../api/auth';
+import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
@@ -12,7 +14,7 @@ export default function renderProfile(ctx) {
 class ProfilePage extends LitElement {
 	static properties = {
 		name: { type: String },
-		userState,
+		user: {type: Object},
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -41,13 +43,21 @@ class ProfilePage extends LitElement {
 		super();
 		this.name = name;
 		this.activePage = '/';
-		this.isLogged = getUser();
+		this.isLogged = getUserData();
+		this.user = null;
 		this.windowWidth = this.getWindowWidth();
 	}
 
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener('resize', this.updateWindowWidth.bind(this));
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				this.user = user;
+			} else {
+				this.user = null;
+			}
+		});
 	}
 
 	disconnectedCallback() {
@@ -65,13 +75,14 @@ class ProfilePage extends LitElement {
 
 	render() {
 		return html`
+				${this.windowWidth >= windowBreakpoint 
+						? 
+						html`<div>					
+							${this.isLogged ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : null}
+					</div>` 
+				: null}
 				<div>
-					${this.windowWidth >= windowBreakpoint 
-						? html`<sidebar-usercard></sidebar-usercard>` 
-						: null}
-				</div>
-				<div>
-					<profile-feed .isLogged=${this.isLogged}></profile-feed>
+					<profile-feed .isLogged=${this.user} .user=${this.user}></profile-feed>
 				</div>
 		`;
 	}

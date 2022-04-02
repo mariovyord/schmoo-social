@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../api/auth';
 import { getUserData } from '../utils/userData';
 
@@ -75,9 +75,12 @@ class HomePage extends LitElement {
 
 	render() {
 		return html`
-				<div>
-					${this.isLogged ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : null}
-				</div>
+				${this.windowWidth >= windowBreakpoint 
+						? 
+						html`<div>					
+							${this.isLogged ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : null}
+					</div>` 
+				: null}
 				<div>
 					<home-feed .isLogged=${this.isLogged} .user=${this.user}></home-feed>
 				</div>
