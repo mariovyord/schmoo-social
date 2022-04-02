@@ -260,7 +260,6 @@ class MainNav extends LitElement {
 	}
 
 	render() {
-		console.log(this.ctx);
 		return html`
 		<div id="wrapper">
 			<div>

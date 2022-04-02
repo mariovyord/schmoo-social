@@ -9,10 +9,14 @@ export const getUser = () => {
 	return auth.currentUser;
 }
 
-export let userState;
-onAuthStateChanged(auth, user => {
-	userState = user;
-
+export let userState = 'unknown';
+onAuthStateChanged(auth, (user) => {
+	if (user) {
+		console.log('HERE IS');
+		userState = user;
+	} else {
+		console.log('NOT LOGGED');
+	}
 });
 
 export const userLogin = (email, password) => signInWithEmailAndPassword(auth, email, password)

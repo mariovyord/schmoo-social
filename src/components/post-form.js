@@ -14,7 +14,6 @@ class HomeFeed extends LitElement {
 		errorMsg: { type: String },
 		usersPosts: {type: Array},
 		isLogged: {type: Boolean},
-		user: {type: Object},
 	}
 
 	static styles = [
@@ -111,7 +110,6 @@ class HomeFeed extends LitElement {
 		this.error = false;
 		this.errorMsg = '';
 		this.isLogged = false;
-		this.user = 'unknown';
 	}
 
 	onInput(e) {
@@ -161,12 +159,22 @@ class HomeFeed extends LitElement {
 		}
 	}
 
-	newPostTemplate = (photo) => html`
+	connectedCallback() {
+		super.connectedCallback();
+		this.allPosts();
+	}
+
+	async allPosts() {
+		const newData = await getAllPosts();
+		this.usersPosts = Object.entries(newData);
+	}
+	render() {
+		return html`
 	<div class="new-post-field">
 	<div class="left-div">
 		<!-- profile picture -->
 		<a href="#">
-			<img class="profile-pic" src="${photo}">
+			<img class="profile-pic" src="https://picsum.photos/200/200">
 		</a>
 	</div>
 	<div class="right-div">
@@ -204,28 +212,6 @@ class HomeFeed extends LitElement {
 		</form>
 	</div>
 	</div>
-`;
-
-	connectedCallback() {
-		super.connectedCallback();
-		this.allPosts();
-	}
-
-	async allPosts() {
-		const newData = await getAllPosts();
-		this.usersPosts = Object.entries(newData);
-	}
-	render() {
-		return html`
-		${this.user ? this.newPostTemplate(this.user?.photoURL) : null}
-		${until(this.usersPosts
-			.reverse()
-			.map(el =>
-				html`
-				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? 	el[1].creatorUsername : 'User'}
-					body=${el[1].body} photoURL=${el[1].photoURL}>
-				</user-post>`)
-				, html`Loading...`)}
 		`
 	}
 }
