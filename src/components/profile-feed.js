@@ -40,7 +40,7 @@ class ProfileFeed extends LitElement {
 			.sort((a, b) => b[1].createdAt - a[1].createdAt)
 			.map(el =>
 				html`
-				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? el[1].creatorUsername : 'User' }
+				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? el[1].creatorUsername : 'User'}
 					body=${el[1].body} photoURL=${el[1].photoURL}>
 				</user-post>`);
 		return posts;
@@ -48,7 +48,7 @@ class ProfileFeed extends LitElement {
 
 	render() {
 		return html`
-		${until(this.allUserPosts(), html`Loading...`)}
+		${until(this.allUserPosts(), null)}
 		`;
 	}
 }
