@@ -93,10 +93,10 @@ class LoginForm extends LitElement {
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
-			<input type="text" name="email" placeholder="Email">
+			<input type="text" name="email" placeholder="Email" value="joe@abv.bg">
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
-			<input id="password-input" class="pass" type="password" name="password" placeholder="Password">
+			<input id="password-input" class="pass" type="password" name="password" placeholder="Password" value="123456">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
 		</div>
 		<input type="submit" value="Login">
