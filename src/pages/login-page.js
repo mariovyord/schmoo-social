@@ -3,9 +3,8 @@ import { resets } from '../components-css/resets';
 
 export default function renderLogin(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/login'}> <login-page slot="main">
-			</login-page>
-		</app-root>`);
+		<login-page slot="main"></login-page>
+		`);
 }
 
 class LoginPage extends LitElement {
@@ -13,7 +12,8 @@ class LoginPage extends LitElement {
 		resets,
 		css`
 		:host {
-			width: 100%;
+			max-width: 600px;
+			margin: 0 auto;
 			height: calc(100vh - 70px);
 			display: flex;
 			flex-direction: row;

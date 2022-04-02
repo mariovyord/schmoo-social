@@ -7,7 +7,7 @@ export default function renderSearch(ctx) {
 	ctx.render(html`
 		<search-page slot="side">
 		</search-page>
-		</app-root>`);
+		`);
 }
 
 class SearchPage extends LitElement {

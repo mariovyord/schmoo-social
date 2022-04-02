@@ -12,6 +12,7 @@ import './components/details-nav';
 import './components/home-feed';
 import './components/profile-feed';
 import './components/settings-nav';
+import './components/guest-sidenav';
 
 // PAGES
 import './pages/home-page';

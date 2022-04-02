@@ -68,7 +68,7 @@ class HomePage extends LitElement {
 				${this.windowWidth >= windowBreakpoint 
 						? 
 						html`<div>					
-							${this.user !== null  ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : null}
+							${this.user !== null  ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : html`<guest-sidenav></guest-sidenav>`}
 					</div>` 
 				: null}
 				<div>

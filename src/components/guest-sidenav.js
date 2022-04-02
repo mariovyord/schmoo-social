@@ -1,13 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { userLogout } from '../api/auth';
 
-class SettingsNav extends LitElement {
+class GuestSidenav extends LitElement {
 	static styles = css`
 	:host {
 		max-width: 100%;
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-		padding: 10px;
 	}
 	nav {
 		margin: 0 auto;
@@ -36,13 +35,6 @@ class SettingsNav extends LitElement {
 		background-color: rgba(0, 149, 246, 0.8);
 		cursor: pointer;
 	}
-  
-	.danger {
-		background-color: red;
-	}
-	.danger:hover {
-		background-color: darkred;
-	}
 	`;
 
 	constructor() {
@@ -60,13 +52,13 @@ class SettingsNav extends LitElement {
 				<nav>
 					<ul>
 						<li>
-							<a href="/settings/edit">
-								<span>Edit Profile</span>
+							<a href="/login">
+								<span>Login</span>
 							</a>
 						</li>
 						<li>
-							<a class="danger" href="javascript:void(0)" @click=${userLogout}>
-								<span>Logout</span>
+							<a href="/register">
+								<span>Register</span>
 							</a>
 						</li>
 					</ul>
@@ -75,4 +67,4 @@ class SettingsNav extends LitElement {
 	}
 }
 
-customElements.define('settings-nav', SettingsNav);
+customElements.define('guest-sidenav', GuestSidenav);

@@ -3,9 +3,8 @@ import { resets } from '../components-css/resets';
 
 export default function renderRegister(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/register'}> <register-page slot="main">
-			</register-page>
-		</app-root>`);
+		<register-page slot="main"></register-page>
+		`);
 }
 
 class RegisterPage extends LitElement {
@@ -13,7 +12,8 @@ class RegisterPage extends LitElement {
 		resets,
 		css`
 		:host {
-			width: 100%;
+			max-width: 600px;
+			margin: 0 auto;
 			min-height: calc(100vh - 70px);
 			display: flex;
 			flex-direction: row;
