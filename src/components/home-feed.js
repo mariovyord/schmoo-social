@@ -15,6 +15,7 @@ class HomeFeed extends LitElement {
 		usersPosts: {type: Array},
 		isLogged: {type: Boolean},
 		user: {type: Object},
+		postsQty: {type: Number},
 	}
 
 	static styles = [
@@ -88,6 +89,25 @@ class HomeFeed extends LitElement {
 			background-color: rgba(0, 149, 246, 0.8);
 			cursor: pointer;
 		}
+		.footer {
+			display: flex;
+			align-items: center;
+		}
+		.more-btn {
+			margin: 0 auto;
+			color: white;
+			font-size: 0.9rem;
+			font-weight: 500;
+			text-align: center;
+			border: 0px;
+			border-radius: 3px;
+			background-color: #0095f6;
+			padding: 0.7rem;
+		}
+		.more-btn:hover {
+			background-color: rgba(0, 149, 246, 0.8);
+			cursor: pointer;
+		}
 		.error {
 			border: 1px solid red !important;
 		}
@@ -111,6 +131,7 @@ class HomeFeed extends LitElement {
 		this.error = false;
 		this.errorMsg = '';
 		this.isLogged = false;
+		this.postsQty = 10;
 		this.user = 'unknown';
 	}
 
@@ -159,6 +180,11 @@ class HomeFeed extends LitElement {
 				this.errorMsg = '';
 			}, 3000);
 		}
+	}
+
+	getMorePosts() {
+		this.postsQty +=10;
+		this.allPosts();
 	}
 
 	newPostTemplate = (photo) => html`
@@ -212,20 +238,22 @@ class HomeFeed extends LitElement {
 	}
 
 	async allPosts() {
-		const newData = await getAllPosts();
-		this.usersPosts = Object.entries(newData);
+		const newData = await getAllPosts(this.postsQty);
+		this.usersPosts = Object.entries(newData)
+			.sort((a, b) => b[1].createdAt - a[1].createdAt);
 	}
 	render() {
 		return html`
 		${this.user ? this.newPostTemplate(this.user?.photoURL) : null}
-		${until(this.usersPosts
-			.reverse()
+		${this.usersPosts
 			.map(el =>
 				html`
 				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? 	el[1].creatorUsername : 'User'}
 					body=${el[1].body} photoURL=${el[1].photoURL}>
-				</user-post>`)
-				, html`Loading...`)}
+				</user-post>`)}
+		<div class="footer">
+			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>
+		</div>
 		`
 	}
 }
