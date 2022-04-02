@@ -23,7 +23,14 @@ export const userLogin = (email, password) => signInWithEmailAndPassword(auth, e
 	.then((userCredential) => {
 		// Signed in 
 		console.log('Successfully logged in!');
-		setUserData({ accessToken: userCredential.user.accessToken });
+		setUserData({
+			displayName: userCredential.user.displayName,
+			email: userCredential.user.email,
+			uid: userCredential.user.uid,
+			createdAt: userCredential.user.metadata.createdAt,
+			photoURL: userCredential.user.photoURL,
+			accessToken: userCredential.user.accessToken
+		});
 		page.redirect('/');
 	})
 	.catch((error) => {
@@ -37,7 +44,15 @@ export const userRegister = (username, email, photoUrl, password) => createUserW
 			displayName: username,
 			photoURL: photoUrl,
 		})
-		setUserData({ accessToken: userCredential.user.accessToken });
+		console.log(userCredential);
+		setUserData({
+			displayName: userCredential.user.displayName,
+			email: userCredential.user.email,
+			uid: userCredential.user.uid,
+			createdAt: userCredential.user.metadata.createdAt,
+			photoURL: userCredential.user.metadata.photoURL,
+			accessToken: userCredential.user.accessToken
+		});
 		console.log('Successfully registered!');
 		page.redirect('/');
 	})

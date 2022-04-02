@@ -1,14 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '../api/auth';
 import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
 export default function renderProfile(ctx) {
 	ctx.render(html`
-		<profile-page activePage=${'/profile'}> </profile-page>`);
+		<profile-page activePage=${'/profile'} .user=${ctx.user}> </profile-page>`);
 }
 
 class ProfilePage extends LitElement {
@@ -43,7 +41,6 @@ class ProfilePage extends LitElement {
 		super();
 		this.name = name;
 		this.activePage = '/';
-		this.isLogged = getUserData();
 		this.user = null;
 		this.windowWidth = this.getWindowWidth();
 	}
@@ -51,13 +48,6 @@ class ProfilePage extends LitElement {
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener('resize', this.updateWindowWidth.bind(this));
-		onAuthStateChanged(auth, (user) => {
-			if (user) {
-				this.user = user;
-			} else {
-				this.user = null;
-			}
-		});
 	}
 
 	disconnectedCallback() {
@@ -78,7 +68,7 @@ class ProfilePage extends LitElement {
 				${this.windowWidth >= windowBreakpoint 
 						? 
 						html`<div>					
-							${this.isLogged ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : null}
+							<sidebar-usercard .user=${this.user}></sidebar-usercard>
 					</div>` 
 				: null}
 				<div>
