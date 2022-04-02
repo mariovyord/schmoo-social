@@ -11,6 +11,7 @@ import './components/sidebar-usercard';
 import './components/details-nav';
 import './components/home-feed';
 import './components/profile-feed';
+import './components/settings-nav';
 
 // PAGES
 import './pages/home-page';

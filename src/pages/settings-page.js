@@ -1,28 +1,31 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
-import { userLogout } from '../api/auth';
+
+const windowBreakpoint = 700;
 
 export default function renderSettings(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/settings'}> <sidebar-usercard slot="side">
-			</sidebar-usercard>
 			<settings-page slot="main"></settings-page>
-		</app-root>`);
+	`);
 }
 
 class SettingsPage extends LitElement {
 	static styles = [
 		resets,
 		css`
-		h1 {
-			font-size: 3rem;
-			text-align: center;
-			margin: 2rem 0;
-			font-weight: 500;
+		:host {
+			display: grid;  
+			grid-template-columns: 1fr 2fr; 
+			gap: 10px;
 		}
-		.center {
-			display: flex;
-			justify-content: center;
+		:host > *:not(:last-child) {
+			margin-bottom: 10px; 
+		} 
+
+		@media only screen and (max-width: ${windowBreakpoint}px) {
+			:host {
+				grid-template-columns: 1fr; 
+			}
 		}
 		button {
 			color: white;
@@ -47,11 +50,7 @@ class SettingsPage extends LitElement {
 
 	render() {
 		return html`
-		<profile-card></profile-card>
-		<h1>Settings</h1>
-		<div class="center">
-			<button @click=${userLogout}>Logout</button>
-		</div>
+		<settings-nav></settings-nav>
 `;
 	}
 }

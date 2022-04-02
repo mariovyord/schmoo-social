@@ -30,6 +30,8 @@ page('/search', renderSearch);
 
 page('/settings', renderSettings);
 
+page('/settings/edit', renderSettings);
+
 page('/login', renderLogin);
 
 page('/register', renderRegister);

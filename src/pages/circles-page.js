@@ -3,19 +3,20 @@ import { resets } from '../components-css/resets';
 
 export default function renderCircles(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/circles'}> <sidebar-usercard slot="side">
-			</sidebar-usercard>
-			<circles-page slot="main"></circles-page>
-		</app-root>`);
+			<circles-page slot="main"></circles-page>`)
 }
 
 class CirclesPage extends LitElement {
 	static styles = [
 		resets,
 		css`
+		:host {
+			overflow: hidden;
+		}
 		h1 {
 			font-size: 3rem;
 			font-weight: 700;
+			text-align: center;
 		}
 	`
 	];

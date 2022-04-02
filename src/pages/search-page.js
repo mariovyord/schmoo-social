@@ -1,11 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../components-css/resets';
 
+const windowBreakpoint = 700;
+
 export default function renderSearch(ctx) {
 	ctx.render(html`
-		<app-root activePage=${'/search'}> <search-page slot="side">
-			</search-page>
-			<p style="text-align: center; font-size: 3rem; font-weight: 700" slot="main">No Results</p>
+		<search-page slot="side">
+		</search-page>
 		</app-root>`);
 }
 
@@ -17,16 +18,27 @@ class SearchPage extends LitElement {
 	static styles = [
 		resets,
 		css`
+		:host {
+			display: grid;  
+			grid-template-columns: 1fr 2fr; 
+			gap: 10px;
+		}
+		:host > *:not(:last-child) {
+			margin-bottom: 10px; 
+		} 
+
+		@media only screen and (max-width: ${windowBreakpoint}px) {
+			:host {
+				grid-template-columns: 1fr; 
+			}
+		}
 	`
 	];
-	constructor(name = 'World') {
-		super();
-		this.name = name;
-	}
 
 	render() {
 		return html`
 			<search-form></search-form>
+			<p style="text-align: center; font-size: 3rem; font-weight: 700" slot="main">No Results</p>
 		`;
 	}
 }
