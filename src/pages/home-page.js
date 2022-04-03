@@ -11,7 +11,6 @@ export default function renderHome(ctx) {
 
 class HomePage extends LitElement {
 	static properties = {
-		name: { type: String },
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -37,9 +36,8 @@ class HomePage extends LitElement {
 		}
 	`
 	];
-	constructor(name = 'World') {
+	constructor() {
 		super();
-		this.name = name;
 		this.activePage = '/';
 		this.user = null;
 		this.windowWidth = this.getWindowWidth();
