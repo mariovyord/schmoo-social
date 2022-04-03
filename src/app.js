@@ -24,9 +24,6 @@ import './pages/register-page';
 import './pages/search-page';
 import './pages/details-page';
 
-// ROOT COMPONENT
-import './app-root';
-
 // CSS
 import '../static/app.css';
 

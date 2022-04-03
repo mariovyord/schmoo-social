@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { resets } from '../components-css/resets';
+import { resets } from '../common/resetsCSS';
 import { userLogout } from '../api/auth';
 
 class MainNav extends LitElement {

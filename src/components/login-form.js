@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { formsCSS } from '../components-css/forms';
-import { resets } from '../components-css/resets';
+import { formsCSS } from '../common/formsCSS';
+import { resets } from '../common/resetsCSS';
 import { userLogin } from '../api/auth';
 
 class LoginForm extends LitElement {

@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { resets } from '../components-css/resets';
+import { resets } from '../common/resetsCSS';
 import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;

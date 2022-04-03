@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { resets } from '../components-css/resets';
+import { resets } from '../common/resetsCSS';
 
 class SidebarUsercard extends LitElement {
 	static properties = {
@@ -80,7 +80,7 @@ class SidebarUsercard extends LitElement {
 				</svg>
 				<span class="handle">Joined ${new Date(Number(this.user?.createdAt)).getDate()}.${new
 					Date(Number(this.user?.createdAt)).getMonth()}.${new
-						Date(Number(this.user?.createdAt)).getFullYear()}</span>
+					Date(Number(this.user?.createdAt)).getFullYear()}</span>
 			</div>
 		`;
 		} else {

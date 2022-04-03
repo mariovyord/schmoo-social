@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { until } from 'lit/directives/until.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
-import { resets } from '../components-css/resets';
+import { resets } from '../common/resetsCSS';
 import { getAllPosts } from '../api/data';
 import { getUser } from '../api/auth';
 import { newPost } from '../api/data';

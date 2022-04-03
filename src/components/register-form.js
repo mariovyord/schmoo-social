@@ -1,8 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { userRegister } from '../api/auth';
-import { formsCSS } from '../components-css/forms';
-import { resets } from '../components-css/resets';
+import { formsCSS } from '../common/formsCSS';
+import { resets } from '../common/resetsCSS';
 
 class RegisterForm extends LitElement {
 	static properties = {

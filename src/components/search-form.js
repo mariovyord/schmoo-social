@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { formsCSS } from '../components-css/forms';
 
 class SearchForm extends LitElement {
 	static properties = {
