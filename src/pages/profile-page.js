@@ -12,7 +12,7 @@ export default function renderProfile(ctx) {
 class ProfilePage extends LitElement {
 	static properties = {
 		name: { type: String },
-		user: {type: Object},
+		user: { type: Object },
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -65,12 +65,9 @@ class ProfilePage extends LitElement {
 
 	render() {
 		return html`
-				${this.windowWidth >= windowBreakpoint 
-						? 
-						html`<div>					
-							<sidebar-usercard .user=${this.user}></sidebar-usercard>
-					</div>` 
-				: null}
+				<div>
+					<sidebar-usercard .user=${this.user}></sidebar-usercard>
+				</div>
 				<div>
 					<profile-feed .isLogged=${this.user} .user=${this.user}></profile-feed>
 				</div>

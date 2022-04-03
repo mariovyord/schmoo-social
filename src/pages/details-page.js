@@ -6,10 +6,8 @@ import { getDetails } from '../api/data';
 
 export default function renderDetails(ctx) {
 	ctx.render(html`
-		<app-root>
-			<details-nav slot="side"></details-nav>
 			<details-page id=${ctx.params.id} slot="main"></details-page>
-		</app-root>`);
+		`);
 }
 
 class DetailsPage extends LitElement {
@@ -21,11 +19,18 @@ class DetailsPage extends LitElement {
 		resets,
 		css`
 		:host {
-			padding-top: 23px;
+			display: grid;  
+			grid-template-columns: 1fr 2fr; 
+			gap: 10px;
+			margin: 0 auto; 
+			max-width: 980px; 
 		}
-		:host > *:not(:last-child) {
+		.main > *:not(:last-child) {
 			margin-bottom: 10px; 
 		} 
+		user-post:first-child {
+			font-size: 1.5rem;
+		}
 	`
 	];
 	constructor() {
@@ -42,7 +47,18 @@ class DetailsPage extends LitElement {
 	}
 	render() {
 		return html`
-		${until(this.userPost(), html`Loading...`)}
+		<div class="side">
+			<details-nav slot="side"></details-nav>
+		</div>
+		<div class="main">
+			${until(this.userPost(), html`Loading...`)}
+			<new-post></new-post>
+			<user-post></user-post>
+			<user-post></user-post>
+			<user-post></user-post>
+			<user-post></user-post>
+		</div>
+		
 		`
 	}
 }

@@ -28,6 +28,7 @@ class MainNav extends LitElement {
 		align-content: center;
 		align-items: center;
 		max-width: 980px;
+		padding: 0 10px;
 		height: 100%;
 	}
 	#logo {

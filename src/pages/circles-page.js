@@ -14,7 +14,7 @@ class CirclesPage extends LitElement {
 			overflow: hidden;
 		}
 		h1 {
-			font-size: 3rem;
+			font-size: 3vw;
 			font-weight: 700;
 			text-align: center;
 		}
