@@ -10,6 +10,7 @@ class UserPost extends LitElement {
 		body: { type: String },
 		creatorUsername: { type: String },
 		photoURL: { type: String },
+		date: { type: String }
 	}
 
 	static styles = css`
@@ -83,6 +84,7 @@ class UserPost extends LitElement {
 		this.reposts = 2;
 		this.body = '';
 		this.creatorUsername = 'User';
+		this.date = '01:00, 01.01.1900';
 		this.photoURL = 'https://picsum.photos/200/200';
 	}
 
@@ -116,7 +118,7 @@ class UserPost extends LitElement {
 					<!-- User Information -->
 					<div class="user-info">
 						<a id="name">${this.creatorUsername}</a>
-						<span id="handle-and-time">(05:27, 25.03.2022)</span>
+						<span id="handle-and-time">(${this.date})</span>
 					</div>
 					<!-- Post Content -->
 					<div>

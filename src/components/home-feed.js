@@ -249,7 +249,7 @@ class HomeFeed extends LitElement {
 			.map(el =>
 				html`
 				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? 	el[1].creatorUsername : 'User'}
-					body=${el[1].body} photoURL=${el[1].photoURL}>
+					body=${el[1].body} photoURL=${el[1].photoURL} date=${new Date(el[1].createdAt).toLocaleString()}>
 				</user-post>`)}
 		<div class="footer">
 			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>
