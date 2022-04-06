@@ -1,5 +1,4 @@
 import { LitElement, css, html } from 'lit';
-import { userLogout } from '../api/auth';
 
 class GuestSidenav extends LitElement {
 	static styles = css`

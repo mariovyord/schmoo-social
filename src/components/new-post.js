@@ -1,8 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { newPost } from '../api/data';
-import { auth } from '../api/auth';
 import page from 'page';
+import { getUserData } from '../utils/userData';
 
 class NewPost extends LitElement {
 	static properties = {
@@ -121,14 +121,11 @@ class NewPost extends LitElement {
 				throw new Error('Maximum length is 100 characters.');
 			}
 
-			const user = auth.currentUser;
+			const user = getUserData();
 
 			const data = {
 				body: text,
-				createdAt: Date.now(),
-				creatorID: user.uid,
-				creatorUsername: user.displayName,
-				photoURL: user.photoURL
+				likes: []
 			}
 			newPost(data)
 		} catch(err) {

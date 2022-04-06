@@ -1,4 +1,7 @@
 import { LitElement, css, html } from 'lit';
+import { until } from 'lit/directives/until.js';
+
+import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 class SidebarUsercard extends LitElement {
@@ -58,18 +61,19 @@ class SidebarUsercard extends LitElement {
 
 	constructor() {
 		super();
-		this.user = '';
+		this.user = null;
 	}
 
-	render() {
-		if (typeof this.user === 'object') {
-			return html`
+	async getFullUserData(id) {
+		const fullUserData = await getUserInfoById(id);
+
+		return html`
 			<div>
-				<img class="profile-pic" src="${this.user?.photoURL}">
+				<img class="profile-pic"
+					src="https://i.picsum.photos/id/115/200/300.jpg?hmac=56FxuW0OCxDfO0xEEO_66UkxJMvFKomxr9pNW_uAU5A">
 			</div>
 			<div>
-				<h2><a href="/profile/${this.user?.uid}">${this.user?.displayName}</a></h2>
-				<p class=" handle">${this.user?.email}</p>
+				<h2><a href="/profile/${fullUserData.id}">${fullUserData.username}</a></h2>
 			</div>
 			<div class="options">
 				<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="gray" class="bi bi-calendar-event"
@@ -78,14 +82,15 @@ class SidebarUsercard extends LitElement {
 					<path
 						d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
 				</svg>
-				<span class="handle">Joined ${new Date(Number(this.user?.createdAt)).getDate()}.${new
-					Date(Number(this.user?.createdAt)).getMonth()}.${new
-					Date(Number(this.user?.createdAt)).getFullYear()}</span>
+				<span class="handle">Joined ${fullUserData.createdAt}</span>
 			</div>
+		`
+	}
+
+	render() {
+		return html`
+			${until(this.getFullUserData(this.user.id), html`Loading...`)}
 		`;
-		} else {
-			return html`Loading...`;
-		}
 	}
 }
 

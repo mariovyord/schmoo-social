@@ -1,11 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { userRegister } from '../api/auth';
+import { register } from '../api/db';
 import { formsCSS } from '../common/formsCSS';
 import { resets } from '../common/resetsCSS';
 
 class RegisterForm extends LitElement {
 	static properties = {
+		ctx: { type: Object },
 		error: { type: Boolean },
 		errorMsg: { type: String },
 		errorEmail: { type: Boolean },
@@ -32,11 +33,12 @@ class RegisterForm extends LitElement {
 
 	constructor() {
 		super();
+		this.ctx = {};
 		this.error = false;
 		this.errorMsg = '';
 		this.errorUsername = false;
 		this.errorEmail = false;
-		this.errorPhoto = false;
+		// this.errorPhoto = false;
 		this.errorPassword = false;
 	}
 
@@ -64,7 +66,7 @@ class RegisterForm extends LitElement {
 		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
-		const photoUrl = formData.get('photoUrl').trim();
+		// const photoUrl = formData.get('photoUrl').trim();
 		// @ts-ignore
 		const password = formData.get('password').trim();
 		// @ts-ignore
@@ -72,7 +74,6 @@ class RegisterForm extends LitElement {
 
 		try {
 			// TODO MORE ERROR HANDLING
-			// Check error codes https://firebase.google.com/docs/reference/js/auth#autherrorcodes
 			if (username === '' || email === '' || password === '') {
 				throw new Error('Please fill all fields.')
 			} else if (password.length < 6 || password.length > 30) {
@@ -81,7 +82,8 @@ class RegisterForm extends LitElement {
 				this.errorPassword = true;
 				throw new Error('Passwords should match.')
 			} else {
-				await userRegister(username, email, photoUrl, password);
+				await register(username, email, password);
+				this.ctx.page.redirect('/');
 			}
 		} catch (err) {
 			this.errorMsg = err.message;
@@ -110,9 +112,9 @@ class RegisterForm extends LitElement {
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>
-		<div class="input-container ${classMap({ error: this.errorPhoto, })}">
-			<input type="text" name="photoUrl" placeholder="Profile picture URL">
-		</div>
+		<!-- <div class="input-container ${classMap({ error: this.errorPhoto, })}">
+								<input type="text" name="photoUrl" placeholder="Profile picture URL">
+							</div> -->
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>

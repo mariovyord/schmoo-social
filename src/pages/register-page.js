@@ -3,11 +3,15 @@ import { resets } from '../common/resetsCSS';
 
 export default function renderRegister(ctx) {
 	ctx.render(html`
-		<register-page slot="main"></register-page>
+		<register-page .ctx=${ctx}></register-page>
 		`);
 }
 
 class RegisterPage extends LitElement {
+	properties = {
+		ctx: { type: Object },
+	}
+
 	static styles = [
 		resets,
 		css`
@@ -28,9 +32,14 @@ class RegisterPage extends LitElement {
 	`
 	];
 
+	constructor() {
+		super();
+		this.ctx = {};
+	}
+
 	render() {
 		return html`
-		<register-form></register-form>
+		<register-form .ctx=${this.ctx}></register-form>
 		`;
 	}
 }

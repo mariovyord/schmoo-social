@@ -4,7 +4,6 @@ import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
 import { getAllPosts } from '../api/data';
-import { getUser } from '../api/auth';
 import { newPost } from '../api/data';
 
 
@@ -132,7 +131,7 @@ class HomeFeed extends LitElement {
 		this.errorMsg = '';
 		this.isLogged = false;
 		this.postsQty = 10;
-		this.user = 'unknown';
+		this.user = null;
 	}
 
 	onInput(e) {
@@ -160,14 +159,9 @@ class HomeFeed extends LitElement {
 				throw new Error('Maximum length is 100 characters.');
 			}
 
-			const user = await getUser();
-
 			const data = {
 				body: text,
-				createdAt: Date.now(),
-				creatorID: user.uid,
-				creatorUsername: user.displayName,
-				photoURL: user.photoURL
+				likes: []
 			}
 			e.target.reset();
 			await newPost(data);
@@ -238,9 +232,9 @@ class HomeFeed extends LitElement {
 	}
 
 	async allPosts() {
-		const newData = await getAllPosts(this.postsQty);
-		this.usersPosts = Object.entries(newData)
-			.sort((a, b) => b[1].createdAt - a[1].createdAt);
+		const newData = await getAllPosts();
+		this.usersPosts = newData.results
+			// .sort((a, b) => b.localeCompare(a));
 	}
 	render() {
 		return html`
@@ -248,8 +242,8 @@ class HomeFeed extends LitElement {
 		${this.usersPosts
 			.map(el =>
 				html`
-				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? 	el[1].creatorUsername : 'User'}
-					body=${el[1].body} photoURL=${el[1].photoURL} date=${new Date(el[1].createdAt).toLocaleString()}>
+				<user-post data-id=${el.objectId} creatorUsername=${el.creator.username}
+					body=${el.body} } date=${el.createdAt}>
 				</user-post>`)}
 		<div class="footer">
 			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>

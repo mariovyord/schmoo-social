@@ -1,10 +1,10 @@
 import { LitElement, css, html } from 'lit';
-import { userState } from '../api/auth';
+import { getUserData } from '../utils/userData';
 
 
 class ProfileCard extends LitElement {
 	static properties = {
-		userState,
+		user: { type: Object },
 	}
 
 	static styles = css`
@@ -58,7 +58,7 @@ class ProfileCard extends LitElement {
 
 	constructor() {
 		super();
-		this.user = userState;
+		this.user = getUserData();
 	}
 
 	render() {

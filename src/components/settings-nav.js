@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { userLogout } from '../api/auth';
+import { logout } from '../api/db';
 
 class SettingsNav extends LitElement {
 	static styles = css`
@@ -65,7 +65,7 @@ class SettingsNav extends LitElement {
 							</a>
 						</li>
 						<li>
-							<a class="danger" href="javascript:void(0)" @click=${userLogout}>
+							<a class="danger" href="javascript:void(0)" @click=${logout}>
 								<span>Logout</span>
 							</a>
 						</li>

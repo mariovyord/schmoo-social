@@ -4,8 +4,8 @@ import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
 import { getAllPosts } from '../api/data';
-import { getUser } from '../api/auth';
 import { newPost } from '../api/data';
+import { getUserData } from '../utils/userData';
 
 
 class HomeFeed extends LitElement {
@@ -137,14 +137,10 @@ class HomeFeed extends LitElement {
 				throw new Error('Maximum length is 100 characters.');
 			}
 
-			const user = await getUser();
+			const user = getUserData();
 
 			const data = {
 				body: text,
-				createdAt: Date.now(),
-				creatorID: user.uid,
-				creatorUsername: user.displayName,
-				photoURL: user.photoURL
 			}
 			e.target.reset();
 			await newPost(data);

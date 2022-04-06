@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../common/resetsCSS';
-import { userLogout } from '../api/auth';
+import { logout } from '../api/data';
 
 class MainNav extends LitElement {
 	static properties = {
@@ -245,7 +245,7 @@ class MainNav extends LitElement {
 						<li><a href="/search" class=${classMap({ active: this.ctx.path === '/search' })}>Search</a></li>
 						<!-- Settings -->
 						<li><a href="/settings" class=${classMap({ active: this.ctx.path === '/settings' })}>Settings</a></li>
-						<li><a class="danger" href="#" @click=${userLogout}>Logout</a></li>`
+						<li><a class="danger" href="#" @click=${logout}>Logout</a></li>`
 						: html`
 						<!-- Login -->
 						<li><a href="/login" class=${classMap({ active: this.ctx.path === '/login' })}>Login</a></li>

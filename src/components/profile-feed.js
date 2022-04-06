@@ -4,6 +4,7 @@ import { map } from 'lit/directives/map.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { resets } from '../common/resetsCSS';
 import { getPostsByUserId } from '../api/data';
+import { getUserData } from '../utils/userData';
 
 class ProfileFeed extends LitElement {
 	static properties = {
@@ -45,7 +46,7 @@ class ProfileFeed extends LitElement {
 	constructor() {
 		super();
 		this.userPosts = [];
-		this.user = {};
+		this.user = null;
 		this.postsQty = 10;
 	}
 
@@ -60,9 +61,9 @@ class ProfileFeed extends LitElement {
 	}
 
 	async allUserPosts() {
-		const newData = await getPostsByUserId(this.user.uid, this.postsQty);
-		this.userPosts = Object.entries(newData)
-			.sort((a, b) => b[1].createdAt - a[1].createdAt);
+		const newData = await getPostsByUserId(this.user.id);
+		this.userPosts = newData.results
+		// .sort((a, b) => b[1].createdAt - a[1].createdAt)
 	}
 
 	render() {
@@ -70,9 +71,8 @@ class ProfileFeed extends LitElement {
 		${this.userPosts
 			.map(el =>
 				html`
-				<user-post data-id=${el[0]} creatorUsername=${el[1].creatorUsername ? 	el[1].creatorUsername : 'User'}
-					body=${el[1].body} photoURL=${el[1].photoURL} date=${new Date(el[1].createdAt).toLocaleString()}>
-				</user-post>`)}
+		<user-post data-id=${el.objectId} creatorUsername=${el.creator.username} body=${el.body} } date=${el.createdAt}>
+		</user-post>`)}
 		<div class="footer">
 			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>
 		</div>

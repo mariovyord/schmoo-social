@@ -1,12 +1,13 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { login } from '../api/db';
 import { formsCSS } from '../common/formsCSS';
 import { resets } from '../common/resetsCSS';
-import { userLogin } from '../api/auth';
 
 class LoginForm extends LitElement {
 	static properties = {
 		errorMsg: { type: String },
+		ctx: { type: Object },
 	};
 
 	static styles = [
@@ -18,6 +19,7 @@ class LoginForm extends LitElement {
 
 	constructor() {
 		super();
+		this.ctx = {};
 		this.errorMsg = '';
 		this.errorEmail = false;
 		this.errorPassword = false;
@@ -49,40 +51,41 @@ class LoginForm extends LitElement {
 		const target = e.target;
 		const formData = new FormData(e.target);
 		// @ts-ignore
-		const email = formData.get('email').trim();
+		const username = formData.get('username').trim();
 		// @ts-ignore
 		let password = formData.get('password').trim();
 
 		try {
-			if (email === '' || password === '') {
+			if (username === '' || password === '') {
 				throw {
 					code: ('empty fields')
 				};
 			} else {
-				await userLogin(email, password)
+				await login(username, password)
+				this.ctx.page.redirect('/');
 			}
 		} catch (err) {
-			const errorCode = err.code;
-			if (errorCode === 'empty fields') {
-				this.errorMsg = 'Please fill all fields.';
-			} else if (errorCode === 'auth/invalid-email') {
-				this.errorMsg = 'Invalid email.';
-			} else if (errorCode === 'auth/user-disabled') {
-				this.errorMsg = 'The user has been disabled.';
-			} else if (errorCode === 'auth/user-not-found') {
-				this.errorMsg = 'There is no such user.';
-			} else {
-				this.errorMsg = 'Email or password is wrong.';
-			}
+			// const errorCode = err.code;
+			// if (errorCode === 'empty fields') {
+			// 	this.errorMsg = 'Please fill all fields.';
+			// } else if (errorCode === 'auth/invalid-email') {
+			// 	this.errorMsg = 'Invalid email.';
+			// } else if (errorCode === 'auth/user-disabled') {
+			// 	this.errorMsg = 'The user has been disabled.';
+			// } else if (errorCode === 'auth/user-not-found') {
+			// 	this.errorMsg = 'There is no such user.';
+			// } else {
+			// 	this.errorMsg = 'Email or password is wrong.';
+			// }
 			// Check if field is empty
-			this.errorEmail = email === '';
+			// this.errorEmail = email === '';
 			this.errorPassword = password === '';
 			//  Clear password on error
 			target.querySelector('.pass').value = '';
 			// Clear errors after 2 seconds
 			setTimeout(() => {
 				this.errorMsg = '';
-				this.errorEmail = false;
+				// this.errorEmail = false;
 				this.errorPassword = false;
 			}, 2000);
 		}
@@ -93,7 +96,7 @@ class LoginForm extends LitElement {
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoozer</h1>
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
-			<input type="text" name="email" placeholder="Email" value="joe@abv.bg">
+			<input type="text" name="username" placeholder="Email" value="joe">
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input id="password-input" class="pass" type="password" name="password" placeholder="Password" value="123456">

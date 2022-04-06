@@ -3,11 +3,15 @@ import { resets } from '../common/resetsCSS';
 
 export default function renderLogin(ctx) {
 	ctx.render(html`
-		<login-page slot="main"></login-page>
+		<login-page .ctx=${ctx}></login-page>
 		`);
 }
 
 class LoginPage extends LitElement {
+	properties = {
+		ctx: { type: Object },
+	}
+
 	static styles = [
 		resets,
 		css`
@@ -28,9 +32,14 @@ class LoginPage extends LitElement {
 	`
 	];
 
+	constructor() {
+		super();
+		this.ctx = {};
+	}
+
 	render() {
 		return html`
-		<login-form></login-form>
+		<login-form .ctx=${this.ctx}></login-form>
 		`;
 	}
 }
