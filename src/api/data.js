@@ -14,14 +14,14 @@ export const newPost = (data) => {
 
 
 export const getAllPosts = (page) => {
-	const limit = 2;
-	const skip = limit * page - 1;
+	const limit = 20;
+	const skip = limit * page;
 	return db.get(`/classes/Post?include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 };
 
 export const getPostsByUserId = (id, page) => {
 	const limit = 2;
-	const skip = limit * page - 1;
+	const skip = limit * page;
 
 	return db.get(`/classes/Post?where={"creator":{"__type":"Pointer","className":"_User","objectId":"${id}"}}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 }

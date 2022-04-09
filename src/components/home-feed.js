@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit';
+import { LitElement, css, html, render } from 'lit';
 import { until } from 'lit/directives/until.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
@@ -25,6 +25,9 @@ class HomeFeed extends LitElement {
 		}
 		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
+		}
+		.feed > *:not(:last-child) {
+			margin-bottom: 10px;
 		} 
 		.new-post-field {
 			display: flex;
@@ -130,7 +133,7 @@ class HomeFeed extends LitElement {
 		this.error = false;
 		this.errorMsg = '';
 		this.isLogged = false;
-		this.postsQty = 10;
+		this.page = 0;
 		this.user = null;
 	}
 
@@ -158,14 +161,19 @@ class HomeFeed extends LitElement {
 			if (text.length > this.maximumLength) {
 				throw new Error('Maximum length is 100 characters.');
 			}
-
 			const data = {
 				body: text,
 				likes: []
 			}
 			e.target.reset();
-			await newPost(data);
-			this.allPosts();
+			const postData = await newPost(data);
+			const newDataTemplate = html`
+			<user-post data-id=${postData.objectId} creatorUsername=${this.user.username}
+			body=${text} } date=${postData.createdAt} photoUrl="https://parsefiles.back4app.com/4g95yQ2SffnKO8N3wrNyEoIl2PC0BbizElZRACu9/d6cddc273163a4a4e9d12eca3f2da1a3_ahmed-nashed-819.webp">
+			</user-post>`;
+			const newUserPost = new DocumentFragment();
+			render(newDataTemplate, newUserPost);		
+			this.shadowRoot.querySelector('.feed').prepend(newUserPost)
 		} catch(err) {
 			this.errorMsg = err.message;
 			this.error = true;
@@ -177,7 +185,7 @@ class HomeFeed extends LitElement {
 	}
 
 	getMorePosts() {
-		this.postsQty +=10;
+		this.page++;
 		this.allPosts();
 	}
 
@@ -232,19 +240,20 @@ class HomeFeed extends LitElement {
 	}
 
 	async allPosts() {
-		const newData = await getAllPosts();
-		this.usersPosts = newData.results
-			// .sort((a, b) => b.localeCompare(a));
+		const newData = await getAllPosts(this.page);
+		this.usersPosts = this.usersPosts.concat(newData.results);
 	}
 	render() {
 		return html`
 		${this.user ? this.newPostTemplate(this.user?.photoURL) : null}
+		<div class="feed">
 		${this.usersPosts
 			.map(el =>
 				html`
 				<user-post data-id=${el.objectId} creatorUsername=${el.creator.username}
 					body=${el.body} } date=${el.createdAt} photoUrl=${el.creator.picture.url}>
 				</user-post>`)}
+		</div>
 		<div class="footer">
 			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>
 		</div>
