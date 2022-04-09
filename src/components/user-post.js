@@ -9,7 +9,7 @@ class UserPost extends LitElement {
 		comments: { type: Number },
 		body: { type: String },
 		creatorUsername: { type: String },
-		photoURL: { type: String },
+		photoUrl: { type: String },
 		date: { type: String }
 	}
 
@@ -85,7 +85,7 @@ class UserPost extends LitElement {
 		this.body = '';
 		this.creatorUsername = 'User';
 		this.date = '01:00, 01.01.1900';
-		this.photoURL = 'https://picsum.photos/200/200';
+		this.photoUrl = 'https://picsum.photos/200/200';
 	}
 
 	getPostDetails(e) {
@@ -109,7 +109,7 @@ class UserPost extends LitElement {
 			<div class="left-div">
 				<!-- profile picture -->
 				<a href="#">
-					<img class="profile-pic" src="${this.photoURL}">
+					<img class="profile-pic" src="${this.photoUrl}">
 				</a>
 			</div>
 			<div class="right-div">

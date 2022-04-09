@@ -70,8 +70,9 @@ class ProfileFeed extends LitElement {
 		return html`
 		${this.userPosts
 			.map(el =>
-				html`
-		<user-post data-id=${el.objectId} creatorUsername=${el.creator.username} body=${el.body} } date=${el.createdAt}>
+			html`
+		<user-post data-id=${el.objectId} creatorUsername=${el.creator.username} body=${el.body} } date=${el.createdAt}
+			photoUrl=${el.creator.picture.url}>
 		</user-post>`)}
 		<div class="footer">
 			<button class="more-btn" type="button" @click=${this.getMorePosts}>Load more...</button>

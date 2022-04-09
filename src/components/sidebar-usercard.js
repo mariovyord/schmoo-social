@@ -69,8 +69,7 @@ class SidebarUsercard extends LitElement {
 
 		return html`
 			<div>
-				<img class="profile-pic"
-					src="https://i.picsum.photos/id/115/200/300.jpg?hmac=56FxuW0OCxDfO0xEEO_66UkxJMvFKomxr9pNW_uAU5A">
+				<img class="profile-pic" src="${fullUserData.picture.url}">
 			</div>
 			<div>
 				<h2><a href="/profile/${fullUserData.id}">${fullUserData.username}</a></h2>
