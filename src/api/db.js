@@ -78,6 +78,7 @@ export async function register(username, email, password) {
 		});
 		return result;
 	} catch (err) {
+		console.log(err.message);
 		throw err;
 	}
 }

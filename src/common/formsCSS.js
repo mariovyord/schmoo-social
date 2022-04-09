@@ -1,6 +1,9 @@
 import { css } from "lit";
 
 export const formsCSS = css`
+* {
+	overflow: hidden;
+}
 form {
 	display: flex;
 	flex-direction: column;

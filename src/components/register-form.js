@@ -28,6 +28,13 @@ class RegisterForm extends LitElement {
 			text-align: center;
 			padding: 10px 0 0 0;
 		}
+
+		#upload-label {
+			display: flex;
+			align-items: center;
+			padding: 0rem 1rem;
+			color: gray;
+		}
 		`
 	];
 
@@ -66,7 +73,7 @@ class RegisterForm extends LitElement {
 		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
-		// const photoUrl = formData.get('photoUrl').trim();
+		const picture = formData.get('photoUrl');
 		// @ts-ignore
 		const password = formData.get('password').trim();
 		// @ts-ignore
@@ -112,9 +119,10 @@ class RegisterForm extends LitElement {
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>
-		<!-- <div class="input-container ${classMap({ error: this.errorPhoto, })}">
-								<input type="text" name="photoUrl" placeholder="Profile picture URL">
-							</div> -->
+		<!-- <div class="input-container">
+					<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
+							accept="image/png, image/jpeg"></label>
+				</div> -->
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
@@ -124,7 +132,8 @@ class RegisterForm extends LitElement {
 		</div>
 		<input type="submit" value="Register">
 		${this.error ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
-		<p class="footnotes">By signing up, you agree to our Terms . Learn how we collect, use and share your data in our
+		<p class="footnotes">By signing up, you agree to our Terms . Learn how we collect, use and share your data in
+			our
 			Data Policy and how
 			we use cookies and similar technology in our Cookies Policy .</p>
 	</form>
