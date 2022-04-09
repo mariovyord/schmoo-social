@@ -10,7 +10,6 @@ class ProfileFeed extends LitElement {
 	static properties = {
 		userPosts: { type: Array },
 		user: { type: Object },
-		postsQty: { type: Number },
 	}
 
 	static styles = [
@@ -46,8 +45,8 @@ class ProfileFeed extends LitElement {
 	constructor() {
 		super();
 		this.userPosts = [];
+		this.page = 0;
 		this.user = null;
-		this.postsQty = 10;
 	}
 
 	connectedCallback() {
@@ -56,21 +55,20 @@ class ProfileFeed extends LitElement {
 	}
 
 	getMorePosts() {
-		this.postsQty += 10;
+		this.page++;
 		this.allUserPosts();
 	}
 
 	async allUserPosts() {
-		const newData = await getPostsByUserId(this.user.id);
-		this.userPosts = newData.results
-		// .sort((a, b) => b[1].createdAt - a[1].createdAt)
+		const newData = await getPostsByUserId(this.user.id, this.page);
+		this.userPosts = this.userPosts.concat(newData.results);
 	}
 
 	render() {
 		return html`
 		${this.userPosts
 			.map(el =>
-			html`
+				html`
 		<user-post data-id=${el.objectId} creatorUsername=${el.creator.username} body=${el.body} } date=${el.createdAt}
 			photoUrl=${el.creator.picture.url}>
 		</user-post>`)}
