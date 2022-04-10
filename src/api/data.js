@@ -30,6 +30,15 @@ export const getCommentsByPostId = (id) => {
 	return db.get(`/classes/Comment?where={"parentPost":{"__type":"Pointer","className":"Post","objectId":"${id}"}}&include=creator&order=-createdAt`);
 }
 
+export const postNewComment = (body, parentPostId) => {
+	const data = {
+		body,
+	}
+	addCreator(data);
+	data.parentPost = createPointer('Post', parentPostId);
+	return db.post(`/classes/Comment`, data)
+}
+
 export const setProfilePicture = (id, img) => {
 	// return db.put(`/users/${id}`, { "picture": { "__type": "File", "name": `${img}` } })
 }

@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { until } from 'lit/directives/until.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
-import { getCommentsByPostId, getDetails } from '../api/data';
+import { getCommentsByPostId, getDetails, postNewComment } from '../api/data';
 import { classMap } from 'lit/directives/class-map.js';
 
 export default function renderDetails(ctx) {
@@ -17,6 +17,7 @@ class DetailsPage extends LitElement {
 		user: { type: Object },
 	}
 
+	// Resets come from outside
 	static styles = [
 		resets,
 		css`
@@ -118,7 +119,7 @@ class DetailsPage extends LitElement {
 		this.user = null;
 	}
 
-	// GET POST AND RETURN AS PROMISE
+	// Get POST details and return promise
 	async userPost() {
 		const res = await getDetails(this.id);
 		const data = res.results[0];
@@ -128,7 +129,7 @@ class DetailsPage extends LitElement {
 				</user-post>`;
 	}
 
-	// GET COMMENTS AND RETURN AS PROMISE
+	// Get all COMMENTS  and return promise
 	async comments() {
 		const res = await getCommentsByPostId(this.id);
 		const data = res.results;
@@ -141,10 +142,22 @@ class DetailsPage extends LitElement {
 		}
 	}
 
+	onSubmit = async (e) => {
+		e.preventDefault();
+		const formData = new FormData(e.target).get('textarea');
+		try {
+			const res = await postNewComment(formData, this.id);
+		console.log(res);
+		} catch(err) {
+			console.log(err);
+		}
+	}
+
+	// FORM for posting new comment
 	newCommentForm = () => html`
-				<form>
+				<form @submit=${this.onSubmit}>
 					<div>
-						<textarea name="textarea" class="${classMap({ error: this.error })}" placeholder="Say something"
+						<textarea id="textarea" name="textarea" class="${classMap({ error: this.error })}" placeholder="Say something"
 							@input="${this.onInput}"></textarea>
 					</div>
 					${this.errorMsg 
@@ -167,7 +180,7 @@ class DetailsPage extends LitElement {
 					</div>
 				</form>
 	`
-
+	// Sceleton template for new comment form
 	newCommentTemplate = () => html`
 			<div class="new-comment-template">
 			<div class="left-div">
