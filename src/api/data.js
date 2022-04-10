@@ -14,19 +14,21 @@ export const newPost = (data) => {
 
 
 export const getAllPosts = (page) => {
-	const limit = 20;
+	const limit = 10;
 	const skip = limit * page;
 	return db.get(`/classes/Post?include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 };
 
 export const getPostsByUserId = (id, page) => {
-	const limit = 20;
+	const limit = 10;
 	const skip = limit * page;
 
 	return db.get(`/classes/Post?where={"creator":{"__type":"Pointer","className":"_User","objectId":"${id}"}}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 }
 
-
+export const setProfilePicture = (id, img) => {
+	// return db.put(`/users/${id}`, { "picture": { "__type": "File", "name": `${img}` } })
+}
 
 function createPointer(name, id) {
 	return {

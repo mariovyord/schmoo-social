@@ -7,6 +7,7 @@ class SettingsNav extends LitElement {
 		max-width: 100%;
 		background-color: white;
 		box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+		border-radius: 5px;
 		padding: 10px;
 	}
 	nav {
@@ -45,25 +46,15 @@ class SettingsNav extends LitElement {
 	}
 	`;
 
-	constructor() {
-		super();
-	}
-
-	toggleHamburger(e) {
-		e.preventDefault();
-		console.log(e.target);
-		e.currentTarget.classList.toggle('open');
-	}
-
 	render() {
 		return html`
 				<nav>
 					<ul>
-						<li>
-							<a href="/settings/edit">
-								<span>Edit Profile</span>
-							</a>
-						</li>
+						<!-- <li>
+																			<a href="/settings/edit">
+																				<span>Edit Profile</span>
+																			</a>
+																		</li> -->
 						<li>
 							<a class="danger" href="javascript:void(0)" @click=${logout}>
 								<span>Logout</span>

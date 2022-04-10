@@ -169,7 +169,7 @@ class HomeFeed extends LitElement {
 			const postData = await newPost(data);
 			const newDataTemplate = html`
 			<user-post data-id=${postData.objectId} creatorUsername=${this.user.username}
-			body=${text} } date=${postData.createdAt} photoUrl="https://parsefiles.back4app.com/4g95yQ2SffnKO8N3wrNyEoIl2PC0BbizElZRACu9/d6cddc273163a4a4e9d12eca3f2da1a3_ahmed-nashed-819.webp">
+			body=${text} } date=${postData.createdAt} photoUrl="https://parsefiles.back4app.com/4g95yQ2SffnKO8N3wrNyEoIl2PC0BbizElZRACu9/8dbcb95a78e204106be360bcd0a147b6_default-user-image.png">
 			</user-post>`;
 			const newUserPost = new DocumentFragment();
 			render(newDataTemplate, newUserPost);		

@@ -5,7 +5,7 @@ const windowBreakpoint = 700;
 
 export default function renderSettings(ctx) {
 	ctx.render(html`
-			<settings-page slot="main"></settings-page>
+			<settings-page .user=${ctx.user}></settings-page>
 	`);
 }
 
@@ -43,14 +43,18 @@ class SettingsPage extends LitElement {
 		}
 	`
 	];
-	constructor(name = 'John') {
+	constructor() {
 		super();
-		this.name = name;
+		this.user = null;
 	}
 
 	render() {
 		return html`
 		<settings-nav></settings-nav>
+		<div>
+			<edit-profile .user=${this.user}></edit-profile>
+		</div>
+
 `;
 	}
 }
