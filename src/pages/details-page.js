@@ -17,7 +17,7 @@ class DetailsPage extends LitElement {
 		user: { type: Object },
 	}
 
-	// Resets come from outside
+	// Reset comes from outside
 	static styles = [
 		resets,
 		css`
@@ -32,7 +32,7 @@ class DetailsPage extends LitElement {
 			margin-bottom: 10px; 
 		} 
 		user-post:first-child {
-			font-size: 1.6rem;
+			font-size: 1.4rem;
 			padding-top: 25px;
 			padding-bottom: 25px;
 		}
@@ -142,12 +142,15 @@ class DetailsPage extends LitElement {
 		}
 	}
 
+	// Submit new comment and append as first child 
 	onSubmit = async (e) => {
 		e.preventDefault();
-		const formData = new FormData(e.target).get('textarea');
+		const target = e.target;
+		const formData = new FormData(target).get('textarea');
 		try {
 			const res = await postNewComment(formData, this.id);
-		console.log(res);
+			console.log(res);
+			target.reset();
 		} catch(err) {
 			console.log(err);
 		}
