@@ -117,10 +117,12 @@ class DetailsPage extends LitElement {
 	}
 
 	async userPost() {
-		const data = await getDetails(this.id);
+		const res = await getDetails(this.id);
+		const data = res.results[0];
+		console.log(data);
 		return html`
-				<user-post creatorUsername=${data.creatorUsername ? data.creatorUsername : 'User' } body=${data.body}
-					photoURL=${data.photoURL}>
+				<user-post creatorUsername=${data.creator.username} body=${data.body}
+					photoURL=${data.creator.picture.url} date=${data.createdAt}>
 				</user-post>`;
 	}
 
@@ -169,7 +171,7 @@ class DetailsPage extends LitElement {
 	render() {
 		return html`
 		<div class="side">
-			<details-nav slot="side"></details-nav>
+			<details-nav></details-nav>
 		</div>
 		<div class="main">
 			${until(this.userPost(), html`Loading...`)}

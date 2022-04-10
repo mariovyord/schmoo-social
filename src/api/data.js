@@ -5,7 +5,7 @@ export const login = db.login;
 export const register = db.register;
 export const logout = db.logout;
 
-export const getDetails = (id) => db.get(`/classes/Post?where={"objectId":"${id}"}`);
+export const getDetails = (id) => db.get(`/classes/Post?where={"objectId":"${id}"}&include=creator`);
 export const getUserInfoById = (id) => db.get(`/users/${id}`)
 export const newPost = (data) => {
 	addCreator(data);

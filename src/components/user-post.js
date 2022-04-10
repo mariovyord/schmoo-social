@@ -105,6 +105,7 @@ class UserPost extends LitElement {
 	}
 
 	render() {
+		const date = new Date(this.date);
 		return html`
 			<div class="left-div">
 				<!-- profile picture -->
@@ -118,7 +119,7 @@ class UserPost extends LitElement {
 					<!-- User Information -->
 					<div class="user-info">
 						<a id="name">${this.creatorUsername}</a>
-						<span id="handle-and-time">(${this.date})</span>
+						<span id="handle-and-time">(${date.toLocaleString()})</span>
 					</div>
 					<!-- Post Content -->
 					<div>
