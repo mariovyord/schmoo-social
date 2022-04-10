@@ -26,6 +26,10 @@ export const getPostsByUserId = (id, page) => {
 	return db.get(`/classes/Post?where={"creator":{"__type":"Pointer","className":"_User","objectId":"${id}"}}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 }
 
+export const getCommentsByPostId = (id) => {
+	return db.get(`/classes/Comment?where={"parentPost":{"__type":"Pointer","className":"Post","objectId":"${id}"}}&include=creator&order=-createdAt`);
+}
+
 export const setProfilePicture = (id, img) => {
 	// return db.put(`/users/${id}`, { "picture": { "__type": "File", "name": `${img}` } })
 }

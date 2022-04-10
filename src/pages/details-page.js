@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { until } from 'lit/directives/until.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
-import { getDetails } from '../api/data';
+import { getCommentsByPostId, getDetails } from '../api/data';
 import { classMap } from 'lit/directives/class-map.js';
 
 export default function renderDetails(ctx) {
@@ -110,20 +110,35 @@ class DetailsPage extends LitElement {
 		}
 	`
 	];
+
+	// ID and USER come as attributes from Context
 	constructor() {
 		super();
 		this.id = '';
 		this.user = null;
 	}
 
+	// GET POST AND RETURN AS PROMISE
 	async userPost() {
 		const res = await getDetails(this.id);
 		const data = res.results[0];
-		console.log(data);
 		return html`
 				<user-post creatorUsername=${data.creator.username} body=${data.body}
 					photoURL=${data.creator.picture.url} date=${data.createdAt}>
 				</user-post>`;
+	}
+
+	// GET COMMENTS AND RETURN AS PROMISE
+	async comments() {
+		const res = await getCommentsByPostId(this.id);
+		const data = res.results;
+		if (data) {
+			return html`${map(data, (el) =>
+				html`
+				<user-post data-id=${el.objectId} creatorUsername=${el.creator.username}
+					body=${el.body} } date=${el.createdAt} photoUrl=${el.creator.picture.url}>
+				</user-post>`)}`;
+		}
 	}
 
 	newCommentForm = () => html`
@@ -176,10 +191,7 @@ class DetailsPage extends LitElement {
 		<div class="main">
 			${until(this.userPost(), html`Loading...`)}
 			${this.newCommentTemplate()}
-			<user-post></user-post>
-			<user-post></user-post>
-			<user-post></user-post>
-			<user-post></user-post>
+			${until(this.comments(), html`Loading...`)}
 		</div>
 		
 		`
