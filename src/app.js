@@ -14,6 +14,7 @@ import './components/profile-feed';
 import './components/settings-nav';
 import './components/guest-sidenav';
 import './components/edit-profile';
+import './components/welcome-sidebar';
 
 // PAGES
 import './pages/home-page';

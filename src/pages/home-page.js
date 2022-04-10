@@ -31,6 +31,7 @@ class HomePage extends LitElement {
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			:host {
 				grid-template-columns: 1fr; 
+				gap: 0px;
 			}
 		}
 	`
@@ -62,12 +63,10 @@ class HomePage extends LitElement {
 
 	render() {
 		return html`
-				${this.windowWidth >= windowBreakpoint 
-						? 
-						html`<div>					
-							${this.user !== null  ? html`<sidebar-usercard .user=${this.user}></sidebar-usercard>` : html`<guest-sidenav></guest-sidenav>`}
-					</div>` 
-				: null}
+				<div>
+					<welcome-sidebar user=${this.user?.username || 'guest'}></welcome-sidebar>
+					<links-sidebar></links-sidebar>
+				</div>
 				<div>
 					<home-feed .isLogged=${this.user} .user=${this.user}></home-feed>
 				</div>
