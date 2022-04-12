@@ -64,8 +64,7 @@ class HomePage extends LitElement {
 	render() {
 		return html`
 				<div>
-					<welcome-sidebar user=${this.user?.username || 'guest'}></welcome-sidebar>
-					<links-sidebar></links-sidebar>
+					<welcome-sidebar user=${this.user?.username || 'guest' }></welcome-sidebar>
 				</div>
 				<div>
 					<home-feed .isLogged=${this.user} .user=${this.user}></home-feed>

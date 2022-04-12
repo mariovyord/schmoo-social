@@ -1,7 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { until } from 'lit/directives/until.js';
 import { resets } from '../common/resetsCSS';
-import { getUserData } from '../utils/userData';
 
 class WelcomeSidebar extends LitElement {
 	static properties = {
@@ -79,6 +77,11 @@ class WelcomeSidebar extends LitElement {
 			<div class="section">
 				<a class="link" href="https://github.com/NecroBread/Schmoozer" target="_blank">Github</a>
 			</div>
+			${this.user === 'guest' 
+			? html`<div class="section">
+				<guest-sidenav></guest-sidenav>
+			</div>` 
+			: null}
 		`;
 	}
 }
