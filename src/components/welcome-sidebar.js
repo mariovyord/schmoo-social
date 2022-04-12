@@ -48,6 +48,7 @@ class WelcomeSidebar extends LitElement {
 				border: 0px;
 				background-color: #0095f6;
 				padding: 0.7rem;
+				border-radius: 5px;
 			}
 			.link:hover {
 				background-color: rgba(0, 149, 246, 0.8);
