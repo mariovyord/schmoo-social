@@ -39,10 +39,12 @@ class HomePage extends LitElement {
 	constructor() {
 		super();
 		this.activePage = '/';
+		// USER comes from the outside as attribute
 		this.user = null;
 		this.windowWidth = this.getWindowWidth();
 	}
 
+	// Check window with and show different content at different widths
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener('resize', this.updateWindowWidth.bind(this));
