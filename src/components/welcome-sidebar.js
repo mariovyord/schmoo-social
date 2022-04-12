@@ -65,7 +65,7 @@ class WelcomeSidebar extends LitElement {
 		return html`
 			<div class="section">
 				<h2>Welcome, ${this.user}</h2>
-				<p><span class="bold">Schmoo Social is a simple web app for sharing the best jokes on the internet.</p></span>
+				<p><span class="bold">Schmoo Social is a simple web app for sharing the best (and shortest!) jokes on the internet.</p></span>
 				<p>It's
 					created by <span class="bold">Mario Yordanov</span>
 					solely as a

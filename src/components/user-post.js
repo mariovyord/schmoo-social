@@ -1,9 +1,11 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import page from 'page';
+import { resets } from '../common/resetsCSS';
 
 class UserPost extends LitElement {
 	static properties = {
+		postType: { type: String },
 		likes: { type: Number },
 		reposts: { type: Number },
 		comments: { type: Number },
@@ -13,7 +15,9 @@ class UserPost extends LitElement {
 		date: { type: String }
 	}
 
-	static styles = css`
+	static styles = [
+		resets,
+		css`
 		p {
 			margin: 0;
 			padding: 0;
@@ -75,10 +79,12 @@ class UserPost extends LitElement {
 		svg:hover {
 			fill: orange;
 		}
-	`;
+	`
+	];
 
 	constructor() {
 		super();
+		this.postType = "post";
 		this.likes = 5;
 		this.comments = 3;
 		this.reposts = 2;
@@ -96,11 +102,15 @@ class UserPost extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.addEventListener('click', this.getPostDetails.bind(this));
+		if (this.postType === 'post') {
+			this.addEventListener('click', this.getPostDetails);
+		}
 	}
 
 	disconnectedCallback() {
-		this.removeEventListener('click', this.getPostDetails.bind(this));
+		if (this.postType === 'post') {
+			this.removeEventListener('click', this.getPostDetails);
+		}
 		super.disconnectedCallback();
 	}
 
@@ -118,7 +128,7 @@ class UserPost extends LitElement {
 				<div>
 					<!-- User Information -->
 					<div class="user-info">
-						<a id="name">${this.creatorUsername}</a>
+						<a href="/" id="name">${this.creatorUsername}</a>
 						<span id="handle-and-time">(${date.toLocaleString()})</span>
 					</div>
 					<!-- Post Content -->
@@ -126,7 +136,8 @@ class UserPost extends LitElement {
 						<p id="post-content">${this.body}</p>
 					</div>
 					<!-- Options -->
-					<div class="options-buttons">
+					${this.postType === 'post'
+					? html`<div class="options-buttons">
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6" class="bi bi-chat"
 								viewBox="0 0 16 16">
@@ -153,7 +164,8 @@ class UserPost extends LitElement {
 							</svg>
 							<span class="icon-number">${this.likes}</span>
 						</div>
-					</div>
+					</div>`
+					: null}
 				</div>
 			</div>
 		`;
