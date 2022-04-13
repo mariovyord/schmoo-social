@@ -46,6 +46,7 @@ class ProfileFeed extends LitElement {
 		super();
 		this.userPosts = [];
 		this.page = 0;
+		// USER comes as attribute
 		this.user = null;
 	}
 
@@ -60,7 +61,7 @@ class ProfileFeed extends LitElement {
 	}
 
 	async allUserPosts() {
-		const newData = await getPostsByUserId(this.user.id, this.page);
+		const newData = await getPostsByUserId(this.user.objectId, this.page);
 		this.userPosts = this.userPosts.concat(newData.results);
 	}
 
@@ -68,7 +69,7 @@ class ProfileFeed extends LitElement {
 		return html`
 		${this.userPosts
 			.map(el =>
-				html`
+			html`
 		<user-post data-id=${el.objectId} creatorUsername=${el.creator.username} body=${el.body} } date=${el.createdAt}
 			photoUrl=${el.creator.picture.url}>
 		</user-post>`)}

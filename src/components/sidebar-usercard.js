@@ -1,6 +1,5 @@
 import { LitElement, css, html } from 'lit';
 import { until } from 'lit/directives/until.js';
-
 import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
@@ -61,35 +60,29 @@ class SidebarUsercard extends LitElement {
 
 	constructor() {
 		super();
+		// USER comes as attribute
 		this.user = null;
 	}
 
-	async getFullUserData(id) {
-		const fullUserData = await getUserInfoById(id);
-		const date = new Date(fullUserData.createdAt);
-		return html`
-			<div>
-				<img class="profile-pic" src="${fullUserData.picture.url}">
-			</div>
-			<div>
-				<h2><a href="/profile/${fullUserData.id}">${fullUserData.username}</a></h2>
-			</div>
-			<div class="options">
-				<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="gray" class="bi bi-calendar-event"
-					viewBox="0 0 16 16">
-					<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
-					<path
-						d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-				</svg>
-				<span class="handle">Joined ${date.toLocaleString()}</span>
-			</div>
-		`
-	}
-
 	render() {
+		const date = new Date(this.user.createdAt);
 		return html`
-			${until(this.getFullUserData(this.user.id), html`Loading...`)}
-		`;
+		<div>
+			<img class="profile-pic" src="${this.user.picture.url}">
+		</div>
+		<div>
+			<h2><a href="/profile/${this.user.id}">${this.user.username}</a></h2>
+		</div>
+		<div class="options">
+			<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="gray" class="bi bi-calendar-event"
+				viewBox="0 0 16 16">
+				<path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+				<path
+					d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+			</svg>
+			<span class="handle">Joined ${date.toLocaleString()}</span>
+		</div>
+	`
 	}
 }
 

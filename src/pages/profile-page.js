@@ -1,17 +1,19 @@
 import { LitElement, css, html } from 'lit';
+import { until } from 'lit/directives/until.js';
+import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 const windowBreakpoint = 700;
 
 export default function renderProfile(ctx) {
 	ctx.render(html`
-		<profile-page activePage=${'/profile'} .user=${ctx.user}> </profile-page>`);
+		<profile-page activePage=${'/profile'} userId=${ctx.params.id}></profile-page>`);
 }
 
 class ProfilePage extends LitElement {
 	static properties = {
 		name: { type: String },
-		user: { type: Object },
+		userId: { type: String },
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -36,11 +38,10 @@ class ProfilePage extends LitElement {
 		}
 	`
 	];
-	constructor(name = 'World') {
+	constructor() {
 		super();
-		this.name = name;
 		this.activePage = '/';
-		this.user = null;
+		this.userId = null;
 		this.windowWidth = this.getWindowWidth();
 	}
 
@@ -58,18 +59,25 @@ class ProfilePage extends LitElement {
 		return window.innerWidth;
 	}
 
+	getUserProfile = async (id) => {
+		const user = await getUserInfoById(id);
+		return html`
+			<div>
+				<sidebar-usercard .user=${user}></sidebar-usercard>
+			</div>
+			<div>
+				<profile-feed .isLogged=${user} .user=${user}></profile-feed>
+			</div>
+		`;
+	}
+
 	async updateWindowWidth() {
 		this.windowWidth = window.innerWidth;
 	}
 
 	render() {
 		return html`
-				<div>
-					<sidebar-usercard .user=${this.user}></sidebar-usercard>
-				</div>
-				<div>
-					<profile-feed .isLogged=${this.user} .user=${this.user}></profile-feed>
-				</div>
+			${until(this.getUserProfile(this.userId), html`Loading...`)}
 		`;
 	}
 }

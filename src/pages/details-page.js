@@ -153,7 +153,7 @@ class DetailsPage extends LitElement {
 		const res = await getDetails(this.id);
 		const data = res.results[0];
 		return html`
-				${this.userPostTemplate(data.creator.username, data.body,data.creator.picture.url, data.createdAt)}
+				${this.userPostTemplate(data.creator.username, data.body,data.creator.picture.url, data.createdAt, data.creator.objectId)}
 				`;
 	}
 
@@ -235,33 +235,33 @@ class DetailsPage extends LitElement {
 			</div>
 	`;
 
-	userPostTemplate = (creatorUsername, body,
-		photoUrl, serverDate) => {
-				const date = new Date(serverDate);
-		return html`
-		<div class="user-post">
-			<div class="left-div">
-				<!-- profile picture -->
-				<a href="#">
-					<img class="profile-pic" src="${photoUrl}">
-				</a>
-			</div>
-			<div class="right-div">
-				<!-- New Post -->
-				<div>
-					<!-- User Information -->
-					<div class="user-info">
-						<a id="name">${creatorUsername}</a>
-						<span id="handle-and-time">(${date.toLocaleString()})</span>
+	userPostTemplate = 
+		(creatorUsername, body,	photoUrl, serverDate, creatorId) => {
+			const date = new Date(serverDate);
+			return html`
+				<div class="user-post">
+					<div class="left-div">
+						<!-- profile picture -->
+						<a href="/profile/${creatorId}">
+							<img class="profile-pic" src="${photoUrl}">
+						</a>
 					</div>
-					<!-- Post Content -->
-					<div class="body-container">
-						<p id="post-content">${body}</p>
-					</div>					
+					<div class="right-div">
+						<!-- New Post -->
+						<div>
+							<!-- User Information -->
+							<div class="user-info">
+								<a href="/profile/${creatorId}" id="name">${creatorUsername}</a>
+								<span id="handle-and-time">(${date.toLocaleString()})</span>
+							</div>
+							<!-- Post Content -->
+							<div class="body-container">
+								<p id="post-content">${body}</p>
+							</div>					
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
-		`;
+			`;
 		}
 	
 	detailsNavTemplate = () => html`

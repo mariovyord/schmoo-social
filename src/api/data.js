@@ -3,6 +3,7 @@ import * as db from './db';
 
 // BASIC AUTH
 export const login = db.login;
+// TODO Registration is broken
 export const register = db.register;
 export const logout = db.logout;
 
