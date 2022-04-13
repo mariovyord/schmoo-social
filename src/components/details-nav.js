@@ -40,6 +40,9 @@ class DetailsNav extends LitElement {
 		.danger {
 			background-color: red;
 		}
+		.danger:hover {
+			background-color: darkred;
+		}
 		.likes-num {
 			font-size: 0.9rem;
 			opacity: 0.5;

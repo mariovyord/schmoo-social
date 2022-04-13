@@ -181,11 +181,9 @@ class DetailsPage extends LitElement {
 		const formData = new FormData(target).get('textarea');
 		try {
 			const res = await postNewComment(formData, this.id);
-			console.log(res);
-			const comment = await getCommentById(res.objectId);
-			console.log(comment);
-			this.appendNewCommentToMain(comment.results[0]);
 			target.reset();
+			const comment = await getCommentById(res.objectId);
+			this.appendNewCommentToMain(comment.results[0]);
 		} catch(err) {
 			console.log(err);
 		}

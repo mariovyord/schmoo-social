@@ -22,7 +22,7 @@ page(renderNav);
 // PAGES
 page('/', renderHome);
 
-page('/profile', renderProfile);
+page('/profile/:id', renderProfile);
 
 page('/circles', renderCircles);
 
