@@ -6,7 +6,7 @@ import { resets } from '../common/resetsCSS';
 import { getAllPosts } from '../api/data';
 import { newPost } from '../api/data';
 
-
+// TODO Refactor HomeFeed so it can be reused on profile page
 class HomeFeed extends LitElement {
 	static properties = {
 		error: { type: Boolean },
@@ -26,8 +26,10 @@ class HomeFeed extends LitElement {
 		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
 		}
-		.feed > *:not(:last-child) {
-			margin-bottom: 10px;
+		.feed {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
 		} 
 		.new-post-field {
 			display: flex;
@@ -247,11 +249,11 @@ class HomeFeed extends LitElement {
 		return html`
 		${this.user ? this.newPostTemplate(this.user?.photoURL) : null}
 		<div class="feed">
-		${this.usersPosts
-			.map(el =>
-				html`
-				<user-post data-id=${el.objectId} creatorUsername=${el.creator.username}
-					body=${el.body} } date=${el.createdAt} photoUrl=${el.creator.picture.url}>
+			${this.usersPosts
+				.map(el =>
+					html`
+					<user-post data-id=${el.objectId} .creator=${el.creator}
+							body=${el.body} } date=${el.createdAt} }>
 				</user-post>`)}
 		</div>
 		<div class="footer">

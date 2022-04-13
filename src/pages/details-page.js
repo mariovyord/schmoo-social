@@ -166,9 +166,9 @@ class DetailsPage extends LitElement {
 			return html`
 				${map(data, (el) =>
 				html`
-				<user-post postType="commment" data-id=${el.objectId} creatorUsername=${el.creator.username}
-					body=${el.body} } date=${el.createdAt} photoUrl=${el.creator.picture.url}>
-				</user-post>`)}`;
+					<user-post postType="commment" data-id=${el.objectId} .creator=${el.creator}
+						body=${el.body} } date=${el.createdAt} }>
+					</user-post>`)}`;
 		} else {
 			return html`<h3 class="comments-header">NO COMMENTS</h3>`
 		}

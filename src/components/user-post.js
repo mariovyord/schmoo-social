@@ -10,9 +10,8 @@ class UserPost extends LitElement {
 		reposts: { type: Number },
 		comments: { type: Number },
 		body: { type: String },
-		creatorUsername: { type: String },
-		photoUrl: { type: String },
-		date: { type: String }
+		date: { type: String },
+		creator: { type: Object },
 	}
 
 	static styles = [
@@ -31,7 +30,6 @@ class UserPost extends LitElement {
 			border-radius: 5px;
 		}
 		:host(:hover) {
-			cursor: pointer;
 			box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 		}
 		.profile-pic {
@@ -89,38 +87,23 @@ class UserPost extends LitElement {
 		this.comments = 3;
 		this.reposts = 2;
 		this.body = '';
-		this.creatorUsername = 'User';
-		this.date = '01:00, 01.01.1900';
-		this.photoUrl = 'https://picsum.photos/200/200';
+		this.date = '4/12/2022, 5:43:26 PM';
+		this.creator = {};
 	}
 
 	getPostDetails(e) {
-		e.preventDefault();
-		const id = e.target.dataset.id;
-		page.redirect('/posts/' + id);
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
 		if (this.postType === 'post') {
-			this.addEventListener('click', this.getPostDetails);
+			const id = this.dataset.id;
+			page.redirect('/posts/' + id);
 		}
 	}
-
-	disconnectedCallback() {
-		if (this.postType === 'post') {
-			this.removeEventListener('click', this.getPostDetails);
-		}
-		super.disconnectedCallback();
-	}
-
 	render() {
 		const date = new Date(this.date);
 		return html`
 			<div class="left-div">
 				<!-- profile picture -->
-				<a href="#">
-					<img class="profile-pic" src="${this.photoUrl}">
+				<a href="/profile/${this.creator.objectId}">
+					<img class="profile-pic" src="${this.creator.picture.url}">
 				</a>
 			</div>
 			<div class="right-div">
@@ -128,7 +111,7 @@ class UserPost extends LitElement {
 				<div>
 					<!-- User Information -->
 					<div class="user-info">
-						<a href="/" id="name">${this.creatorUsername}</a>
+						<a href="/profile/${this.creator.objectId}" id="name">${this.creator.username}</a>
 						<span id="handle-and-time">(${date.toLocaleString()})</span>
 					</div>
 					<!-- Post Content -->
@@ -138,23 +121,13 @@ class UserPost extends LitElement {
 					<!-- Options -->
 					${this.postType === 'post'
 					? html`<div class="options-buttons">
-						<div class="icon">
+						<div class="icon" @click=${this.getPostDetails}>
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6" class="bi bi-chat"
 								viewBox="0 0 16 16">
 								<path
 									d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z" />
 							</svg>
 							<span class="icon-number">${this.comments}</span>
-						</div>
-						<div class="icon">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6" class="bi bi-arrow-repeat"
-								viewBox="0 0 16 16">
-								<path
-									d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
-								<path fill-rule="evenodd"
-									d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
-							</svg>
-							<span class="icon-number">${this.reposts}</span>
 						</div>
 						<div class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6" class="bi bi-heart"
