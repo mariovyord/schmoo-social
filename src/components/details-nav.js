@@ -71,35 +71,39 @@ class DetailsNav extends LitElement {
 	connectedCallback() {
 		super.connectedCallback();
 		this.likes = this.postData.likes.length;
-		this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
-		this.isOwner = this.postData.creator.objectId === this.currentUser?.id;
+		if (this.currentUser) {
+			this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
+			this.isOwner = this.postData.creator.objectId === this.currentUser.id;
+		}
 	}
 
 	async likePost(e) {
 		e.preventDefault();
-		if (this.hasLiked === false) {
-			this.hasLiked = true;
-			this.likes++;
-			try {
-				await addLike(this.postData.objectId, this.currentUser.id);
-			} catch (err) {
-				// TODO add error handling
-				console.log(err);
-			}
-		} else {
-			this.hasLiked = false;
-			this.likes--;
-			try {
-				await removeLike(this.postData.objectId, this.currentUser.id);
-			} catch (err) {
-				// TODO add error handling
-				console.log(err);
+		if (this.currentUser) {
+			if (this.hasLiked === false) {
+				this.hasLiked = true;
+				this.likes++;
+				try {
+					await addLike(this.postData.objectId, this.currentUser.id);
+				} catch (err) {
+					// TODO add error handling
+					console.log(err);
+				}
+			} else {
+				this.hasLiked = false;
+				this.likes--;
+				try {
+					await removeLike(this.postData.objectId, this.currentUser.id);
+				} catch (err) {
+					// TODO add error handling
+					console.log(err);
+				}
 			}
 		}
 	}
 
 	async deletePost() {
-		const postId = this.postData.objectId;
+		const postId = this.postData?.objectId;
 		if (confirm('Are you sure?')) {
 			await deletePostById(postId);
 			this.ctx.page.redirect('/');
@@ -108,9 +112,11 @@ class DetailsNav extends LitElement {
 
 	render() {
 		return html`
-		<a href="/profile/${this.postData.creator.objectId}">Profile</a>
-		<a id="like-button" href="javascript:void(0)" @click=${this.likePost}>${this.hasLiked ? html`Unlike` : html`Like`} <span
-				class="likes-num">(${this.likes})</span> </a>
+		<a href="/profile/${this.postData?.creator.objectId}">Profile</a>
+		${this.currentUser 
+			? html`<a id="like-button" href="javascript:void(0)" @click=${this.likePost}>${this.hasLiked ? html`Unlike` : html`Like`} <span
+				class="likes-num">(${this.likes})</span> </a>` 
+			: null}
 		${this.isOwner ? html`<a class="danger" href="javascript:void(0)" @click=${this.deletePost}>Delete</a>` : null}
     `;
 	}

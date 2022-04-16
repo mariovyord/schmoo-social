@@ -3,7 +3,7 @@ import { until } from 'lit/directives/until.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
-import { newPost } from '../api/data';
+import { getDetails, newPost } from '../api/data';
 
 // TODO Refactor HomeFeed so it can be reused on profile page
 class HomeFeed extends LitElement {
@@ -133,7 +133,7 @@ class HomeFeed extends LitElement {
 	constructor() {
 		super();
 		this.usersPosts = [];
-		this.maximumLength = 200;
+		this.maximumLength = 300;
 		this.error = false;
 		this.errorMsg = '';
 		this.isLogged = false;
@@ -149,7 +149,7 @@ class HomeFeed extends LitElement {
 		const textarea = e.target;
 		if (textarea.value.length > this.maximumLength) {
 			this.error = true;
-			this.errorMsg = 'Maximum length is 200 characters.';
+			this.errorMsg = 'Maximum length is 300 characters.';
 		} else {
 			this.error = false;
 			this.errorMsg = '';
@@ -166,7 +166,7 @@ class HomeFeed extends LitElement {
 			}
 			// @ts-ignore
 			if (text.length > this.maximumLength) {
-				throw new Error('Maximum length is 100 characters.');
+				throw new Error('Maximum length is 300 characters.');
 			}
 			const data = {
 				body: text,
@@ -174,13 +174,9 @@ class HomeFeed extends LitElement {
 			}
 			e.target.reset();
 			const postData = await newPost(data);
-			const newDataTemplate = html`
-			<user-post data-id=${postData.objectId} creatorUsername=${this.user.username}
-			body=${text} } date=${postData.createdAt} photoUrl="https://parsefiles.back4app.com/4g95yQ2SffnKO8N3wrNyEoIl2PC0BbizElZRACu9/8dbcb95a78e204106be360bcd0a147b6_default-user-image.png">
-			</user-post>`;
-			const newUserPost = new DocumentFragment();
-			render(newDataTemplate, newUserPost);		
-			this.shadowRoot.querySelector('.feed').prepend(newUserPost)
+			const postDetails = await getDetails(postData.objectId)
+			this.usersPosts.unshift(postDetails.results[0]);
+			this.requestUpdate();
 		} catch(err) {
 			this.errorMsg = err.message;
 			this.error = true;

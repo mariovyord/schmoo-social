@@ -100,9 +100,11 @@ class UserPost extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.likes = this.postData.likes.length;
-		this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
-		this.isOwner = this.postData.creator.objectId === this.currentUser?.id;
+		this.likes = this.postData?.likes.length;
+		if (this.currentUser) {
+			this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
+			this.isOwner = this.postData.creator.objectId === this.currentUser.id;
+		}
 	}
 
 	getPostDetails(e) {
@@ -114,23 +116,25 @@ class UserPost extends LitElement {
 
 	async likePost(e) {
 		e.preventDefault();
-		if (this.hasLiked === false) {
-			this.hasLiked = true;
-			this.likes++;
-			try {
-				await addLike(this.postData.objectId, this.currentUser.id);
-			} catch (err) {
-				// TODO add error handling
-				console.log(err);
-			}
-		} else {
-			this.hasLiked = false;
-			this.likes--;
-			try {
-				await removeLike(this.postData.objectId, this.currentUser.id);
-			} catch (err) {
-				// TODO add error handling
-				console.log(err);
+		if (this.currentUser) {
+			if (this.hasLiked === false) {
+				this.hasLiked = true;
+				this.likes++;
+				try {
+					await addLike(this.postData.objectId, this.currentUser.id);
+				} catch (err) {
+					// TODO add error handling
+					console.log(err);
+				}
+			} else {
+				this.hasLiked = false;
+				this.likes--;
+				try {
+					await removeLike(this.postData.objectId, this.currentUser.id);
+				} catch (err) {
+					// TODO add error handling
+					console.log(err);
+				}
 			}
 		}
 	}
@@ -167,7 +171,7 @@ class UserPost extends LitElement {
 							</svg>
 						</div>
 						<div class="icon" @click=${this.likePost}>
-							${this.hasLiked 
+							${this.hasLiked && this.currentUser
 								? html`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6" class="bi bi-heart-fill"
 								viewBox="0 0 16 16">
 								<path fill-rule="evenodd"

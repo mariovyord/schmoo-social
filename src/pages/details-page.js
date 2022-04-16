@@ -55,6 +55,10 @@ class DetailsPage extends LitElement {
 			border-radius: 50%;
 			max-width: 100px;
 		} 
+		.new-comment-pic {
+			border-radius: 50%;
+			max-width: 50px;
+		}
 		.left-div {
 			padding: 10px;
 		}
@@ -228,8 +232,8 @@ class DetailsPage extends LitElement {
 			<div class="new-comment-template">
 			<div class="left-div">
 				<!-- profile picture -->
-				<a href="/profile/${this.user.uid}">
-					<img class="profile-pic" src="${this.user.photoURL}">
+				<a href="/profile/${this.user?.id}">
+					<img class="new-comment-pic" src="${this.user?.pictureUrl}">
 				</a>
 			</div>
 			<div class="right-div">
@@ -272,7 +276,7 @@ class DetailsPage extends LitElement {
 		return html`
 			<div class="main">
 				${until(this.userPost(), html`Loading...`)}
-				${this.newCommentTemplate()}
+				${this.user ? html`${this.newCommentTemplate()}` : null}
 				<h3 class="comments-header">Comments:</h3>
 				<div class="comments-section">
 					${until(this.comments(), html`Loading...`)}
