@@ -31,6 +31,16 @@ export const getPostsByUserId = (id, page) => {
 	return db.get(`/classes/Post?where={"creator":{"__type":"Pointer","className":"_User","objectId":"${id}"}}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 }
 
+// Delete post by ID
+export const deletePostById = (id) => {
+	return db.del(`/classes/Post/${id}`)
+}
+
+// Send new likes array to API - likes are stored as user IDs in an Array
+export const putLikes = (id, data) => {
+	return db.put(`/classes/Post/${id}`, { "likes": { "__op": "AddUnique", "objects": [data] } });
+}
+
 // COMMENTS
 export const getCommentsByPostId = (id) => {
 	return db.get(`/classes/Comment?where={"parentPost":{"__type":"Pointer","className":"Post","objectId":"${id}"}}&include=creator&order=-createdAt`);

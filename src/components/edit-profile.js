@@ -70,7 +70,6 @@ class EditProfile extends LitElement {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		const file = formData.get('img');
-		console.log(file);
 	}
 
 	render() {

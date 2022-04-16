@@ -252,7 +252,7 @@ class HomeFeed extends LitElement {
 			${this.usersPosts
 				.map(el =>
 					html`
-					<user-post data-id=${el.objectId} .creator=${el.creator}
+					<user-post .postData=${el} .currentUser=${this.user} data-id=${el.objectId} .creator=${el.creator}
 							body=${el.body} } date=${el.createdAt} }>
 				</user-post>`)}
 		</div>

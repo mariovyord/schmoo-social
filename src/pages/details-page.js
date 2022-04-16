@@ -4,10 +4,11 @@ import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
 import { getCommentById, getCommentsByPostId, getDetails, postNewComment } from '../api/data';
 import { classMap } from 'lit/directives/class-map.js';
+import { getUserData } from '../utils/userData';
 
 export default function renderDetails(ctx) {
 	ctx.render(html`
-			<details-page id=${ctx.params.id} .user=${ctx.user}></details-page>
+			<details-page .ctx=${ctx} id=${ctx.params.id} .user=${ctx.user}></details-page>
 		`);
 }
 
@@ -15,6 +16,7 @@ class DetailsPage extends LitElement {
 	static properties = {
 		id: { type: String },
 		user: { type: Object },
+		ctx: {type: Object},
 	}
 
 	// Reset comes from outside
@@ -146,6 +148,8 @@ class DetailsPage extends LitElement {
 		super();
 		this.id = '';
 		this.user = null;
+		this.postData = {};
+		this.ctx = {};
 	}
 
 	// Get POST details and return promise
@@ -154,6 +158,7 @@ class DetailsPage extends LitElement {
 		const data = res.results[0];
 		return html`
 				${this.userPostTemplate(data.creator.username, data.body,data.creator.picture.url, data.createdAt, data.creator.objectId)}
+				<details-nav .ctx=${this.ctx} .postData=${data} .currentUser=${getUserData()}></details-nav>
 				`;
 	}
 
@@ -161,7 +166,6 @@ class DetailsPage extends LitElement {
 	async comments() {
 		const res = await getCommentsByPostId(this.id);
 		const data = res.results;
-		console.log(data);
 		if (data.length > 0) {
 			return html`
 				${map(data, (el) =>
@@ -263,18 +267,11 @@ class DetailsPage extends LitElement {
 				</div>
 			`;
 		}
-	
-	detailsNavTemplate = () => html`
-		<a href="/">User Profile</a>
-		<a href="javascript:void(0)" @click=${this.likePost}>(${this.likes}) Like</a>
-		<a class="danger" href="javascript:void(0)" @click=${this.deletePost}>Delete</a>
-	`;
 
 	render() {
 		return html`
 			<div class="main">
 				${until(this.userPost(), html`Loading...`)}
-				<details-nav></details-nav>
 				${this.newCommentTemplate()}
 				<h3 class="comments-header">Comments:</h3>
 				<div class="comments-section">

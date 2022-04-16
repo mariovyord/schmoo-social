@@ -33,6 +33,9 @@ class HomePage extends LitElement {
 				grid-template-columns: 1fr; 
 				gap: 0px;
 			}
+			welcome-sidebar {
+				display: none;
+			}
 		}
 	`
 	];
@@ -65,9 +68,12 @@ class HomePage extends LitElement {
 
 	render() {
 		return html`
-				<div>
-					<welcome-sidebar user=${this.user?.username || 'guest' }></welcome-sidebar>
-				</div>
+				${this.windowWidth > windowBreakpoint 
+					? html`
+						<div>
+							<welcome-sidebar user=${this.user?.username || 'guest' }></welcome-sidebar>
+						</div>` 
+					: null}
 				<div>
 					<home-feed .isLogged=${this.user} .user=${this.user}></home-feed>
 				</div>

@@ -42,7 +42,6 @@ class GuestSidenav extends LitElement {
 
 	toggleHamburger(e) {
 		e.preventDefault();
-		console.log(e.target);
 		e.currentTarget.classList.toggle('open');
 	}
 

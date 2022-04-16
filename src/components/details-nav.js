@@ -1,11 +1,16 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { deletePostById, putLikes } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 class DetailsNav extends LitElement {
 	static properties = {
-		postId: { type: String },
+		postData: { type: Object },
+		currentUser: { type: Object },
 		likes: { type: Number },
+		ctx: { type: Object },
+		hasLiked: { type: Boolean },
+		isOwner: { type: Boolean },
 	}
 
 	static styles = [
@@ -47,34 +52,56 @@ class DetailsNav extends LitElement {
 			font-size: 0.9rem;
 			opacity: 0.5;
 		}
+		.disabled{
+			pointer-events:none
+		}
 	`
 	];
 
 	constructor() {
 		super();
-		this.postId = null;
+		this.postData = {};
+		this.hasLiked = true;
 		this.likes = 0;
+		this.isOwner = false;
+		this.currentUser = null;
+		this.ctx = {};
 	}
 
-	likePost(e) {
-		this.likes++;
-		e.target.style.pointerEvents = "none";
+	connectedCallback() {
+		super.connectedCallback();
+		this.likes = this.postData.likes.length;
+		this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
+		this.isOwner = this.postData.creator.objectId === this.currentUser?.id;
 	}
 
-	goBack() {
-		history.go(-1);
+	async likePost(e) {
+		e.preventDefault();
+		this.hasLiked = true;
+		if (this.postData.likes.includes(this.currentUser.id) === false) {
+			this.likes++;
+			this.postData.likes.push(this.currentUser.id);
+			try {
+				await putLikes(this.postData.objectId, this.currentUser.id);
+			} catch (err) {
+				// TODO add error handling
+				console.log(err);
+			}
+		}
 	}
 
-	deletePost() {
-		console.log('Delete');
+	async deletePost() {
+		const postId = this.postData.objectId;
+		await deletePostById(postId);
+		this.ctx.page.redirect('/');
 	}
 
 	render() {
 		return html`
-		<a href="/">User Profile</a>
-		<a id="like-button" href="javascript:void(0)" @click=${this.likePost}>Like <span
-				class="likes-num">(${this.likes})</span> </a>
-		<a class="danger" href="javascript:void(0)" @click=${this.deletePost}>Delete</a>
+		<a href="/profile/${this.postData.creator.objectId}">Profile</a>
+		<a class="${classMap({ 'disabled': this.hasLiked })}" id="like-button" href="javascript:void(0)"
+			@click=${this.likePost}>Like <span class="likes-num">(${this.likes})</span> </a>
+		${this.isOwner ? html`<a class="danger" href="javascript:void(0)" @click=${this.deletePost}>Delete</a>` : null}
     `;
 	}
 }
