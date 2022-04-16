@@ -1,6 +1,4 @@
 import { LitElement, css, html } from 'lit';
-import { until } from 'lit/directives/until.js';
-import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 class SidebarUsercard extends LitElement {
@@ -68,7 +66,7 @@ class SidebarUsercard extends LitElement {
 		const date = new Date(this.user.createdAt);
 		return html`
 		<div>
-			<img class="profile-pic" src="${this.user.picture.url}">
+			<img class="profile-pic" src="${this.user.pictureUrl}">
 		</div>
 		<div>
 			<h2><a href="/profile/${this.user.id}">${this.user.username}</a></h2>

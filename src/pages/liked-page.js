@@ -43,6 +43,11 @@ class LikedPage extends LitElement {
 			font-size: 1.5rem;
 			font-weight: 700;
 		}
+		.sidebar {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
 
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			:host {
@@ -84,10 +89,13 @@ class LikedPage extends LitElement {
 
 	render() {
 		return html`
-				<div>
+				<div class="sidebar">
 					<div class="greeting">
 						<h2>Here are all the jokes that you loved!</h2>
 					</div>
+					${this.windowWidth > windowBreakpoint 
+						? html`<sidebar-usercard .user=${getUserData()}></sidebar-usercard>` 
+						: null}
 				</div>
 				<div>
 					<slot></slot>

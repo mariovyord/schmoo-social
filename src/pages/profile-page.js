@@ -3,6 +3,7 @@ import { until } from 'lit/directives/until.js';
 import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 import { getPostsByUserId } from '../api/data';
+import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
@@ -63,18 +64,6 @@ class ProfilePage extends LitElement {
 		return window.innerWidth;
 	}
 
-	getUserProfile = async (id) => {
-		const user = await getUserInfoById(id);
-		return html`
-			<div>
-				<sidebar-usercard .user=${user}></sidebar-usercard>
-			</div>
-			<div>
-				<slot></slot>
-			</div>
-		`;
-	}
-
 	async updateWindowWidth() {
 		this.windowWidth = window.innerWidth;
 	}
@@ -82,6 +71,7 @@ class ProfilePage extends LitElement {
 	render() {
 		return html`
 			<div>
+				<sidebar-usercard .user=${getUserData()}></sidebar-usercard>
 			</div>
 			<div>
 				<slot></slot>
