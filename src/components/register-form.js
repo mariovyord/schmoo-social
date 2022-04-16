@@ -73,7 +73,7 @@ class RegisterForm extends LitElement {
 		// @ts-ignore
 		const email = formData.get('email').trim();
 		// @ts-ignore
-		const picture = formData.get('photoUrl');
+		// const picture = formData.get('photoUrl');
 		// @ts-ignore
 		const password = formData.get('password').trim();
 		// @ts-ignore
@@ -120,9 +120,9 @@ class RegisterForm extends LitElement {
 			<input type="text" name="email" placeholder="Email">
 		</div>
 		<!-- <div class="input-container">
-					<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
-							accept="image/png, image/jpeg"></label>
-				</div> -->
+						<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
+								accept="image/png, image/jpeg"></label>
+					</div> -->
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>

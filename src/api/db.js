@@ -77,6 +77,8 @@ export async function register(username, email, password) {
 			username: username,
 			id: result.objectId,
 			accessToken: result.sessionToken,
+			pictureUrl: result.picture.url,
+			createdAt: result.createdAt,
 		});
 		return result;
 	} catch (err) {

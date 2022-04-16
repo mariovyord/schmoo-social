@@ -38,6 +38,7 @@ class LikedPage extends LitElement {
 			padding: 20px;
 			border-radius: 5px;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+			margin-bottom: 10px;
 		}
 		h2 {
 			font-size: 1.5rem;
@@ -90,14 +91,14 @@ class LikedPage extends LitElement {
 	render() {
 		return html`
 				<div class="sidebar">
-					<div class="greeting">
-						<h2>Here are all the jokes that you loved!</h2>
-					</div>
 					${this.windowWidth > windowBreakpoint 
 						? html`<sidebar-usercard .user=${getUserData()}></sidebar-usercard>` 
 						: null}
 				</div>
 				<div>
+					<div class="greeting">
+						<h2>Here are all the jokes that you loved!</h2>
+					</div>
 					<slot></slot>
 				</div>
 		`;
