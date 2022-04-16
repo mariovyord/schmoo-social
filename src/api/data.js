@@ -31,6 +31,13 @@ export const getPostsByUserId = (id, page) => {
 	return db.get(`/classes/Post?where={"creator":{"__type":"Pointer","className":"_User","objectId":"${id}"}}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 }
 
+// Get only posts liked by the user
+export const getLikedPostsByUserId = (id, page) => {
+	const limit = 10;
+	const skip = limit * page;
+	return db.get(`/classes/Post?where={"likes":"${id}"}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`)
+}
+
 // Delete post by ID
 export const deletePostById = (id) => {
 	return db.del(`/classes/Post/${id}`)
