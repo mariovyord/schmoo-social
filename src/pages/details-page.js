@@ -17,6 +17,7 @@ class DetailsPage extends LitElement {
 		id: { type: String },
 		user: { type: Object },
 		ctx: {type: Object},
+		usersComments: {type: Array},
 	}
 
 	// Reset comes from outside
@@ -144,16 +145,31 @@ class DetailsPage extends LitElement {
 			font-weight: 700;
 			text-align: center;
 		}
+		.no-comments {
+			text-align: center;
+		}
 	`
 	];
 
 	// ID and USER come as attributes from Context
 	constructor() {
 		super();
+		this.usersComments = [];
 		this.id = '';
 		this.user = null;
 		this.postData = {};
 		this.ctx = {};
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+		this.allComments();
+	}
+	
+	async allComments() {
+		const res = await getCommentsByPostId(this.id);
+		this.usersComments = this.usersComments.concat(res.results);
+		console.log(this.usersComments);
 	}
 
 	// Get POST details and return promise
@@ -166,22 +182,6 @@ class DetailsPage extends LitElement {
 				`;
 	}
 
-	// Get all COMMENTS  and return promise
-	async comments() {
-		const res = await getCommentsByPostId(this.id);
-		const data = res.results;
-		if (data.length > 0) {
-			return html`
-				${map(data, (el) =>
-				html`
-					<user-post postType="commment" data-id=${el.objectId} .creator=${el.creator}
-						body=${el.body} } date=${el.createdAt} }>
-					</user-post>`)}`;
-		} else {
-			return html`<h3 class="comments-header">NO COMMENTS</h3>`
-		}
-	}
-
 	// Submit new comment and append as first child 
 	onSubmit = async (e) => {
 		e.preventDefault();
@@ -191,21 +191,11 @@ class DetailsPage extends LitElement {
 			const res = await postNewComment(formData, this.id);
 			target.reset();
 			const comment = await getCommentById(res.objectId);
-			this.appendNewCommentToMain(comment.results[0]);
+			this.usersComments.unshift(comment.results[0]);
+			this.requestUpdate();
 		} catch(err) {
 			console.log(err);
 		}
-	}
-
-	appendNewCommentToMain(el) {
-		const commentsEl = this.shadowRoot.querySelector('.comments-section');
-		const fragment = new DocumentFragment;
-		const commentTemplate = html`
-		<user-post postType="commment" data-id=${el.objectId} creatorUsername=${el.creator.username}
-		body=${el.body} } date=${el.createdAt} photoUrl=${el.creator.picture.url}>
-	</user-post>`;
-		render(commentTemplate, fragment)
-		commentsEl.prepend(fragment);
 	}
 
 	// FORM for posting new comment
@@ -273,13 +263,20 @@ class DetailsPage extends LitElement {
 		}
 
 	render() {
+		console.log(this.usersComments);
 		return html`
 			<div class="main">
 				${until(this.userPost(), html`Loading...`)}
 				${this.user ? html`${this.newCommentTemplate()}` : null}
 				<h3 class="comments-header">Comments:</h3>
 				<div class="comments-section">
-					${until(this.comments(), html`Loading...`)}
+				${this.usersComments.length > 0 
+				? html`${map(this.usersComments, (el) =>
+					html`
+						<user-post postType="commment" data-id=${el.objectId} .creator=${el.creator}
+							body=${el.body} } date=${el.createdAt} }>
+						</user-post>`)}`
+					: html`<p class="no-comments">No comments</p>`}
 				</div>
 			</div>
 		
