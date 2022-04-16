@@ -100,8 +100,10 @@ class DetailsNav extends LitElement {
 
 	async deletePost() {
 		const postId = this.postData.objectId;
-		await deletePostById(postId);
-		this.ctx.page.redirect('/');
+		if (confirm('Are you sure?')) {
+			await deletePostById(postId);
+			this.ctx.page.redirect('/');
+		}
 	}
 
 	render() {
