@@ -241,7 +241,7 @@ class MainNav extends LitElement {
 						<!-- Profile -->
 						<li><a href="/profile/${this.ctx.user.id}" class=${classMap({ active: this.ctx.path === '/profile' })}>Profile</a></li>
 						<!-- Circles -->
-						<li><a href="/liked" class=${classMap({ active: this.ctx.path === '/liked' })}>Liked Jokes</a></li>
+						<li><a href="/liked" class=${classMap({ active: this.ctx.path === '/liked' })}>Favourites</a></li>
 						<!-- Search -->
 						<li><a href="/search" class=${classMap({ active: this.ctx.path === '/search' })}>Search</a></li>
 						<!-- Settings -->
