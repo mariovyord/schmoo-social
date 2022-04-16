@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import page from 'page';
-import { putLikes } from '../api/data';
+import { addLike, removeLike } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 class UserPost extends LitElement {
@@ -114,12 +114,20 @@ class UserPost extends LitElement {
 
 	async likePost(e) {
 		e.preventDefault();
-		this.hasLiked = true;
-		if (this.postData.likes.includes(this.currentUser.id) === false) {
+		if (this.hasLiked === false) {
+			this.hasLiked = true;
 			this.likes++;
-			this.postData.likes.push(this.currentUser.id);
 			try {
-				await putLikes(this.postData.objectId, this.currentUser.id);
+				await addLike(this.postData.objectId, this.currentUser.id);
+			} catch (err) {
+				// TODO add error handling
+				console.log(err);
+			}
+		} else {
+			this.hasLiked = false;
+			this.likes--;
+			try {
+				await removeLike(this.postData.objectId, this.currentUser.id);
 			} catch (err) {
 				// TODO add error handling
 				console.log(err);

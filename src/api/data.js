@@ -37,8 +37,12 @@ export const deletePostById = (id) => {
 }
 
 // Send new likes array to API - likes are stored as user IDs in an Array
-export const putLikes = (id, data) => {
+export const addLike = (id, data) => {
 	return db.put(`/classes/Post/${id}`, { "likes": { "__op": "AddUnique", "objects": [data] } });
+}
+
+export const removeLike = (id, data) => {
+	return db.put(`/classes/Post/${id}`, { "likes": { "__op": "Remove", "objects": [data] } });
 }
 
 // COMMENTS

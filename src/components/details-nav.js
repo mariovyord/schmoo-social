@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
-import { deletePostById, putLikes } from '../api/data';
+import { deletePostById, addLike, removeLike } from '../api/data';
 import { resets } from '../common/resetsCSS';
 
 class DetailsNav extends LitElement {
@@ -77,12 +77,20 @@ class DetailsNav extends LitElement {
 
 	async likePost(e) {
 		e.preventDefault();
-		this.hasLiked = true;
-		if (this.postData.likes.includes(this.currentUser.id) === false) {
+		if (this.hasLiked === false) {
+			this.hasLiked = true;
 			this.likes++;
-			this.postData.likes.push(this.currentUser.id);
 			try {
-				await putLikes(this.postData.objectId, this.currentUser.id);
+				await addLike(this.postData.objectId, this.currentUser.id);
+			} catch (err) {
+				// TODO add error handling
+				console.log(err);
+			}
+		} else {
+			this.hasLiked = false;
+			this.likes--;
+			try {
+				await removeLike(this.postData.objectId, this.currentUser.id);
 			} catch (err) {
 				// TODO add error handling
 				console.log(err);
@@ -99,8 +107,8 @@ class DetailsNav extends LitElement {
 	render() {
 		return html`
 		<a href="/profile/${this.postData.creator.objectId}">Profile</a>
-		<a class="${classMap({ 'disabled': this.hasLiked })}" id="like-button" href="javascript:void(0)"
-			@click=${this.likePost}>Like <span class="likes-num">(${this.likes})</span> </a>
+		<a id="like-button" href="javascript:void(0)" @click=${this.likePost}>${this.hasLiked ? html`Unlike` : html`Like`} <span
+				class="likes-num">(${this.likes})</span> </a>
 		${this.isOwner ? html`<a class="danger" href="javascript:void(0)" @click=${this.deletePost}>Delete</a>` : null}
     `;
 	}
