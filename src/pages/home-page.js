@@ -1,11 +1,14 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../common/resetsCSS';
+import { getAllPosts } from '../api/data';
 
 const windowBreakpoint = 700;
 
 export default function renderHome(ctx) {
 	ctx.render(html`
-		<home-page activePage=${'/'} .user=${ctx.user}> </home-page>`);
+		<home-page activePage=${'/'} .user=${ctx.user}> 
+			<home-feed .getPosts=${getAllPosts} .isLogged=${ctx.user} .user=${ctx.user}></home-feed>
+		</home-page>`);
 }
 
 class HomePage extends LitElement {
@@ -75,7 +78,7 @@ class HomePage extends LitElement {
 						</div>` 
 					: null}
 				<div>
-					<home-feed .isLogged=${this.user} .user=${this.user}></home-feed>
+					<slot></slot>
 				</div>
 		`;
 	}

@@ -24,7 +24,7 @@ export const getAllPosts = (page) => {
 	return db.get(`/classes/Post?include=creator&order=-createdAt&limit=${limit}&skip=${skip}`);
 };
 
-export const getPostsByUserId = (id, page) => {
+export const getPostsByUserId = (page, id) => {
 	const limit = 10;
 	const skip = limit * page;
 
@@ -32,7 +32,7 @@ export const getPostsByUserId = (id, page) => {
 }
 
 // Get only posts liked by the user
-export const getLikedPostsByUserId = (id, page) => {
+export const getLikedPostsByUserId = (page, id) => {
 	const limit = 10;
 	const skip = limit * page;
 	return db.get(`/classes/Post?where={"likes":"${id}"}&include=creator&order=-createdAt&limit=${limit}&skip=${skip}`)

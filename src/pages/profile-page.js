@@ -2,12 +2,16 @@ import { LitElement, css, html } from 'lit';
 import { until } from 'lit/directives/until.js';
 import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
+import { getPostsByUserId } from '../api/data';
 
 const windowBreakpoint = 700;
 
 export default function renderProfile(ctx) {
 	ctx.render(html`
-		<profile-page activePage=${'/profile'} userId=${ctx.params.id}></profile-page>`);
+		<profile-page activePage=${'/profile'}>
+			<home-feed .getPosts=${getPostsByUserId} .isLogged=${ctx.user} .user=${ctx.user} profileId=${ctx.params.id}>
+			</home-feed>
+		</profile-page>`);
 }
 
 class ProfilePage extends LitElement {
@@ -66,7 +70,7 @@ class ProfilePage extends LitElement {
 				<sidebar-usercard .user=${user}></sidebar-usercard>
 			</div>
 			<div>
-				<profile-feed .isLogged=${user} .user=${user}></profile-feed>
+				<slot></slot>
 			</div>
 		`;
 	}
@@ -77,7 +81,11 @@ class ProfilePage extends LitElement {
 
 	render() {
 		return html`
-			${until(this.getUserProfile(this.userId), html`Loading...`)}
+			<div>
+			</div>
+			<div>
+				<slot></slot>
+			</div>
 		`;
 	}
 }

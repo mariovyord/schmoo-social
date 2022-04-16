@@ -3,7 +3,6 @@ import { until } from 'lit/directives/until.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
 import { resets } from '../common/resetsCSS';
-import { getAllPosts } from '../api/data';
 import { newPost } from '../api/data';
 
 // TODO Refactor HomeFeed so it can be reused on profile page
@@ -15,6 +14,8 @@ class HomeFeed extends LitElement {
 		isLogged: {type: Boolean},
 		user: {type: Object},
 		postsQty: {type: Number},
+		getPosts: {type: Function},
+		profileId: {type: String},
 	}
 
 	static styles = [
@@ -137,6 +138,8 @@ class HomeFeed extends LitElement {
 		this.isLogged = false;
 		this.page = 0;
 		this.user = null;
+		this.getPosts = '';
+		this.profileId = '';
 	}
 
 	onInput(e) {
@@ -242,7 +245,7 @@ class HomeFeed extends LitElement {
 	}
 
 	async allPosts() {
-		const newData = await getAllPosts(this.page);
+		const newData = await this.getPosts(this.page, this.profileId);
 		this.usersPosts = this.usersPosts.concat(newData.results);
 	}
 	render() {
