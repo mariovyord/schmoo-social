@@ -16,6 +16,7 @@ class HomeFeed extends LitElement {
 		postsQty: {type: Number},
 		getPosts: {type: Function},
 		profileId: {type: String},
+		usecase: {type: String},
 	}
 
 	static styles = [
@@ -140,6 +141,7 @@ class HomeFeed extends LitElement {
 		this.user = null;
 		this.getPosts = '';
 		this.profileId = '';
+		this.usecase = 'home-page';
 	}
 
 	onInput(e) {
@@ -250,7 +252,7 @@ class HomeFeed extends LitElement {
 	}
 	render() {
 		return html`
-		${this.user ? this.newPostTemplate(this.user?.photoURL) : null}
+		${this.user && this.usecase === 'home-page' ? this.newPostTemplate(this.user?.photoURL) : null}
 		<div class="feed">
 			${this.usersPosts
 				.map(el =>

@@ -1,26 +1,25 @@
 import { LitElement, css, html } from 'lit';
-import { until } from 'lit/directives/until.js';
-import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
-import { getPostsByUserId } from '../api/data';
+import { getLikedPostsByUserId } from '../api/data';
+import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
-export default function renderProfile(ctx) {
+export default function renderLiked(ctx) {
 	ctx.render(html`
-		<profile-page activePage=${'/profile'}> <home-feed usecase='profile-page' .getPosts=${getPostsByUserId}
-			.isLogged=${ctx.user} .user=${ctx.user} profileId=${ctx.params.id}>
+		<liked-page activePage=${'/'} .user=${ctx.user}>
+			<home-feed usecase='liked-page' .getPosts=${getLikedPostsByUserId} .isLogged=${ctx.user} .user=${ctx.user}
+				profileId=${ctx.user.id}>
 			</home-feed>
-		</profile-page>`);
+		</liked-page>`);
 }
 
-class ProfilePage extends LitElement {
+class LikedPage extends LitElement {
 	static properties = {
-		name: { type: String },
-		userId: { type: String },
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
+		user: { type: Object },
 	}
 
 	static styles = [
@@ -34,10 +33,24 @@ class ProfilePage extends LitElement {
 		:host > *:not(:last-child) {
 			margin-bottom: 10px; 
 		} 
+		.greeting {
+			background-color: white;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+		}
+		h2 {
+			font-size: 1.5rem;
+			font-weight: 700;
+		}
 
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			:host {
 				grid-template-columns: 1fr; 
+				gap: 0px;
+			}
+			welcome-sidebar {
+				display: none;
 			}
 		}
 	`
@@ -45,10 +58,12 @@ class ProfilePage extends LitElement {
 	constructor() {
 		super();
 		this.activePage = '/';
-		this.userId = null;
+		// USER comes from the outside as attribute
+		this.user = null;
 		this.windowWidth = this.getWindowWidth();
 	}
 
+	// Check window with and show different content at different widths
 	connectedCallback() {
 		super.connectedCallback();
 		window.addEventListener('resize', this.updateWindowWidth.bind(this));
@@ -63,31 +78,23 @@ class ProfilePage extends LitElement {
 		return window.innerWidth;
 	}
 
-	getUserProfile = async (id) => {
-		const user = await getUserInfoById(id);
-		return html`
-			<div>
-				<sidebar-usercard .user=${user}></sidebar-usercard>
-			</div>
-			<div>
-				<slot></slot>
-			</div>
-		`;
-	}
-
 	async updateWindowWidth() {
 		this.windowWidth = window.innerWidth;
 	}
 
 	render() {
 		return html`
-			<div>
-			</div>
-			<div>
-				<slot></slot>
-			</div>
+				<div>
+					<div class="greeting">
+						<h2>Here are all the jokes that you loved!</h2>
+					</div>
+				</div>
+				<div>
+					<slot></slot>
+				</div>
 		`;
 	}
 }
 
-customElements.define('profile-page', ProfilePage);
+customElements.define('liked-page', LikedPage);
+
