@@ -16,7 +16,6 @@ export default function renderLiked(ctx) {
 
 class LikedPage extends LitElement {
 	static properties = {
-		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
 		user: { type: Object },
@@ -58,6 +57,9 @@ class LikedPage extends LitElement {
 			welcome-sidebar {
 				display: none;
 			}
+			.sidebar {
+				display: none;
+			}
 		}
 	`
 	];
@@ -66,34 +68,12 @@ class LikedPage extends LitElement {
 		this.activePage = '/';
 		// USER comes from the outside as attribute
 		this.user = null;
-		this.windowWidth = this.getWindowWidth();
-	}
-
-	// Check window with and show different content at different widths
-	connectedCallback() {
-		super.connectedCallback();
-		window.addEventListener('resize', this.updateWindowWidth.bind(this));
-	}
-
-	disconnectedCallback() {
-		window.removeEventListener('resize', this.updateWindowWidth.bind(this));
-		super.disconnectedCallback();
-	}
-
-	getWindowWidth() {
-		return window.innerWidth;
-	}
-
-	async updateWindowWidth() {
-		this.windowWidth = window.innerWidth;
 	}
 
 	render() {
 		return html`
 				<div class="sidebar">
-					${this.windowWidth > windowBreakpoint 
-						? html`<sidebar-usercard .user=${getUserData()}></sidebar-usercard>` 
-						: null}
+					<sidebar-usercard .user=${getUserData()}></sidebar-usercard>
 				</div>
 				<div>
 					<div class="greeting">

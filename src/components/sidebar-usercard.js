@@ -64,7 +64,7 @@ class SidebarUsercard extends LitElement {
 		const date = new Date(this.user.createdAt);
 		return html`
 		<div>
-			<img class="profile-pic" src="${this.user.picture.url}">
+			<img class="profile-pic" src="${this.user.picture?.url || this.user.pictureUrl}">
 		</div>
 		<div>
 			<h2><a href="/profile/${this.user.id}">${this.user.username}</a></h2>

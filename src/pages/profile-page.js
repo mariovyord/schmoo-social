@@ -60,7 +60,6 @@ class ProfilePage extends LitElement {
 	}
 
 	render() {
-		console.log(this.profileId);
 		return html`
 			<div class="sidebar">
 				${until(this.userCardPromise(this.profileId), html`Loading...`)}
