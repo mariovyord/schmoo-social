@@ -244,6 +244,8 @@ class MainNav extends LitElement {
 						<li><a href="/liked" class=${classMap({ active: this.ctx.path === '/liked' })}>Favourites</a></li>
 						<!-- Search -->
 						<li><a href="/search" class=${classMap({ active: this.ctx.path === '/search' })}>Search</a></li>
+						<!-- About -->
+						<li><a href="/about" class=${classMap({ active: this.ctx.path === '/about' })}>About</a></li>
 						<!-- Settings -->
 						<li><a href="/settings" class=${classMap({ active: this.ctx.path === '/settings' })}>Settings</a></li>
 						<li><a class="danger" href="javascript:void(0)" @click=${logout}>Logout</a></li>`

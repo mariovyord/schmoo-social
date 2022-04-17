@@ -12,6 +12,7 @@ import renderDetails from './pages/details-page';
 import renderNav from './middleware/renderNav';
 import attachUser from './middleware/attachUser';
 import renderLiked from './pages/liked-page';
+import renderAbout from './pages/about-page';
 
 export const outlet = document.getElementById('outlet');
 
@@ -38,6 +39,8 @@ page('/login', renderLogin);
 page('/register', renderRegister);
 
 page('/posts/:id', renderDetails);
+
+page('/about', renderAbout);
 
 
 page.start();

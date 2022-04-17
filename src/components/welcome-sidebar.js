@@ -11,8 +11,6 @@ class WelcomeSidebar extends LitElement {
 		css`
 			:host {
 				display: block;
-				position: sticky;
-				top: 20px;
 			}
 			:host > *:not(:last-child) {
 				margin-bottom: 10px; 

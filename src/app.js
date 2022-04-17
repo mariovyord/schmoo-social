@@ -25,6 +25,7 @@ import './pages/login-page';
 import './pages/register-page';
 import './pages/search-page';
 import './pages/details-page';
+import './pages/about-page';
 
 // CSS
 import '../static/app.css';
