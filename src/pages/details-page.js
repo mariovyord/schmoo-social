@@ -54,7 +54,7 @@ class DetailsPage extends LitElement {
 		}
 		.profile-pic {
 			border-radius: 50%;
-			max-width: 100px;
+			width: 100px;
 		} 
 		.new-comment-pic {
 			border-radius: 50%;
@@ -157,7 +157,7 @@ class DetailsPage extends LitElement {
 		this.usersComments = [];
 		this.id = '';
 		this.user = null;
-		this.postData = {};
+		this.postData = null;
 		this.ctx = {};
 	}
 
@@ -169,16 +169,17 @@ class DetailsPage extends LitElement {
 	async allComments() {
 		const res = await getCommentsByPostId(this.id);
 		this.usersComments = this.usersComments.concat(res.results);
-		console.log(this.usersComments);
 	}
 
 	// Get POST details and return promise
 	async userPost() {
-		const res = await getDetails(this.id);
-		const data = res.results[0];
+		if (this.postData === null) {
+			const res = await getDetails(this.id);
+			this.postData = res.results[0];
+		}
 		return html`
-				${this.userPostTemplate(data.creator.username, data.body,data.creator.picture.url, data.createdAt, data.creator.objectId)}
-				<details-nav .ctx=${this.ctx} .postData=${data} .currentUser=${getUserData()}></details-nav>
+				${this.userPostTemplate()}
+				<details-nav .ctx=${this.ctx} .postData=${this.postData} .currentUser=${getUserData()}></details-nav>
 				`;
 	}
 
@@ -191,8 +192,7 @@ class DetailsPage extends LitElement {
 			const res = await postNewComment(formData, this.id);
 			target.reset();
 			const comment = await getCommentById(res.objectId);
-			this.usersComments.unshift(comment.results[0]);
-			this.requestUpdate();
+			this.usersComments = comment.results.concat(this.usersComments);
 		} catch(err) {
 			console.log(err);
 		}
@@ -233,15 +233,14 @@ class DetailsPage extends LitElement {
 			</div>
 	`;
 
-	userPostTemplate = 
-		(creatorUsername, body,	photoUrl, serverDate, creatorId) => {
-			const date = new Date(serverDate);
+	userPostTemplate = 	() => {
+			const date = new Date(this.postData.createdAt);
 			return html`
 				<div class="user-post">
 					<div class="left-div">
 						<!-- profile picture -->
-						<a href="/profile/${creatorId}">
-							<img class="profile-pic" src="${photoUrl}">
+						<a href="/profile/${this.postData.creator.objectI}">
+							<img class="profile-pic" src="${this.postData.creator.picture.url}" alt="Profile Picture">
 						</a>
 					</div>
 					<div class="right-div">
@@ -249,12 +248,39 @@ class DetailsPage extends LitElement {
 						<div>
 							<!-- User Information -->
 							<div class="user-info">
-								<a href="/profile/${creatorId}" id="name">${creatorUsername}</a>
+								<a href="/profile/${this.postData.creator.objectId}" id="name">${this.postData.creator.username}</a>
 								<span id="handle-and-time">(${date.toLocaleString()})</span>
 							</div>
 							<!-- Post Content -->
 							<div class="body-container">
-								<p id="post-content">${body}</p>
+								<p id="post-content">${this.postData.body}</p>
+							</div>					
+						</div>
+					</div>
+				</div>
+			`;
+		}
+
+		blankPostTemplate = () => {
+			return html`
+				<div class="user-post">
+					<div class="left-div">
+						<!-- profile picture -->
+						<a href="/profile/">
+							<img class="profile-pic" src="/img/default-user-image.png" >
+						</a>
+					</div>
+					<div class="right-div">
+						<!-- New Post -->
+						<div>
+							<!-- User Information -->
+							<div class="user-info">
+								<a href="/profile/" id="name">User</a>
+								<span id="handle-and-time">(4/16/2022, 5:09:03 PM)</span>
+							</div>
+							<!-- Post Content -->
+							<div class="body-container">
+								<p id="post-content">Loading...</p>
 							</div>					
 						</div>
 					</div>
@@ -263,10 +289,9 @@ class DetailsPage extends LitElement {
 		}
 
 	render() {
-		console.log(this.usersComments);
 		return html`
 			<div class="main">
-				${until(this.userPost(), html`Loading...`)}
+				${until(this.userPost(), this.blankPostTemplate())}
 				${this.user ? html`${this.newCommentTemplate()}` : null}
 				<h3 class="comments-header">Comments:</h3>
 				<div class="comments-section">
