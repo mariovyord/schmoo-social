@@ -8,10 +8,6 @@ class UserPost extends LitElement {
 	static properties = {
 		postType: { type: String },
 		likes: { type: Number },
-		reposts: { type: Number },
-		body: { type: String },
-		date: { type: String },
-		creator: { type: Object },
 		postData: { type: Object },
 		currentUser: { type: Object },
 		hasLiked: { type: Boolean },
@@ -89,10 +85,6 @@ class UserPost extends LitElement {
 		this.postData = {};
 		this.postType = "post";
 		this.likes = 0;
-		this.reposts = 2;
-		this.body = '';
-		this.date = '4/12/2022, 5:43:26 PM';
-		this.creator = {};
 		this.hasLiked = true;
 		this.isOwner = false;
 		this.currentUser = null;
@@ -140,12 +132,12 @@ class UserPost extends LitElement {
 	}
 
 	render() {
-		const date = new Date(this.date);
+		const date = new Date(this.postData.createdAt);
 		return html`
 			<div class="left-div">
 				<!-- profile picture -->
-				<a href="/profile/${this.creator.objectId}">
-					<img class="profile-pic" src="${this.creator.picture.url}">
+				<a href="/profile/${this.postData.creator.objectId}">
+					<img class="profile-pic" src="${this.postData.creator.picture.url}">
 				</a>
 			</div>
 			<div class="right-div">
@@ -153,12 +145,12 @@ class UserPost extends LitElement {
 				<div>
 					<!-- User Information -->
 					<div class="user-info">
-						<a href="/profile/${this.creator.objectId}" id="name">${this.creator.username}</a>
+						<a href="/profile/${this.postData.creator.objectId}" id="name">${this.postData.creator.username}</a>
 						<span id="handle-and-time">(${date.toLocaleString()})</span>
 					</div>
 					<!-- Post Content -->
 					<div>
-						<p id="post-content">${this.body}</p>
+						<p id="post-content">${this.postData.body}</p>
 					</div>
 					<!-- Options -->
 					${this.postType === 'post'

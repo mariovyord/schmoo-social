@@ -253,8 +253,7 @@ class HomeFeed extends LitElement {
 			${this.usersPosts
 				.map(el =>
 					html`
-					<user-post .postData=${el} .currentUser=${this.user} data-id=${el.objectId} .creator=${el.creator}
-							body=${el.body} } date=${el.createdAt} }>
+					<user-post .postData=${el} .currentUser=${this.user} data-id=${el.objectId} }>
 				</user-post>`)}
 		</div>
 		<div class="footer">
