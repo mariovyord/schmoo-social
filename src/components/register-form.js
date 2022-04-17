@@ -111,7 +111,7 @@ class RegisterForm extends LitElement {
 	render() {
 		return html`
 	<form @submit=${this.onSubmit}>
-		<h1>Schmoozer</h1>
+		<h1>Schmoo Social</h1>
 		<p class="subheader">Sign up to share with the world</p>
 		<div class="input-container ${classMap({ error: this.errorUsername, })}">
 			<input type="text" name="username" placeholder="Username">
@@ -120,9 +120,9 @@ class RegisterForm extends LitElement {
 			<input type="text" name="email" placeholder="Email">
 		</div>
 		<!-- <div class="input-container">
-						<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
-								accept="image/png, image/jpeg"></label>
-					</div> -->
+							<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
+									accept="image/png, image/jpeg"></label>
+						</div> -->
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>

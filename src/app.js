@@ -10,7 +10,6 @@ import './components/search-form';
 import './components/sidebar-usercard';
 import './components/details-nav';
 import './components/home-feed';
-import './components/profile-feed';
 import './components/settings-nav';
 import './components/guest-sidenav';
 import './components/edit-profile';

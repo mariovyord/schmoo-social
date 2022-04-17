@@ -3,14 +3,14 @@ import { until } from 'lit/directives/until.js';
 import { getUserInfoById } from '../api/data';
 import { resets } from '../common/resetsCSS';
 import { getPostsByUserId } from '../api/data';
-import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
 export default function renderProfile(ctx) {
 	ctx.render(html`
-		<profile-page activePage=${'/profile'}> <home-feed usecase='profile-page' .getPosts=${getPostsByUserId}
-			.isLogged=${ctx.user} .user=${ctx.user} profileId=${ctx.params.id}>
+		<profile-page activePage=${'/profile'} profileId=${ctx.params.id}>
+			<home-feed usecase='profile-page' .getPosts=${getPostsByUserId} .isLogged=${ctx.user} .user=${ctx.user}
+				profileId=${ctx.params.id}>
 			</home-feed>
 		</profile-page>`);
 }
@@ -18,7 +18,7 @@ export default function renderProfile(ctx) {
 class ProfilePage extends LitElement {
 	static properties = {
 		name: { type: String },
-		userId: { type: String },
+		profileId: { type: String },
 		windowWidth: { type: Number },
 		navigation: { type: String },
 		activePage: { type: String },
@@ -51,32 +51,19 @@ class ProfilePage extends LitElement {
 	constructor() {
 		super();
 		this.activePage = '/';
-		this.userId = null;
-		this.windowWidth = this.getWindowWidth();
+		this.profileId = null;
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
-		window.addEventListener('resize', this.updateWindowWidth.bind(this));
-	}
-
-	disconnectedCallback() {
-		window.removeEventListener('resize', this.updateWindowWidth.bind(this));
-		super.disconnectedCallback();
-	}
-
-	getWindowWidth() {
-		return window.innerWidth;
-	}
-
-	async updateWindowWidth() {
-		this.windowWidth = window.innerWidth;
+	async userCardPromise(profileId) {
+		const res = await getUserInfoById(profileId);
+		return html`<sidebar-usercard .user=${res}></sidebar-usercard>`
 	}
 
 	render() {
+		console.log(this.profileId);
 		return html`
 			<div class="sidebar">
-				<sidebar-usercard .user=${getUserData()}></sidebar-usercard>
+				${until(this.userCardPromise(this.profileId), html`Loading...`)}
 			</div>
 			<div>
 				<slot></slot>

@@ -94,7 +94,7 @@ class LoginForm extends LitElement {
 	render() {
 		return html`
 	<form @submit=${this.onSubmit}>
-		<h1>Schmoozer</h1>
+		<h1>Schmoo Social</h1>
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="username" placeholder="Email" value="joe">
 		</div>
