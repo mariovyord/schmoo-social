@@ -187,7 +187,7 @@ class MainNav extends LitElement {
 							</svg>
 						</a></li>
 					<!-- Circles -->
-					<li><a href="/liked" class=${classMap({ active:  this.ctx.path === '/liked' })}>
+					<li><a href="/favourites" class=${classMap({ active:  this.ctx.path === '/favourites' })}>
 					<svg xmlns="http://www.w3.org/2000/svg" class="bi bi-heart"
 								viewBox="0 0 16 16">
 								<path
@@ -239,9 +239,9 @@ class MainNav extends LitElement {
 						? html`<!-- Home -->
 						<li><a href="/" class=${classMap({ active: this.ctx.path === '/' })}>Home</a></li>
 						<!-- Profile -->
-						<li><a href="/profile/${this.ctx.user.id}" class=${classMap({ active: this.ctx.path === '/profile' })}>Profile</a></li>
+						<li><a href="/profile/${this.ctx.user.id}" class=${classMap({ active: this.ctx.path.includes('/profile') })}>Profile</a></li>
 						<!-- Circles -->
-						<li><a href="/liked" class=${classMap({ active: this.ctx.path === '/liked' })}>Favourites</a></li>
+						<li><a href="/favourites" class=${classMap({ active: this.ctx.path === '/favourites' })}>Favourites</a></li>
 						<!-- Search -->
 						<li><a href="/search" class=${classMap({ active: this.ctx.path === '/search' })}>Search</a></li>
 						<!-- About -->

@@ -26,7 +26,7 @@ page('/', renderHome);
 
 page('/profile/:id', renderProfile);
 
-page('/liked', renderLiked);
+page('/favourites', renderLiked);
 
 page('/search', renderSearch);
 

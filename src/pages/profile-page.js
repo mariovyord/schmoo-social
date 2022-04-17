@@ -32,10 +32,18 @@ class ProfilePage extends LitElement {
 			grid-template-columns: 1fr 2fr; 
 			gap: 10px;
 		}
-
+		.sidebar {
+			height: fit-content;
+			position: sticky;
+			top: 10px;
+		}
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			:host {
 				grid-template-columns: 1fr; 
+			}
+			.sidebar {
+				position: static;
+				top: 0px;
 			}
 		}
 	`

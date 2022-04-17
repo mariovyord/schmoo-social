@@ -83,7 +83,8 @@ class DetailsPage extends LitElement {
 			padding: 10px 0;
 		}
 		#post-content {
-			font-size: 1.4rem
+			font-size: 1.4rem;
+			word-break: break-all;
 		}
 		textarea {
 			all: unset;

@@ -1,5 +1,4 @@
 import { LitElement, css, html } from 'lit';
-import { classMap } from 'lit/directives/class-map.js';
 import page from 'page';
 import { addLike, removeLike } from '../api/data';
 import { resets } from '../common/resetsCSS';
@@ -21,6 +20,7 @@ class UserPost extends LitElement {
 			margin: 0;
 			padding: 0;
 			font-weight: normal;
+			word-break: break-all;
 		}
 		:host {
 			display: flex;
