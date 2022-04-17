@@ -93,7 +93,7 @@ class UserPost extends LitElement {
 	connectedCallback() {
 		super.connectedCallback();
 		this.likes = this.postData?.likes?.length;
-		if (this.currentUser) {
+		if (this.currentUser && this.postType === "post") {
 			this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
 			this.isOwner = this.postData.creator.objectId === this.currentUser.id;
 		}

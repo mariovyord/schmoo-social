@@ -299,9 +299,7 @@ class DetailsPage extends LitElement {
 				${this.usersComments.length > 0 
 				? html`${map(this.usersComments, (el) =>
 					html`
-						<user-post postType="commment" data-id=${el.objectId} .creator=${el.creator}
-							body=${el.body} } date=${el.createdAt} }>
-						</user-post>`)}`
+						<user-post postType="commment" data-id=${el.objectId} .postData=${el} .currentUser=${this.user}></user-post>`)}`
 					: html`<p class="no-comments">No comments</p>`}
 				</div>
 			</div>
