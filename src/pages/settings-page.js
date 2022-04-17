@@ -51,10 +51,6 @@ class SettingsPage extends LitElement {
 	render() {
 		return html`
 		<settings-nav></settings-nav>
-		<div>
-			<edit-profile .user=${this.user}></edit-profile>
-		</div>
-
 `;
 	}
 }
