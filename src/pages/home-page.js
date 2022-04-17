@@ -27,9 +27,6 @@ class HomePage extends LitElement {
 			grid-template-columns: 1fr 2fr; 
 			gap: 10px;
 		}
-		:host > *:not(:last-child) {
-			margin-bottom: 10px; 
-		} 
 
 		@media only screen and (max-width: ${windowBreakpoint}px) {
 			:host {
