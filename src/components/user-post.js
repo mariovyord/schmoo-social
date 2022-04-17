@@ -20,7 +20,7 @@ class UserPost extends LitElement {
 			margin: 0;
 			padding: 0;
 			font-weight: normal;
-			word-break: break-all;
+			word-break: break-word;
 		}
 		:host {
 			display: flex;
