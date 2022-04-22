@@ -10,6 +10,8 @@ export const logout = db.logout;
 // USERS
 export const getUserInfoById = (id) => db.get(`/users/${id}`)
 
+export const setPicture = (data) => db.setPicture(data);
+
 // POSTS
 export const getDetails = (id) => db.get(`/classes/Post?where={"objectId":"${id}"}&include=creator`);
 

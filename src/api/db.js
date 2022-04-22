@@ -3,6 +3,40 @@ import page from 'page';
 
 const host = 'https://parseapi.back4app.com';
 
+import Parse from 'parse';
+//  SDK - used only for updating user profile picture
+Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+// Remember to inform BOTH the Back4App Application ID AND the JavaScript KEY
+Parse.initialize(
+	'4g95yQ2SffnKO8N3wrNyEoIl2PC0BbizElZRACu9', // This is your Application ID
+	'jldroB0HsyWA4JFHcovGzRJ7lWPPudclrU7KnZXS' // This is your Javascript key
+);
+
+//  Update user picture
+export const setPicture = async (picture) => {
+	const User = new Parse.User();
+	const query = new Parse.Query(User);
+	const userData = getUserData();
+	try {
+		// Finds the user by its ID
+		let user = await query.get(userData.id);
+		// Updates the data we want
+		user.set('picture', new Parse.File(`${userData.username}.jpg`, { base64: btoa(picture) }));
+		try {
+			// Saves the user with the updated data
+			let response = await user.save();
+			console.log('Updated user', response);
+		} catch (error) {
+			// TODO Error handling
+			console.error('Error while updating user', error);
+		}
+	} catch (error) {
+		// TODO Error handling
+		console.error('Error while retrieving user', error);
+	}
+};
+
+
 async function request(url, options) {
 	try {
 		const response = await fetch(url, options);

@@ -28,7 +28,7 @@ class AboutPage extends LitElement {
 			margin-bottom: 10px; 
 		} 
 		.main {
-			max-width: 320px;
+			max-width: 400px;
 			margin: 0 auto;
 		}
 	`
@@ -43,7 +43,7 @@ class AboutPage extends LitElement {
 	render() {
 		return html`
 				<div class="main">
-					<welcome-sidebar user=${this.user?.username || 'guest' }></welcome-sidebar>
+					<welcome-sidebar user=${this.user?.username || 'guest'}></welcome-sidebar>
 				</div>`
 	}
 }

@@ -35,3 +35,6 @@ import './router';
 // UTILS
 import './utils/userData';
 
+// DATABASE
+import * as db from './api/db';
+

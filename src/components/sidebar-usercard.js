@@ -19,11 +19,12 @@ class SidebarUsercard extends LitElement {
 				box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 			}
 			
-			.profile-pic {
-				display: block;
+			.pic-container {
 				margin: 0 auto;
 				border-radius: 50%;
 				width: 130px;
+				overflow: hidden;
+				aspect-ratio: 1;
 			}
 			h2 {
 				text-align: center;
@@ -64,7 +65,7 @@ class SidebarUsercard extends LitElement {
 		const date = new Date(this.user.createdAt);
 		return html`
 		<div>
-			<img class="profile-pic" src="${this.user.picture?.url || this.user.pictureUrl}">
+			<div class="pic-container"><img class="profile-pic" src="${this.user.picture?.url || this.user.pictureUrl}"></div>
 		</div>
 		<div>
 			<h2><a href="/profile/${this.user.id}">${this.user.username}</a></h2>

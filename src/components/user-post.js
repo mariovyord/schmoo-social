@@ -32,10 +32,13 @@ class UserPost extends LitElement {
 		:host(:hover) {
 			box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
 		}
-		.profile-pic {
+		.pic-container {
+			display: block;
 			border-radius: 50%;
-			max-width: 50px;
-		} 
+			width: 50px;
+			overflow: hidden;
+			aspect-ratio: 1;
+		}
 		.user-info {
 			margin-bottom: 10px;
 		}
@@ -136,7 +139,7 @@ class UserPost extends LitElement {
 		return html`
 			<div class="left-div">
 				<!-- profile picture -->
-				<a href="/profile/${this.postData.creator.objectId}">
+				<a class="pic-container" href="/profile/${this.postData.creator.objectId}">
 					<img class="profile-pic" src="${this.postData.creator.picture.url}">
 				</a>
 			</div>

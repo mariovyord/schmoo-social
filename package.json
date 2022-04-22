@@ -12,7 +12,8 @@
 	"license": "ISC",
 	"dependencies": {
 		"lit": "^2.2.0",
-		"page": "^1.11.6"
+		"page": "^1.11.6",
+		"parse": "^3.4.1"
 	},
 	"devDependencies": {
 		"clean-webpack-plugin": "^4.0.0",
