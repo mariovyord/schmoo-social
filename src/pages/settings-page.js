@@ -63,6 +63,10 @@ class SettingsPage extends LitElement {
 		.column {
 			width: 100%;
 		}
+		label {
+			font-weight: 600;
+			font-size: 1.5rem;
+		}
 	`
 	];
 	constructor() {
@@ -75,7 +79,7 @@ class SettingsPage extends LitElement {
 		e.preventDefault();
 		const form = this.shadowRoot.querySelector('form');
 		const profilePicture = this.shadowRoot.querySelector('input[type="file"]').files[0];
-		if (profilePicture) {
+		if (profilePicture && profilePicture.size < 500000) {
 			const ctx = this.ctx;
 			const reader = new FileReader();
 			reader.readAsBinaryString(profilePicture);
@@ -106,7 +110,7 @@ class SettingsPage extends LitElement {
 			<settings-nav></settings-nav>
 			<div class="right-column column">
 				<form @submit=${this.onSubmit}>
-					<label for="picture">Choose a profile picture:</label>
+					<label for="picture">Upload a profile picture:</label>
 					<input type="file" id="picture" name="picture" accept="image/png, image/jpeg">
 					<input class="button" type="submit" value="Submit">
 				</form>
