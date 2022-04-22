@@ -94,16 +94,14 @@ export async function del(url) {
 export async function login(username, password) {
 	try {
 		const res = await post('/login', { username, password });
-		if (res.ok === true) {
-			setUserData({
-				username: username,
-				id: res.objectId,
-				accessToken: res.sessionToken,
-				pictureUrl: res.picture.url,
-				createdAt: res.createdAt,
-			});
-			return res;
-		}
+		setUserData({
+			username: username,
+			id: res.objectId,
+			accessToken: res.sessionToken,
+			pictureUrl: res.picture.url,
+			createdAt: res.createdAt,
+		});
+		return res;
 	} catch (err) {
 		throw err;
 	}
@@ -112,16 +110,14 @@ export async function login(username, password) {
 export async function register(username, email, password) {
 	try {
 		const res = await post('/users', { username, email, password });
-		if (res.ok === true) {
-			setUserData({
-				username: username,
-				id: res.objectId,
-				accessToken: res.sessionToken,
-				pictureUrl: res.picture.url,
-				createdAt: res.createdAt,
-			});
-			return res;
-		}
+		setUserData({
+			username: username,
+			id: res.objectId,
+			accessToken: res.sessionToken,
+			pictureUrl: res.picture.url,
+			createdAt: res.createdAt,
+		});
+		return res;
 	} catch (err) {
 		throw err;
 	}
