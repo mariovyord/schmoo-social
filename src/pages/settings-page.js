@@ -53,6 +53,7 @@ class SettingsPage extends LitElement {
 			flex-direction: column;
 			gap: 10px;
 			padding: 10px;
+			border-radius: 5px;
 			background-color: white;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 		}

@@ -20,6 +20,7 @@ class UserPost extends LitElement {
 			margin: 0;
 			padding: 0;
 			font-weight: normal;
+			hyphens: auto;
 			word-break: break-word;
 		}
 		:host {
@@ -28,6 +29,7 @@ class UserPost extends LitElement {
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 			padding: 10px;
 			border-radius: 5px;
+			max-width: 700px;
 		}
 		:host(:hover) {
 			box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
@@ -55,8 +57,6 @@ class UserPost extends LitElement {
 		}
 		.left-div {
 			padding-right: 10px;
-		}
-		.right-div {
 		}
 		#post-content {
 			margin-bottom: 10px;

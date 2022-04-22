@@ -52,10 +52,20 @@ class DetailsPage extends LitElement {
 			border-radius: 5px;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 		}
-		.profile-pic {
+		.main-pic-container {
+			display: block;
 			border-radius: 50%;
 			width: 100px;
-		} 
+			overflow: hidden;
+			aspect-ratio: 1;
+		}
+		.pic-container {
+			display: block;
+			border-radius: 50%;
+			width: 50px;
+			overflow: hidden;
+			aspect-ratio: 1;
+		}
 		.new-comment-pic {
 			border-radius: 50%;
 			max-width: 50px;
@@ -84,7 +94,8 @@ class DetailsPage extends LitElement {
 		}
 		#post-content {
 			font-size: 1.4rem;
-			word-break: break-all;
+			hyphens: auto;
+			word-break: break-word;
 		}
 		textarea {
 			all: unset;
@@ -223,7 +234,7 @@ class DetailsPage extends LitElement {
 			<div class="new-comment-template">
 			<div class="left-div">
 				<!-- profile picture -->
-				<a href="/profile/${this.user?.id}">
+				<a class="pic-container" href="/profile/${this.user?.id}">
 					<img class="new-comment-pic" src="${this.user?.pictureUrl}">
 				</a>
 			</div>
@@ -240,7 +251,7 @@ class DetailsPage extends LitElement {
 				<div class="user-post">
 					<div class="left-div">
 						<!-- profile picture -->
-						<a href="/profile/${this.postData.creator.objectI}">
+						<a class="main-pic-container" href="/profile/${this.postData.creator.objectI}">
 							<img class="profile-pic" src="${this.postData.creator.picture.url}" alt="Profile Picture">
 						</a>
 					</div>
