@@ -3,6 +3,7 @@ import page from 'page';
 
 const host = 'https://parseapi.back4app.com';
 
+//  Used only for updating profile picture
 import Parse from 'parse';
 //  SDK - used only for updating user profile picture
 Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
@@ -41,11 +42,13 @@ async function request(url, options) {
 	try {
 		const response = await fetch(url, options);
 		if (response.ok !== true) {
-			if (response.status === 403) {
+			if (response.status === 209) {
 				sessionStorage.removeItem('userData');
 			}
-			const error = await response.json();
-			throw new Error(error.message);
+			throw {
+				status: response.status,
+				message: response.statusText,
+			}
 		}
 		return await response.json();
 	} catch (err) {
@@ -90,15 +93,17 @@ export async function del(url) {
 
 export async function login(username, password) {
 	try {
-		const result = await post('/login', { username, password });
-		setUserData({
-			username: username,
-			id: result.objectId,
-			accessToken: result.sessionToken,
-			pictureUrl: result.picture.url,
-			createdAt: result.createdAt,
-		});
-		return result;
+		const res = await post('/login', { username, password });
+		if (res.ok === true) {
+			setUserData({
+				username: username,
+				id: res.objectId,
+				accessToken: res.sessionToken,
+				pictureUrl: res.picture.url,
+				createdAt: res.createdAt,
+			});
+			return res;
+		}
 	} catch (err) {
 		throw err;
 	}
@@ -106,17 +111,18 @@ export async function login(username, password) {
 
 export async function register(username, email, password) {
 	try {
-		const result = await post('/users', { username, email, password });
-		setUserData({
-			username: username,
-			id: result.objectId,
-			accessToken: result.sessionToken,
-			pictureUrl: result.picture.url,
-			createdAt: result.createdAt,
-		});
-		return result;
+		const res = await post('/users', { username, email, password });
+		if (res.ok === true) {
+			setUserData({
+				username: username,
+				id: res.objectId,
+				accessToken: res.sessionToken,
+				pictureUrl: res.picture.url,
+				createdAt: res.createdAt,
+			});
+			return res;
+		}
 	} catch (err) {
-		console.log(err.message);
 		throw err;
 	}
 }

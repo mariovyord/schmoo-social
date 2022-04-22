@@ -7,6 +7,8 @@ import { resets } from '../common/resetsCSS';
 class LoginForm extends LitElement {
 	static properties = {
 		errorMsg: { type: String },
+		errorUsername: { type: Boolean },
+		errorPassword: { type: Boolean },
 		ctx: { type: Object },
 	};
 
@@ -21,7 +23,7 @@ class LoginForm extends LitElement {
 		super();
 		this.ctx = {};
 		this.errorMsg = '';
-		this.errorEmail = false;
+		this.errorUsername = false;
 		this.errorPassword = false;
 	}
 
@@ -58,34 +60,29 @@ class LoginForm extends LitElement {
 		try {
 			if (username === '' || password === '') {
 				throw {
-					code: ('empty fields')
-				};
+					status: 'empty',
+					message: 'Fill all fields.'
+				}
 			} else {
 				await login(username, password)
 				this.ctx.page.redirect('/');
 			}
 		} catch (err) {
-			// const errorCode = err.code;
-			// if (errorCode === 'empty fields') {
-			// 	this.errorMsg = 'Please fill all fields.';
-			// } else if (errorCode === 'auth/invalid-email') {
-			// 	this.errorMsg = 'Invalid email.';
-			// } else if (errorCode === 'auth/user-disabled') {
-			// 	this.errorMsg = 'The user has been disabled.';
-			// } else if (errorCode === 'auth/user-not-found') {
-			// 	this.errorMsg = 'There is no such user.';
-			// } else {
-			// 	this.errorMsg = 'Email or password is wrong.';
-			// }
-			// Check if field is empty
-			// this.errorEmail = email === '';
-			this.errorPassword = password === '';
+			if (err.status === 'empty') {
+				this.errorUsername = username === '';
+				this.errorPassword = password === '';
+				this.errorMsg = err.message;
+			} else if (err.status === 404) {
+				this.errorMsg = 'Username or password is wrong.';
+			} else {
+				this.errorMsg = 'Something went wrong.'
+			}
 			//  Clear password on error
 			target.querySelector('.pass').value = '';
 			// Clear errors after 2 seconds
 			setTimeout(() => {
 				this.errorMsg = '';
-				// this.errorEmail = false;
+				this.errorUsername = false;
 				this.errorPassword = false;
 			}, 2000);
 		}
@@ -95,7 +92,7 @@ class LoginForm extends LitElement {
 		return html`
 	<form @submit=${this.onSubmit}>
 		<h1>Schmoo Social</h1>
-		<div class="input-container ${classMap({ error: this.errorEmail, })}">
+		<div class="input-container ${classMap({ error: this.errorUsername, })}">
 			<input type="text" name="username" placeholder="Email" value="joe">
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">

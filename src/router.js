@@ -3,7 +3,6 @@ import page from 'page';
 import renderHome from './pages/home-page';
 import attachRender from './middleware/attachRender';
 import renderProfile from './pages/profile-page';
-import renderCircles from './pages/circles-page';
 import renderSearch from './pages/search-page';
 import renderSettings from './pages/settings-page';
 import renderRegister from './pages/register-page';

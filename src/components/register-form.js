@@ -7,8 +7,8 @@ import { resets } from '../common/resetsCSS';
 class RegisterForm extends LitElement {
 	static properties = {
 		ctx: { type: Object },
-		error: { type: Boolean },
 		errorMsg: { type: String },
+		errorUsername: { type: Boolean },
 		errorEmail: { type: Boolean },
 		errorPassword: { type: Boolean },
 	};
@@ -41,11 +41,9 @@ class RegisterForm extends LitElement {
 	constructor() {
 		super();
 		this.ctx = {};
-		this.error = false;
 		this.errorMsg = '';
 		this.errorUsername = false;
 		this.errorEmail = false;
-		// this.errorPhoto = false;
 		this.errorPassword = false;
 	}
 
@@ -65,7 +63,6 @@ class RegisterForm extends LitElement {
 	}
 
 	async onSubmit(e) {
-		// TODO Add error handling for API calls
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		// @ts-ignore
@@ -94,12 +91,10 @@ class RegisterForm extends LitElement {
 			}
 		} catch (err) {
 			this.errorMsg = err.message;
-			this.error = true;
-			this.errorUsername = email === '';
+			this.errorUsername = username === '';
 			this.errorEmail = email === '';
 			this.errorPassword = password === '';
 			setTimeout(() => {
-				this.error = false;
 				this.errorMsg = '';
 				this.errorUsername = false;
 				this.errorEmail = false;
@@ -119,10 +114,6 @@ class RegisterForm extends LitElement {
 		<div class="input-container ${classMap({ error: this.errorEmail, })}">
 			<input type="text" name="email" placeholder="Email">
 		</div>
-		<!-- <div class="input-container">
-							<label id="upload-label" for="photoUrl">Picture<input type="file" name="photoUrl" id="photoUrl"
-									accept="image/png, image/jpeg"></label>
-						</div> -->
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
 			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
@@ -131,7 +122,7 @@ class RegisterForm extends LitElement {
 			<input class="pass" type="password" name="repass" placeholder="Repeat password">
 		</div>
 		<input type="submit" value="Register">
-		${this.error ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
+		${this.errorMsg ? html`<p class="errorMsg error">${this.errorMsg}</p>` : null}
 		<p class="footnotes">By signing up, you agree to our Terms . Learn how we collect, use and share your data in
 			our
 			Data Policy and how

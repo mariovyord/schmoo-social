@@ -72,11 +72,6 @@ export const postNewComment = (body, parentPostId) => {
 	return db.post(`/classes/Comment`, data)
 }
 
-// EDIT PROFILE
-export const setProfilePicture = (id, img) => {
-	// return db.put(`/users/${id}`, { "picture": { "__type": "File", "name": `${img}` } })
-}
-
 // UTIL FUNCTIONS
 function createPointer(name, id) {
 	return {
