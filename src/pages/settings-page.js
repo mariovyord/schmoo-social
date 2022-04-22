@@ -57,6 +57,9 @@ class SettingsPage extends LitElement {
 			background-color: white;
 			box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 		}
+		input[type=file] {
+			max-width: calc(100vw - 60px);
+		}
 		.column {
 			width: 100%;
 		}
@@ -72,28 +75,30 @@ class SettingsPage extends LitElement {
 		e.preventDefault();
 		const form = this.shadowRoot.querySelector('form');
 		const profilePicture = this.shadowRoot.querySelector('input[type="file"]').files[0];
-		const ctx = this.ctx;
-		const reader = new FileReader();
-		reader.readAsBinaryString(profilePicture);
-		reader.onload = async function () {
-			try {
-				await setPicture(reader.result);
-				const user = getUserData();
-				const userData = await getUserInfoById(user.id);
-				setUserData({
-					username: userData.username,
-					id: userData.objectId,
-					accessToken: userData.sessionToken,
-					pictureUrl: userData.picture.url,
-					createdAt: userData.createdAt,
-				});
-				form.reset();
-				ctx.page.redirect('/');
-			} catch (err) {
-				// TODO Error handling
-				console.log(err);
-			}
-		};
+		if (profilePicture) {
+			const ctx = this.ctx;
+			const reader = new FileReader();
+			reader.readAsBinaryString(profilePicture);
+			reader.onload = async function () {
+				try {
+					await setPicture(reader.result);
+					const user = getUserData();
+					const userData = await getUserInfoById(user.id);
+					setUserData({
+						username: userData.username,
+						id: userData.objectId,
+						accessToken: userData.sessionToken,
+						pictureUrl: userData.picture.url,
+						createdAt: userData.createdAt,
+					});
+					form.reset();
+					ctx.page.redirect('/');
+				} catch (err) {
+					// TODO Error handling
+					console.log(err);
+				}
+			};
+		}
 	}
 
 	render() {
