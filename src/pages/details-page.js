@@ -235,7 +235,7 @@ class DetailsPage extends LitElement {
 			<div class="left-div">
 				<!-- profile picture -->
 				<a class="pic-container" href="/profile/${this.user?.objectId}">
-					<img class="new-comment-pic" src="${this.user?.pictureUrl}">
+					<img class="new-comment-pic" src="${this.user?.picture.url}">
 				</a>
 			</div>
 			<div class="right-div">
