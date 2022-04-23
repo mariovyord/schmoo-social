@@ -4,6 +4,9 @@
 
 It's created and developed by **Mario Yordanov** solely as a training exercise in web development.
 
+**Live demo:** 
+> https://schmoo-social.github.io/
+
 **Tech stack:** 
 - JavaScript
 - Lit (web components)
