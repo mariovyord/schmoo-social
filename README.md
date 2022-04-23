@@ -12,10 +12,10 @@ It's created and developed by **Mario Yordanov** solely as a training exercise i
 - webpack (bundler) 
 
 **Pages:**
-- [x] Home page with all posts, sorted by date, paginated
-- [x] Profile page with all posts by current user, sorted by date, paginated
-- [x] Favourites page with all posts liked by the current user, sorted by date, paginated
-- [x] Settings page (with just logout and profile picture upload for now)
+- [x] Home page with all posts
+- [x] Profile page with all posts by current user
+- [x] Favourites page with all posts liked by the current user
+- [x] Settings page 
 - [x] Details page with selected user post and comments
 
 **Features :**
