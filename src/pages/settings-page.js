@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { resets } from '../common/resetsCSS';
 import { setPicture, getUserInfoById } from '../api/data';
-import { setUserData, getUserData } from '../utils/userData';
+import { getUserData } from '../utils/userData';
 
 const windowBreakpoint = 700;
 
@@ -79,22 +79,15 @@ class SettingsPage extends LitElement {
 		e.preventDefault();
 		const form = this.shadowRoot.querySelector('form');
 		const profilePicture = this.shadowRoot.querySelector('input[type="file"]').files[0];
-		if (profilePicture && profilePicture.size < 500000) {
+		if (profilePicture) {
 			const ctx = this.ctx;
 			const reader = new FileReader();
 			reader.readAsBinaryString(profilePicture);
 			reader.onload = async function () {
 				try {
 					await setPicture(reader.result);
-					const user = getUserData();
-					const userData = await getUserInfoById(user.id);
-					setUserData({
-						username: userData.username,
-						id: userData.objectId,
-						accessToken: userData.sessionToken,
-						pictureUrl: userData.picture.url,
-						createdAt: userData.createdAt,
-					});
+					// const user = getUserData();
+					// const userData = await getUserInfoById(user.objectId);
 					form.reset();
 					ctx.page.redirect('/');
 				} catch (err) {

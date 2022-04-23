@@ -9,7 +9,7 @@ export default function renderLiked(ctx) {
 	ctx.render(html`
 		<liked-page activePage=${'/'} .user=${ctx.user}>
 			<home-feed usecase='liked-page' .getPosts=${getLikedPostsByUserId} .isLogged=${ctx.user} .user=${ctx.user}
-				profileId=${ctx.user.id}>
+				profileId=${ctx.user.objectId}>
 			</home-feed>
 		</liked-page>`);
 }

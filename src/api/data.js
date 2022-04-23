@@ -82,6 +82,6 @@ function createPointer(name, id) {
 }
 
 function addCreator(object) {
-	const userId = getUserData().id;
+	const userId = getUserData().objectId;
 	object.creator = createPointer('_User', userId);
 }

@@ -136,9 +136,6 @@ class HomeFeed extends LitElement {
 			if (text.length > this.maximumLength) {
 				throw new Error('Maximum length is 100 characters.');
 			}
-
-			const user = getUserData();
-
 			const data = {
 				body: text,
 			}

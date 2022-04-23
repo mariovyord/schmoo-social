@@ -73,7 +73,7 @@ class HomeFeed extends LitElement {
 		.options {
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: end;
 		}
 		.icon {
 			padding: 0 5px;
@@ -199,7 +199,7 @@ class HomeFeed extends LitElement {
 	<div class="new-post-field">
 		<div class="left-div">
 			<!-- profile picture -->
-			<a class="pic-container" href="/profile/${this.user.id}">
+			<a class="pic-container" href="/profile/${this.user.objectId}">
 				<img class="profile-pic" src="${photo}">
 			</a>
 		</div>
@@ -218,7 +218,7 @@ class HomeFeed extends LitElement {
 						}
 				<div class="options">
 					<!-- Options -->
-					<div>
+					<!-- <div>
 						<span class="icon">
 							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#0095f6"
 								viewBox="0 0 16 16">
@@ -235,7 +235,7 @@ class HomeFeed extends LitElement {
 									d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z" />
 							</svg>
 						</span>
-					</div>
+					</div> -->
 					<input type="submit" value="Shmooze">
 				</div>
 			</form>
@@ -254,7 +254,7 @@ class HomeFeed extends LitElement {
 	}
 	render() {
 		return html`
-		${this.user && this.usecase === 'home-page' ? this.newPostTemplate(this.user?.pictureUrl) : null}
+		${this.user && this.usecase === 'home-page' ? this.newPostTemplate(this.user?.picture.url) : null}
 		<div class="feed">
 			${this.usersPosts
 			.map(el =>

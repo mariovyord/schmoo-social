@@ -1,9 +1,9 @@
-import { clearUserData, getUserData, setUserData } from "../utils/userData";
+import { clearUserData, getUserData } from "../utils/userData";
 import page from 'page';
 
 const host = 'https://parseapi.back4app.com';
 
-//  Used only for updating profile picture
+//  Used only for login, register and updating profile picture
 import Parse from 'parse';
 //  SDK - used only for updating user profile picture
 Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
@@ -20,7 +20,7 @@ export const setPicture = async (picture) => {
 	const userData = getUserData();
 	try {
 		// Finds the user by its ID
-		let user = await query.get(userData.id);
+		let user = await query.get(userData.objectId);
 		// Updates the data we want
 		user.set('picture', new Parse.File(`${userData.username}.jpg`, { base64: btoa(picture) }));
 		try {
@@ -36,7 +36,6 @@ export const setPicture = async (picture) => {
 		console.error('Error while retrieving user', error);
 	}
 };
-
 
 async function request(url, options) {
 	try {
@@ -70,7 +69,7 @@ function createOptions(method = 'get', data) {
 	}
 	const userData = getUserData();
 	if (userData !== null) {
-		options.headers['X-Parse-Session-Token'] = userData.accessToken;
+		options.headers['X-Parse-Session-Token'] = userData.sessionToken;
 	}
 	return options;
 }
@@ -93,38 +92,44 @@ export async function del(url) {
 
 export async function login(username, password) {
 	try {
-		const res = await post('/login', { username, password });
-		setUserData({
-			username: username,
-			id: res.objectId,
-			accessToken: res.sessionToken,
-			pictureUrl: res.picture.url,
-			createdAt: res.createdAt,
-		});
-		return res;
+		return await Parse.User.logIn(username, password);
 	} catch (err) {
 		throw err;
 	}
 }
 
 export async function register(username, email, password) {
+	const user = new Parse.User();
+	user.set('username', username);
+	user.set('email', email);
+	user.set('password', password);
 	try {
-		const res = await post('/users', { username, email, password });
-		setUserData({
-			username: username,
-			id: res.objectId,
-			accessToken: res.sessionToken,
-			pictureUrl: res.picture.url,
-			createdAt: res.createdAt,
-		});
-		return res;
+		return await user.signUp();
 	} catch (err) {
 		throw err;
 	}
 }
 
 export async function logout() {
-	post('/logout');
+	await Parse.User.logOut();
 	clearUserData();
 	page.redirect('/');
 }
+
+// export async function login(username, password) {
+// 	try {
+// 		const res = await post('/login', { username, password });
+// 		return res;
+// 	} catch (err) {
+// 		throw err;
+// 	}
+// }
+
+// export async function register(username, email, password) {
+// 	try {
+// 		const res = await post('/users', { username, email, password });
+// 		return res;
+// 	} catch (err) {
+// 		throw err;
+// 	}
+// }

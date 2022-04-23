@@ -72,8 +72,8 @@ class DetailsNav extends LitElement {
 		super.connectedCallback();
 		this.likes = this.postData.likes.length;
 		if (this.currentUser) {
-			this.hasLiked = this.postData.likes.includes(this.currentUser.id) === true;
-			this.isOwner = this.postData.creator.objectId === this.currentUser.id;
+			this.hasLiked = this.postData.likes.includes(this.currentUser.objectId) === true;
+			this.isOwner = this.postData.creator.objectId === this.currentUser.objectId;
 		}
 	}
 
@@ -84,7 +84,7 @@ class DetailsNav extends LitElement {
 				this.hasLiked = true;
 				this.likes++;
 				try {
-					await addLike(this.postData.objectId, this.currentUser.id);
+					await addLike(this.postData.objectId, this.currentUser.objectId);
 				} catch (err) {
 					// TODO add error handling
 					console.log(err);
@@ -93,7 +93,7 @@ class DetailsNav extends LitElement {
 				this.hasLiked = false;
 				this.likes--;
 				try {
-					await removeLike(this.postData.objectId, this.currentUser.id);
+					await removeLike(this.postData.objectId, this.currentUser.objectId);
 				} catch (err) {
 					// TODO add error handling
 					console.log(err);
