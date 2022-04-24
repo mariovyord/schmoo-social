@@ -44,6 +44,7 @@ class HomeFeed extends LitElement {
 			display: block;
 			border-radius: 50%;
 			width: 50px;
+			height: 50px;
 			overflow: hidden;
 			aspect-ratio: 1;
 		}
