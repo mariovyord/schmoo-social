@@ -18,6 +18,7 @@ class DetailsPage extends LitElement {
 		user: { type: Object },
 		ctx: {type: Object},
 		usersComments: {type: Array},
+		errorMsg: {type: String},
 	}
 
 	// Reset comes from outside
@@ -171,6 +172,7 @@ class DetailsPage extends LitElement {
 		this.user = null;
 		this.postData = null;
 		this.ctx = {};
+		this.errorMsg = '';
 	}
 
 	connectedCallback() {
@@ -201,12 +203,31 @@ class DetailsPage extends LitElement {
 		const target = e.target;
 		const formData = new FormData(target).get('textarea');
 		try {
-			const res = await postNewComment(formData, this.id);
-			target.reset();
-			const comment = await getCommentById(res.objectId);
-			this.usersComments = comment.results.concat(this.usersComments);
+			if (formData.length < 300 && formData.length > 3) {
+				const res = await postNewComment(formData, this.id);
+				target.reset();
+				const comment = await getCommentById(res.objectId);
+				this.usersComments = comment.results.concat(this.usersComments);
+			} else if (formData.length < 3) {
+				throw new Error('Comment is too short.')
+			} else {
+				throw new Error('Comment is too long.')
+			}
 		} catch(err) {
-			console.log(err);
+			this.errorMsg = err.message;
+			setTimeout(() => {
+				this.errorMsg = '';
+			}, 3000);
+		}
+	}
+
+	onInput(e) {
+		e.preventDefault();
+		const textarea = e.target;
+		if (textarea.value.length > 300) {
+			this.errorMsg = 'Maximum length is 300 characters.';
+		} else {
+			this.errorMsg = '';
 		}
 	}
 
@@ -214,7 +235,7 @@ class DetailsPage extends LitElement {
 	newCommentForm = () => html`
 				<form @submit=${this.onSubmit}>
 					<div>
-						<textarea id="textarea" name="textarea" class="${classMap({ error: this.error })}" placeholder="Say something"
+						<textarea id="textarea" name="textarea" class="${classMap({ error: this.errorMsg })}" placeholder="Say something"
 							@input="${this.onInput}"></textarea>
 					</div>
 					${this.errorMsg 
