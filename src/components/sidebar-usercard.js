@@ -23,6 +23,7 @@ class SidebarUsercard extends LitElement {
 				margin: 0 auto;
 				border-radius: 50%;
 				width: 130px;
+				height: 130px;
 				overflow: hidden;
 				aspect-ratio: 1;
 			}
