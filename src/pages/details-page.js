@@ -190,7 +190,7 @@ class DetailsPage extends LitElement {
 			this.postData = res.results[0];
 		}
 		return html`
-				${this.userPostTemplate()}
+				<user-post postType="details" .postData=${this.postData} .currentUser=${this.user} data-id=${this.postData.objectId}></user-post>
 				<details-nav .ctx=${this.ctx} .postData=${this.postData} .currentUser=${getUserData()}></details-nav>
 				`;
 	}
@@ -251,7 +251,7 @@ class DetailsPage extends LitElement {
 				<div class="user-post">
 					<div class="left-div">
 						<!-- profile picture -->
-						<a class="main-pic-container" href="/profile/${this.postData.creator.objectI}">
+						<a class="main-pic-container" href="/profile/${this.postData.creator.objectId}">
 							<img class="profile-pic" src="${this.postData.creator.picture.url}" alt="Profile Picture">
 						</a>
 					</div>
@@ -273,37 +273,10 @@ class DetailsPage extends LitElement {
 			`;
 		}
 
-		blankPostTemplate = () => {
-			return html`
-				<div class="user-post">
-					<div class="left-div">
-						<!-- profile picture -->
-						<a href="/profile/">
-							<img class="profile-pic" src="/img/default-user-image.png" >
-						</a>
-					</div>
-					<div class="right-div">
-						<!-- New Post -->
-						<div>
-							<!-- User Information -->
-							<div class="user-info">
-								<a href="/profile/" id="name">User</a>
-								<span id="handle-and-time">(4/16/2022, 5:09:03 PM)</span>
-							</div>
-							<!-- Post Content -->
-							<div class="body-container">
-								<p id="post-content">Loading...</p>
-							</div>					
-						</div>
-					</div>
-				</div>
-			`;
-		}
-
 	render() {
 		return html`
 			<div class="main">
-				${until(this.userPost(), this.blankPostTemplate())}
+				${until(this.userPost(), html`Loading...`)}
 				${this.user ? html`${this.newCommentTemplate()}` : null}
 				<h3 class="comments-header">Comments:</h3>
 				<div class="comments-section">

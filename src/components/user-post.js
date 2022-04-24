@@ -80,6 +80,9 @@ class UserPost extends LitElement {
 		svg:hover {
 			fill: orange;
 		}
+		.details-post {
+			font-size: 1.5rem;
+		}
 	`
 	];
 
@@ -153,7 +156,7 @@ class UserPost extends LitElement {
 					</div>
 					<!-- Post Content -->
 					<div>
-						<p id="post-content">${this.postData.body}</p>
+						<p id="post-content" class="${this.postType === 'details' ? 'details-post' : null}">${this.postData.body}</p>
 					</div>
 					<!-- Options -->
 					${this.postType === 'post'

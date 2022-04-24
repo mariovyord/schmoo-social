@@ -16,7 +16,7 @@ It's created and developed by **Mario Yordanov** solely as a training exercise i
 
 **Pages:**
 - [x] Home page with all posts
-- [x] Profile page with all posts by current user
+- [x] Profile page with all posts by the current user
 - [x] Favourites page with all posts liked by the current user
 - [x] Settings page 
 - [x] Details page with selected user post and comments
