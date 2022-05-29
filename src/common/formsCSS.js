@@ -52,6 +52,9 @@ a {
 .show-btn:hover {
 	cursor: pointer;
 }
+.show-btn::-ms-reveal {
+    display: none;
+}
 input {
 	all: unset;
 	padding: 1rem;

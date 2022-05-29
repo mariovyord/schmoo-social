@@ -116,7 +116,7 @@ class RegisterForm extends LitElement {
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="password" placeholder="Password">
-			<button class="show-btn" @click=${this.showHidePassword}>&equiv;</button>
+			<div class="show-btn" @click=${this.showHidePassword}>&equiv;</div>
 		</div>
 		<div class="input-container ${classMap({ error: this.errorPassword, })}">
 			<input class="pass" type="password" name="repass" placeholder="Repeat password">
