@@ -73,7 +73,7 @@ class WelcomeSidebar extends LitElement {
 				</p>
 			</div>
 			<div class="section">
-				<a class="link" href="https://github.com/NecroBread/Schmoozer" target="_blank">Github</a>
+				<a class="link" href="https://github.com/mariovyord/schmoo-social" target="_blank">Github</a>
 			</div>
 			${this.user === 'guest' 
 			? html`<div class="section">
