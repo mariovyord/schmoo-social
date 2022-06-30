@@ -38,5 +38,5 @@ By its nature as a training project **Schmoo Social** is ever evolving and never
 **What I learned:**
 1. Careful planning of a core handful of features  can save you many hours of coding
 2. Nailing your app design and prototyping beforehand can save you many hours of coding
-3. Knowing your instruments well can save you... guess what... many hours of coding 
+3. I have yet a lot to learn.
 
