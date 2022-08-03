@@ -35,8 +35,3 @@ It's created and developed by **Mario Yordanov** solely as a training exercise i
 
 By its nature as a training project **Schmoo Social** is ever evolving and never complete. It may have some missing features , bugs or quirky behaviours as well as a general inefficiency. But overall there were some invaluable lessons learned.
 
-**What I learned:**
-1. Careful planning of a core handful of features  can save you many hours of coding
-2. Nailing your app design and prototyping beforehand can save you many hours of coding
-3. I have yet a lot to learn.
-
