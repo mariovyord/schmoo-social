@@ -27,11 +27,5 @@ It's created and developed by **Mario Yordanov** solely as a training exercise i
 - [x] Users can 'like' posts (and remove the 'like')
 - [x] Users can comment on posts 
 
-**Some future goals:**
-- [ ] Search page
-- [ ] Additional options for comments
-- [ ] Additional loading animations
-- [ ] Feed sorting options
-
 By its nature as a training project **Schmoo Social** is ever evolving and never complete. It may have some missing features , bugs or quirky behaviours as well as a general inefficiency. But overall there were some invaluable lessons learned.
 
